@@ -1,0 +1,141 @@
+<?php
+
+/*
+ * This file is part of the ICanBoogie package.
+ *
+ * (c) Olivier Laviale <olivier.laviale@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace ICanBoogie\Binding\ActiveRecord;
+
+use ICanBoogie\ActiveRecord\Connection;
+use ICanBoogie\ActiveRecord\ConnectionCollection;
+use ICanBoogie\ActiveRecord\Model;
+use ICanBoogie\ActiveRecord\ModelCollection;
+use ICanBoogie\ActiveRecord\RunTimeActiveRecordCache;
+use ICanBoogie\Core;
+
+class Hooks
+{
+	/**
+	 * Synthesizes a config from a namespace.
+	 *
+	 * The config fragments found in the namespace are merged with `array_merge()`.
+	 *
+	 * @param array $fragments
+	 * @param string $namespace
+	 *
+	 * @return array
+	 */
+	static private function synthesize_config_from_namespace(array $fragments, $namespace)
+	{
+		$config = [];
+
+		foreach ($fragments as $fragment)
+		{
+			if (empty($fragment[$namespace]))
+			{
+				continue;
+			}
+
+			$config[] = $fragment[$namespace];
+		}
+
+		return $config ? array_merge(...$config) : [];
+	}
+
+	/**
+	 * Synthesizes the `activerecord_connections` config from `activerecord#connections` fragments.
+	 *
+	 * @param array $fragments
+	 *
+	 * @return array
+	 */
+	static public function synthesize_connections_config(array $fragments)
+	{
+		return self::synthesize_config_from_namespace($fragments, 'connections');
+	}
+
+	/**
+	 * Synthesizes the `activerecord_models` config from `activerecord#models` fragments.
+	 *
+	 * @param array $fragments
+	 *
+	 * @return array
+	 */
+	static public function synthesize_models_config(array $fragments)
+	{
+		return self::synthesize_config_from_namespace($fragments, 'models');
+	}
+
+	/*
+	 * Prototypes
+	 */
+
+	/**
+	 * Returns a @{link ConnectionCollection} instance configured with
+	 * the `activerecord_connections` config.
+	 *
+	 * @param Core $app
+	 *
+	 * @return ConnectionCollection
+	 */
+	static public function core_lazy_get_connections(Core $app)
+	{
+		static $connections;
+
+		if (!$connections)
+		{
+			$connections = new ConnectionCollection($app->configs['activerecord_connections'] ?: []);
+		}
+
+		return $connections;
+	}
+
+	/**
+	 * Returns a @{link ModelCollection} instance configured with
+	 * the `activerecord_models` config.
+	 *
+	 * @param Core $app
+	 *
+	 * @return ModelCollection
+	 */
+	static public function core_lazy_get_models(Core $app)
+	{
+		static $models;
+
+		if (!$models)
+		{
+			$models = new ModelCollection($app->connections, $app->configs['activerecord_models'] ?: []);
+		}
+
+		return $models;
+	}
+
+	/**
+	 * Getter for the "primary" database connection.
+	 *
+	 * @param Core $app
+	 *
+	 * @return Connection
+	 */
+	static public function core_lazy_get_db(Core $app)
+	{
+		return $app->connections['primary'];
+	}
+
+	/**
+	 * Returns the records cache associated with the model.
+	 *
+	 * @param Model $model
+	 *
+	 * @return RunTimeActiveRecordCache
+	 */
+	static public function model_lazy_get_activerecord_cache(Model $model)
+	{
+		return new RunTimeActiveRecordCache($model);
+	}
+}

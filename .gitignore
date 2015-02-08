@@ -1,0 +1,10 @@
+.buildpath
+.idea
+.project
+.settings
+.README.md.html
+build/coverage
+composer.lock
+composer.phar
+docs
+vendor
