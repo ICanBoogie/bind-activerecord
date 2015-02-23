@@ -1,13 +1,29 @@
-# Binding ActiveRecord to ICanBoogie
+# bind-activerecord
 
-[![Release](https://img.shields.io/github/release/ICanBoogie/bind-activerecord.svg)](https://github.com/ICanBoogie/bind-activerecord/releases)
+[![Release](https://img.shields.io/packagist/v/ICanBoogie/bind-activerecord.svg)](https://github.com/ICanBoogie/bind-activerecord/releases)
 [![Build Status](https://img.shields.io/travis/ICanBoogie/bind-activerecord.svg)](http://travis-ci.org/ICanBoogie/bind-activerecord)
 [![HHVM](https://img.shields.io/hhvm/icanboogie/bind-activerecord.svg)](http://hhvm.h4cc.de/package/icanboogie/bind-activerecord)
 [![Code Quality](https://img.shields.io/scrutinizer/g/ICanBoogie/bind-activerecord.svg)](https://scrutinizer-ci.com/g/ICanBoogie/bind-activerecord)
 [![Code Coverage](https://img.shields.io/coveralls/ICanBoogie/bind-activerecord.svg)](https://coveralls.io/r/ICanBoogie/bind-activerecord)
 [![Packagist](https://img.shields.io/packagist/dt/icanboogie/bind-activerecord.svg)](https://packagist.org/packages/icanboogie/bind-activerecord)
 
-The **icanboogie/bind-activerecord** package binds the [ActiveRecord package][] to [ICanBoogie][].
+The **icanboogie/bind-activerecord** package binds the [icanboogie/activerecord][] to [ICanBoogie][], using its _Autoconfig_ feature. It provides configuration synthesizers for connections and models, as well as getters for connection collection and model collection.
+
+```php
+<?php
+namespace ICanBoogie;
+
+$app = boot();
+
+$connections_config = $app->configs['activerecord_connections'];
+$models_config = $app->configs['activerecord_models'];
+
+echo get_class($app->connections);   // ICanBoogie\ActiveRecord\ConnectionCollection
+echo get_class($app->models);        // ICanBoogie\ActiveRecord\ModelCollection
+
+$primary_connection = $app->connections['primary'];
+$primary_connection === $app->db;    // true
+```
 
 
 
@@ -15,8 +31,7 @@ The **icanboogie/bind-activerecord** package binds the [ActiveRecord package][] 
 
 ## Autoconfig
 
-The package supports the _autoconfig_ feature of the framework [ICanBoogie][] and provides
-the following:
+The package supports the _autoconfig_ feature of [ICanBoogie][] and provides the following:
 
 - A synthesizer for the `activerecord_connections` config, created from
 the `activerecord#connections` fragments.
@@ -33,7 +48,7 @@ a [ModelCollection][] instance created with the `activerecord_models` config.
 
 
 
-### The `activerecord` config
+### The `activerecord` config fragment
 
 Currently `activerecord` fragments are used synthesize `activerecord_connections` and
 `activerecord_models` config, suitable to create [ConnectionCollection][] and
@@ -62,30 +77,27 @@ return [
 			'password' => 'root',
 			'options' => [
 			
-				ConnectionOptions:TIMEZONE => '+02.00',
+				ConnectionOptions:TIMEZONE => '+02:00',
 				ConnectionOptions::TABLE_NAME_PREFIX => 'myprefix'
 			
 			]
 		],
 
-		'cache' => [
+		'cache' => 'sqlite:' . ICanBoogie\REPOSITORY . 'cache.sqlite'
 
-			'dsn' => 'sqlite:' . ICanBoogie\REPOSITORY . 'cache.sqlite'
-
-		]
 	],
-	
+
 	'models' => [
-	
+
 		'nodes' => [
-		
+
 			Model::SCHEMA => [
-			
+
 				'fields' => [
-				
+
 					'id' => 'serial',
 					'title' => 'varchar'
-				
+
 				]
 			]
 		]
@@ -134,6 +146,18 @@ can be cloned with the following command line:
 
 
 
+## Documentation
+
+The package is documented as part of the [ICanBoogie](http://icanboogie.org/) framework
+[documentation](http://icanboogie.org/docs/). You can generate the documentation for the package
+and its dependencies with the `make doc` command. The documentation is generated in the `docs`
+directory. [ApiGen](http://apigen.org/) is required. You can later clean the directory with
+the `make clean` command.
+
+
+
+
+
 ## Testing
 
 The test suite is ran with the `make test` command. [Composer](http://getcomposer.org/) is
@@ -149,27 +173,15 @@ The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 
 
 
-## Documentation
-
-The package is documented as part of the [ICanBoogie](http://icanboogie.org/) framework
-[documentation](http://icanboogie.org/docs/). You can generate the documentation for the package
-and its dependencies with the `make doc` command. The documentation is generated in the `docs`
-directory. [ApiGen](http://apigen.org/) is required. You can later clean the directory with
-the `make clean` command.
-
-
-
-
-
 ## License
 
-ICanBoogie/ActiveRecord is licensed under the New BSD License - See the [LICENSE](LICENSE) file for details.
+icanboogie/bind-activerecord is licensed under the New BSD License - See the [LICENSE](LICENSE) file for details.
 
 
 
 
 
-[ActiveRecord package]: https://github.com/ICanBoogie/ActiveRecord
+[icanboogie/activerecord]: https://github.com/ICanBoogie/ActiveRecord
 [ConnectionCollection]: http://icanboogie.org/docs/class-ICanBoogie.ActiveRecord.ConnectionCollection.html
 [ICanBoogie]: https://github.com/ICanBoogie/ICanBoogie
 [ModelCollection]: http://icanboogie.org/docs/class-ICanBoogie.ActiveRecord.ModelCollection.html
