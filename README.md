@@ -7,7 +7,7 @@
 [![Code Coverage](https://img.shields.io/coveralls/ICanBoogie/bind-activerecord.svg)](https://coveralls.io/r/ICanBoogie/bind-activerecord)
 [![Packagist](https://img.shields.io/packagist/dt/icanboogie/bind-activerecord.svg)](https://packagist.org/packages/icanboogie/bind-activerecord)
 
-The **icanboogie/bind-activerecord** package binds the [icanboogie/activerecord][] to [ICanBoogie][], using its _Autoconfig_ feature. It provides configuration synthesizers for connections and models, as well as getters for connection collection and model collection.
+The **icanboogie/bind-activerecord** package binds the [icanboogie/activerecord][] to [ICanBoogie][], using its _Autoconfig_ feature. It provides configuration synthesizers for connections and models, as well as getters for connection collection and model collection. The `get_model()` helper is also patched to use the model collection bound to the application.
 
 ```php
 <?php
@@ -18,11 +18,13 @@ $app = boot();
 $connections_config = $app->configs['activerecord_connections'];
 $models_config = $app->configs['activerecord_models'];
 
-echo get_class($app->connections);   // ICanBoogie\ActiveRecord\ConnectionCollection
-echo get_class($app->models);        // ICanBoogie\ActiveRecord\ModelCollection
+echo get_class($app->connections);               // ICanBoogie\ActiveRecord\ConnectionCollection
+echo get_class($app->models);                    // ICanBoogie\ActiveRecord\ModelCollection
 
 $primary_connection = $app->connections['primary'];
-$primary_connection === $app->db;    // true
+$primary_connection === $app->db;                // true
+
+get_models('nodes') === $app->models['nodes'];   // true
 ```
 
 
@@ -31,7 +33,7 @@ $primary_connection === $app->db;    // true
 
 ## Autoconfig
 
-The package supports the _autoconfig_ feature of [ICanBoogie][] and provides the following:
+[ICanBoogie][]'s _Autoconfig_ is used to provide the following features:
 
 - A synthesizer for the `activerecord_connections` config, created from
 the `activerecord#connections` fragments.
@@ -50,12 +52,12 @@ a [ModelCollection][] instance created with the `activerecord_models` config.
 
 ### The `activerecord` config fragment
 
-Currently `activerecord` fragments are used synthesize `activerecord_connections` and
-`activerecord_models` config, suitable to create [ConnectionCollection][] and
+Currently `activerecord` fragments are used to synthesize `activerecord_connections` and
+`activerecord_models` configurations, which are suitable to create [ConnectionCollection][] and
 [ModelCollection][] instances.
 
 The following example demonstrates how to define connections and models. Two connections
-are defined, `primary` is a connection to the MySQL server and `cache` is a connection to a SQLite
+are defined: `primary` is a connection to the MySQL server;`cache` is a connection to a SQLite
 database. The `nodes` model is also defined.
 
 ```php

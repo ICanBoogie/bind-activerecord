@@ -11,10 +11,12 @@
 
 namespace ICanBoogie\Binding\ActiveRecord;
 
+use ICanBoogie\ActiveRecord;
 use ICanBoogie\ActiveRecord\Connection;
 use ICanBoogie\ActiveRecord\ConnectionCollection;
 use ICanBoogie\ActiveRecord\Model;
 use ICanBoogie\ActiveRecord\ModelCollection;
+use ICanBoogie\Core;
 
 class HooksTest extends \PHPUnit_Framework_TestCase
 {
@@ -111,5 +113,44 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 		$cache = Hooks::model_lazy_get_activerecord_cache($model);
 		$this->assertInstanceOf('ICanBoogie\ActiveRecord\ActiveRecordCache', $cache);
 		$this->assertInstanceOf('ICanBoogie\ActiveRecord\ActiveRecordCache', $model->activerecord_cache);
+	}
+
+	public function test_should_patch_get_model()
+	{
+		$model_id = uniqid();
+		$model = $this
+			->getMockBuilder(Model::class)
+			->disableOriginalConstructor()
+			->getMock();
+
+		$models = $this
+			->getMockBuilder(ModelCollection::class)
+			->disableOriginalConstructor()
+			->setMethods([ 'offsetGet' ])
+			->getMock();
+		$models
+			->expects($this->once())
+			->method('offsetGet')
+			->with($model_id)
+			->willReturn($model);
+
+		$app = $this
+			->getMockBuilder(Core::class)
+			->disableOriginalConstructor()
+			->setMethods([ 'lazy_get_models '])
+			->getMock();
+		$app->models = $models;
+
+		$event = $this
+			->getMockBuilder(Core\BootEvent::class)
+			->disableOriginalConstructor()
+			->getMock();
+
+		/* @var $event Core\BootEvent */
+		/* @var $app Core */
+
+		Hooks::on_core_boot($event, $app);
+
+		$this->assertSame($model, ActiveRecord\get_model($model_id));
 	}
 }
