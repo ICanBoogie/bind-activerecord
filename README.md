@@ -1,6 +1,6 @@
 # bind-activerecord
 
-[![Release](https://img.shields.io/packagist/v/ICanBoogie/bind-activerecord.svg)](https://github.com/ICanBoogie/bind-activerecord/releases)
+[![Release](https://img.shields.io/packagist/v/ICanBoogie/bind-activerecord.svg)](https://packagist.org/packages/icanboogie/bind-activerecord)
 [![Build Status](https://img.shields.io/travis/ICanBoogie/bind-activerecord.svg)](http://travis-ci.org/ICanBoogie/bind-activerecord)
 [![HHVM](https://img.shields.io/hhvm/icanboogie/bind-activerecord.svg)](http://hhvm.h4cc.de/package/icanboogie/bind-activerecord)
 [![Code Quality](https://img.shields.io/scrutinizer/g/ICanBoogie/bind-activerecord.svg)](https://scrutinizer-ci.com/g/ICanBoogie/bind-activerecord)
@@ -119,7 +119,7 @@ return [
 
 ## Requirements
 
-The package requires PHP 5.6 or later.
+The package requires PHP 5.5 or later.
 
 
 
@@ -150,11 +150,8 @@ can be cloned with the following command line:
 
 ## Documentation
 
-The package is documented as part of the [ICanBoogie](http://icanboogie.org/) framework
-[documentation](http://icanboogie.org/docs/). You can generate the documentation for the package
-and its dependencies with the `make doc` command. The documentation is generated in the `docs`
-directory. [ApiGen](http://apigen.org/) is required. You can later clean the directory with
-the `make clean` command.
+The package is documented as part of the [ICanBoogie][] framework
+[documentation](http://icanboogie.org/docs/). You can generate the documentation for the package and its dependencies with the `make doc` command. The documentation is generated in the `build/docs` directory. [ApiGen](http://apigen.org/) is required. The directory can later be cleaned with the `make clean` command.
 
 
 
@@ -162,9 +159,7 @@ the `make clean` command.
 
 ## Testing
 
-The test suite is ran with the `make test` command. [Composer](http://getcomposer.org/) is
-automatically installed as well as all dependencies required to run the suite. You can later
-clean the directory with the `make clean` command.
+The test suite is ran with the `make test` command. [PHPUnit](https://phpunit.de/) and [Composer](http://getcomposer.org/) need to be globally available to run the suite. The command installs dependencies as required. The `make test-coverage` command runs test suite and also creates an HTML coverage report in "build/coverage". The directory can later be cleaned with the `make clean` command.
 
 The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 

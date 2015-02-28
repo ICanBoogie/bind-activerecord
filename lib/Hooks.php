@@ -45,7 +45,7 @@ class Hooks
 			$config[] = $fragment[$namespace];
 		}
 
-		return $config ? array_merge(...$config) : [];
+		return $config ? call_user_func_array('array_merge', $config) : [];
 	}
 
 	/**
