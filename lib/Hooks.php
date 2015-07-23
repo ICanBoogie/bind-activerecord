@@ -16,7 +16,7 @@ use ICanBoogie\ActiveRecord\Connection;
 use ICanBoogie\ActiveRecord\ConnectionCollection;
 use ICanBoogie\ActiveRecord\Model;
 use ICanBoogie\ActiveRecord\ModelCollection;
-use ICanBoogie\ActiveRecord\RunTimeActiveRecordCache;
+use ICanBoogie\ActiveRecord\RuntimeActiveRecordCache;
 use ICanBoogie\Core;
 
 class Hooks
@@ -80,7 +80,7 @@ class Hooks
 	 * Patches the `get_model()` helper to use the model collection bound to the application.
 	 *
 	 * @param Core\BootEvent $event
-	 * @param Core $app
+	 * @param Core|CoreBindings $app
 	 */
 	static public function on_core_boot(Core\BootEvent $event, Core $app)
 	{
@@ -119,7 +119,7 @@ class Hooks
 	 * Returns a @{link ModelCollection} instance configured with
 	 * the `activerecord_models` config.
 	 *
-	 * @param Core $app
+	 * @param Core|CoreBindings $app
 	 *
 	 * @return ModelCollection
 	 */
@@ -138,7 +138,7 @@ class Hooks
 	/**
 	 * Getter for the "primary" database connection.
 	 *
-	 * @param Core $app
+	 * @param Core|CoreBindings $app
 	 *
 	 * @return Connection
 	 */
@@ -152,10 +152,10 @@ class Hooks
 	 *
 	 * @param Model $model
 	 *
-	 * @return RunTimeActiveRecordCache
+	 * @return RuntimeActiveRecordCache
 	 */
 	static public function model_lazy_get_activerecord_cache(Model $model)
 	{
-		return new RunTimeActiveRecordCache($model);
+		return new RuntimeActiveRecordCache($model);
 	}
 }

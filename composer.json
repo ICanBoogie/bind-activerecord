@@ -17,10 +17,12 @@
 		"source": "https://github.com/ICanBoogie/bind-activerecord"
 	},
 
+	"minimum-stability": "dev",
+
 	"require": {
 		"php": ">=5.5.0",
-		"icanboogie/icanboogie": ">=2.2.0",
-		"icanboogie/activerecord": ">=2.2.0"
+		"icanboogie/icanboogie": "^2.4.0",
+		"icanboogie/activerecord": "^2.3.0"
 	},
 
 	"autoload": {

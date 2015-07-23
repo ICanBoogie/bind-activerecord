@@ -12,6 +12,7 @@
 namespace ICanBoogie\Binding\ActiveRecord;
 
 use ICanBoogie\ActiveRecord;
+use ICanBoogie\ActiveRecord\ActiveRecordCache;
 use ICanBoogie\ActiveRecord\Connection;
 use ICanBoogie\ActiveRecord\ConnectionCollection;
 use ICanBoogie\ActiveRecord\Model;
@@ -21,7 +22,7 @@ use ICanBoogie\Core;
 class HooksTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var \ICanBoogie\Core
+	 * @var Core|CoreBindings
 	 */
 	static private $app;
 
@@ -111,8 +112,8 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 		]);
 
 		$cache = Hooks::model_lazy_get_activerecord_cache($model);
-		$this->assertInstanceOf('ICanBoogie\ActiveRecord\ActiveRecordCache', $cache);
-		$this->assertInstanceOf('ICanBoogie\ActiveRecord\ActiveRecordCache', $model->activerecord_cache);
+		$this->assertInstanceOf(ActiveRecordCache::class, $cache);
+		$this->assertInstanceOf(ActiveRecordCache::class, $model->activerecord_cache);
 	}
 
 	public function test_should_patch_get_model()
@@ -139,7 +140,6 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 			->disableOriginalConstructor()
 			->setMethods([ 'lazy_get_models '])
 			->getMock();
-		$app->models = $models;
 
 		$event = $this
 			->getMockBuilder(Core\BootEvent::class)
@@ -147,7 +147,9 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 			->getMock();
 
 		/* @var $event Core\BootEvent */
-		/* @var $app Core */
+		/* @var $app Core|CoreBindings */
+
+		$app->models = $models;
 
 		Hooks::on_core_boot($event, $app);
 
