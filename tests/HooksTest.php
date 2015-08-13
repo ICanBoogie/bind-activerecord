@@ -103,11 +103,8 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 			Model::NAME => 'model' . uniqid(),
 			Model::SCHEMA => [
 
-				'fields' => [
+				'id' => 'serial'
 
-					'id' => 'serial'
-
-				]
 			]
 		]);
 

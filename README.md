@@ -98,12 +98,9 @@ return [
 
 			Model::SCHEMA => [
 
-				'fields' => [
+				'id' => 'serial',
+				'title' => 'varchar'
 
-					'id' => 'serial',
-					'title' => 'varchar'
-
-				]
 			]
 		]
 	]
@@ -154,7 +151,10 @@ can be cloned with the following command line:
 ## Documentation
 
 The package is documented as part of the [ICanBoogie][] framework
-[documentation](http://icanboogie.org/docs/). You can generate the documentation for the package and its dependencies with the `make doc` command. The documentation is generated in the `build/docs` directory. [ApiGen](http://apigen.org/) is required. The directory can later be cleaned with the `make clean` command.
+[documentation][]. You can generate the documentation for the package and its dependencies with
+the `make doc` command. The documentation is generated in the `build/docs` directory.
+[ApiGen](http://apigen.org/) is required. The directory can later be cleaned with
+the `make clean` command.
 
 
 
@@ -175,13 +175,14 @@ The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 
 ## License
 
-icanboogie/bind-activerecord is licensed under the New BSD License - See the [LICENSE](LICENSE) file for details.
+**icanboogie/bind-activerecord** is licensed under the New BSD License - See the [LICENSE](LICENSE) file for details.
 
 
 
 
 
+[documentation]:           http://api.icanboogie.org/bind-activerecord/0.3/
+[ConnectionCollection]:    http://api.icanboogie.org/activerecord/2.3/class-ICanBoogie.ActiveRecord.ConnectionCollection.html
+[ModelCollection]:         http://api.icanboogie.org/activerecord/2.3/class-ICanBoogie.ActiveRecord.ModelCollection.html
 [icanboogie/activerecord]: https://github.com/ICanBoogie/ActiveRecord
-[ConnectionCollection]: http://icanboogie.org/docs/class-ICanBoogie.ActiveRecord.ConnectionCollection.html
-[ICanBoogie]: https://github.com/ICanBoogie/ICanBoogie
-[ModelCollection]: http://icanboogie.org/docs/class-ICanBoogie.ActiveRecord.ModelCollection.html
+[ICanBoogie]:              https://github.com/ICanBoogie/ICanBoogie

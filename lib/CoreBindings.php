@@ -24,27 +24,5 @@ use ICanBoogie\ActiveRecord\ModelCollection;
  */
 trait CoreBindings
 {
-	/**
-	 * @return ConnectionCollection
-	 */
-	protected function lazy_get_connections()
-	{
-		return parent::lazy_get_connections();
-	}
 
-	/**
-	 * @return ModelCollection
-	 */
-	protected function lazy_get_models()
-	{
-		return parent::lazy_get_models();
-	}
-
-	/**
-	 * @return Connection
-	 */
-	protected function lazy_get_db()
-	{
-		return parent::lazy_get_db();
-	}
 }

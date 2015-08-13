@@ -18,12 +18,9 @@ return [
 
 			Model::SCHEMA => [
 
-				'fields' => [
+				'body' => 'text',
+				'date' => 'datetime'
 
-					'body' => 'text',
-					'date' => 'datetime'
-
-				]
 			]
 		]
 	]

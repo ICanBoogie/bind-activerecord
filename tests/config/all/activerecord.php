@@ -18,12 +18,9 @@ return [
 
 			Model::SCHEMA => [
 
-				'fields' => [
+				'id' => 'serial',
+				'title' => 'varchar'
 
-					'id' => 'serial',
-					'title' => 'varchar'
-
-				]
 			]
 		]
 	]
