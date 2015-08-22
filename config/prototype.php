@@ -15,10 +15,9 @@ $hooks = Hooks::class . '::';
 
 return [
 
-	'events' => [
-
-		'ICanBoogie\Core::boot' => $hooks . 'on_core_boot'
-
-	]
+	'ICanBoogie\Core::lazy_get_connections' => $hooks . 'core_lazy_get_connections',
+	'ICanBoogie\Core::lazy_get_models' => $hooks . 'core_lazy_get_models',
+	'ICanBoogie\Core::lazy_get_db' => $hooks . 'core_lazy_get_db',
+	'ICanBoogie\ActiveRecord\Model::lazy_get_activerecord_cache' => $hooks . 'model_lazy_get_activerecord_cache'
 
 ];
