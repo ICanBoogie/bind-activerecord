@@ -11,16 +11,9 @@
 
 namespace ICanBoogie;
 
-use ICanBoogie\Binding\ActiveRecord\CoreBindings;
-
 require __DIR__ . '/../vendor/autoload.php';
 
-class Application extends Core
-{
-	use CoreBindings;
-}
-
-(new Application(array_merge_recursive(get_autoconfig(), [
+(new Core(array_merge_recursive(get_autoconfig(), [
 
 	'config-path' => [
 
