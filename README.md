@@ -7,7 +7,7 @@
 [![Code Coverage](https://img.shields.io/coveralls/ICanBoogie/bind-activerecord.svg)](https://coveralls.io/r/ICanBoogie/bind-activerecord)
 [![Packagist](https://img.shields.io/packagist/dt/icanboogie/bind-activerecord.svg)](https://packagist.org/packages/icanboogie/bind-activerecord)
 
-The **icanboogie/bind-activerecord** package binds the [icanboogie/activerecord][] to
+The **icanboogie/bind-activerecord** package binds the [icanboogie/activerecord][] package to
 [ICanBoogie][], using its _Autoconfig_ feature. It provides configuration synthesizers for
 connections and models, as well as getters for connection collection and model collection.
 The `get_model()` helper is also patched to use the model collection bound to the application.
@@ -181,7 +181,7 @@ The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 
 
 
-[documentation]:           http://api.icanboogie.org/bind-activerecord/0.3/
+[documentation]:           http://api.icanboogie.org/bind-activerecord/2.3/
 [ConnectionCollection]:    http://api.icanboogie.org/activerecord/2.3/class-ICanBoogie.ActiveRecord.ConnectionCollection.html
 [ModelCollection]:         http://api.icanboogie.org/activerecord/2.3/class-ICanBoogie.ActiveRecord.ModelCollection.html
 [icanboogie/activerecord]: https://github.com/ICanBoogie/ActiveRecord
