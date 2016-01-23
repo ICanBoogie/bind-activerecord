@@ -18,6 +18,7 @@ use ICanBoogie\ActiveRecord\ConnectionCollection;
 use ICanBoogie\ActiveRecord\Model;
 use ICanBoogie\ActiveRecord\ModelCollection;
 use ICanBoogie\Core;
+use ICanBoogie\Validate\ValidationErrors;
 
 class HooksTest extends \PHPUnit_Framework_TestCase
 {
@@ -151,5 +152,12 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 		Hooks::on_core_boot($event, $app);
 
 		$this->assertSame($model, ActiveRecord\get_model($model_id));
+	}
+
+	public function test_active_record_validate()
+	{
+		$record = new SampleRecord;
+
+		$this->assertInstanceOf(ValidationErrors::class, Hooks::active_record_validate($record));
 	}
 }

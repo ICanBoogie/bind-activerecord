@@ -21,8 +21,8 @@
 
 	"require": {
 		"php": ">=5.5.0",
-		"icanboogie/icanboogie": "^3.0.0",
-		"icanboogie/activerecord": "^2.3.0"
+		"icanboogie/icanboogie": "^3.0",
+		"icanboogie/activerecord": "^3.0"
 	},
 
 	"autoload": {

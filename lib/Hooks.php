@@ -16,8 +16,9 @@ use ICanBoogie\ActiveRecord\Connection;
 use ICanBoogie\ActiveRecord\ConnectionCollection;
 use ICanBoogie\ActiveRecord\Model;
 use ICanBoogie\ActiveRecord\ModelCollection;
-use ICanBoogie\ActiveRecord\RuntimeActiveRecordCache;
+use ICanBoogie\ActiveRecord\ActiveRecordCache\RuntimeActiveRecordCache;
 use ICanBoogie\Core;
+use ICanBoogie\Validate\ValidationErrors;
 
 class Hooks
 {
@@ -145,6 +146,23 @@ class Hooks
 	static public function core_lazy_get_db(Core $app)
 	{
 		return $app->connections['primary'];
+	}
+
+	/**
+	 * @param ActiveRecord $record
+	 *
+	 * @return ValidationErrors|array
+	 */
+	static public function active_record_validate(ActiveRecord $record)
+	{
+		static $validate;
+
+		if (!$validate)
+		{
+			$validate = new ActiveRecord\Validate\ValidateActiveRecord;
+		}
+
+		return $validate($record);
 	}
 
 	/**

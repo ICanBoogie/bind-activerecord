@@ -181,8 +181,8 @@ The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 
 
 
-[documentation]:           http://api.icanboogie.org/bind-activerecord/2.3/
-[ConnectionCollection]:    http://api.icanboogie.org/activerecord/2.3/class-ICanBoogie.ActiveRecord.ConnectionCollection.html
-[ModelCollection]:         http://api.icanboogie.org/activerecord/2.3/class-ICanBoogie.ActiveRecord.ModelCollection.html
+[documentation]:           http://api.icanboogie.org/bind-activerecord/3.0/
+[ConnectionCollection]:    http://api.icanboogie.org/activerecord/3.0/class-ICanBoogie.ActiveRecord.ConnectionCollection.html
+[ModelCollection]:         http://api.icanboogie.org/activerecord/3.0/class-ICanBoogie.ActiveRecord.ModelCollection.html
 [icanboogie/activerecord]: https://github.com/ICanBoogie/ActiveRecord
 [ICanBoogie]:              https://github.com/ICanBoogie/ICanBoogie
