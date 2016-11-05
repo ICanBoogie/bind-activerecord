@@ -11,7 +11,6 @@
 
 namespace ICanBoogie\Binding\ActiveRecord;
 
-use ICanBoogie\ActiveRecord;
 use ICanBoogie\ActiveRecord\ActiveRecordCache;
 use ICanBoogie\ActiveRecord\Connection;
 use ICanBoogie\ActiveRecord\ConnectionCollection;
@@ -19,6 +18,9 @@ use ICanBoogie\ActiveRecord\Model;
 use ICanBoogie\ActiveRecord\ModelCollection;
 use ICanBoogie\Core;
 use ICanBoogie\Validate\ValidationErrors;
+
+use function ICanBoogie\app;
+use function ICanBoogie\ActiveRecord\get_model;
 
 class HooksTest extends \PHPUnit_Framework_TestCase
 {
@@ -29,7 +31,7 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 
 	static public function setupBeforeClass()
 	{
-		self::$app = \ICanBoogie\app();
+		self::$app = app();
 	}
 
 	public function test_should_return_activerecord_connections_config()
@@ -151,7 +153,7 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 
 		Hooks::on_core_boot($event, $app);
 
-		$this->assertSame($model, ActiveRecord\get_model($model_id));
+		$this->assertSame($model, get_model($model_id));
 	}
 
 	public function test_active_record_validate()
