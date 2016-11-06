@@ -81,10 +81,10 @@ return [
 			'username' => 'root',
 			'password' => 'root',
 			'options' => [
-			
-				ConnectionOptions:TIMEZONE => '+02:00',
+
+				ConnectionOptions::TIMEZONE => '+02:00',
 				ConnectionOptions::TABLE_NAME_PREFIX => 'myprefix'
-			
+
 			]
 		],
 
