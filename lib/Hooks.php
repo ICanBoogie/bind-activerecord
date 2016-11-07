@@ -78,14 +78,16 @@ class Hooks
 	 */
 
 	/**
-	 * Patches the `get_model()` helper to use the model collection bound to the application.
+	 * Define model provider.
+	 *
+	 * Models are provided using the model collection bound to the application.
 	 *
 	 * @param Core\BootEvent $event
 	 * @param Core|CoreBindings $app
 	 */
 	static public function on_core_boot(Core\BootEvent $event, Core $app)
 	{
-		ActiveRecord\Helpers::patch('get_model', function($id) use ($app) {
+		ActiveRecord\ModelProvider::define(function($id) use ($app) {
 
 			return $app->models[$id];
 
