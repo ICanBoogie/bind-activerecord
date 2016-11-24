@@ -11,8 +11,7 @@
 
 namespace ICanBoogie;
 
-$autoload = require __DIR__ . '/../vendor/autoload.php';
-$autoload->addPsr4('ICanBoogie\Binding\ActiveRecord\\', __DIR__);
+require __DIR__ . '/../vendor/autoload.php';
 
 (new Core(array_merge_recursive(get_autoconfig(), [
 

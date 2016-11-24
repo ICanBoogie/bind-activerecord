@@ -30,6 +30,11 @@
 			"ICanBoogie\\Binding\\ActiveRecord\\": "lib"
 		}
 	},
+	"autoload-dev": {
+		"psr-4": {
+			"ICanBoogie\\Binding\\ActiveRecord\\": "tests"
+		}
+	},
 
 	"extra": {
 		"icanboogie": {
