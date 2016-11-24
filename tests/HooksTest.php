@@ -16,7 +16,7 @@ use ICanBoogie\ActiveRecord\Connection;
 use ICanBoogie\ActiveRecord\ConnectionCollection;
 use ICanBoogie\ActiveRecord\Model;
 use ICanBoogie\ActiveRecord\ModelCollection;
-use ICanBoogie\Core;
+use ICanBoogie\Application;
 use ICanBoogie\Validate\ValidationErrors;
 
 use function ICanBoogie\app;
@@ -25,7 +25,7 @@ use function ICanBoogie\ActiveRecord\get_model;
 class HooksTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var Core|CoreBindings
+	 * @var Application
 	 */
 	static private $app;
 
@@ -61,7 +61,7 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 	public function test_should_return_connection_collection()
 	{
 		$app = self::$app;
-		$connections = Hooks::core_lazy_get_connections($app);
+		$connections = Hooks::app_lazy_get_connections($app);
 
 		$this->assertInstanceOf(ConnectionCollection::class, $connections);
 		$this->assertInstanceOf(ConnectionCollection::class, $app->connections);
@@ -71,7 +71,7 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 	public function test_should_return_primary_connection()
 	{
 		$app = self::$app;
-		$db = Hooks::core_lazy_get_db($app);
+		$db = Hooks::app_lazy_get_db($app);
 
 		$this->assertInstanceOf(Connection::class, $db);
 		$this->assertInstanceOf(Connection::class, $app->db);
@@ -81,7 +81,7 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 	public function test_should_return_model_collection()
 	{
 		$app = self::$app;
-		$models = Hooks::core_lazy_get_models($app);
+		$models = Hooks::app_lazy_get_models($app);
 
 		$this->assertInstanceOf(ModelCollection::class, $models);
 		$this->assertInstanceOf(ModelCollection::class, $app->models);
@@ -136,22 +136,22 @@ class HooksTest extends \PHPUnit_Framework_TestCase
 			->willReturn($model);
 
 		$app = $this
-			->getMockBuilder(Core::class)
+			->getMockBuilder(Application::class)
 			->disableOriginalConstructor()
 			->setMethods([ 'lazy_get_models '])
 			->getMock();
 
 		$event = $this
-			->getMockBuilder(Core\BootEvent::class)
+			->getMockBuilder(Application\BootEvent::class)
 			->disableOriginalConstructor()
 			->getMock();
 
-		/* @var $event Core\BootEvent */
-		/* @var $app Core|CoreBindings */
+		/* @var $event Application\BootEvent */
+		/* @var $app Application */
 
 		$app->models = $models;
 
-		Hooks::on_core_boot($event, $app);
+		Hooks::on_app_boot($event, $app);
 
 		$this->assertSame($model, get_model($model_id));
 	}

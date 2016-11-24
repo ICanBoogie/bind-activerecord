@@ -14,7 +14,12 @@ namespace ICanBoogie;
 $autoload = require __DIR__ . '/../vendor/autoload.php';
 $autoload->addPsr4('ICanBoogie\Binding\ActiveRecord\\', __DIR__);
 
-(new Core(array_merge_recursive(get_autoconfig(), [
+class Application extends Core
+{
+	use Binding\ActiveRecord\ApplicationBindings;
+}
+
+boot(array_merge_recursive(get_autoconfig(), [
 
 	'config-path' => [
 
@@ -24,4 +29,4 @@ $autoload->addPsr4('ICanBoogie\Binding\ActiveRecord\\', __DIR__);
 
 	]
 
-])))->boot();
+]));

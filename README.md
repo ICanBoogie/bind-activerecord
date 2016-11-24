@@ -42,12 +42,12 @@ get_models('nodes') === $app->models['nodes'];   // true
 the `activerecord#connections` fragments.
 - A synthesizer for the `activerecord_models` config, created from
 the `activerecord#models` fragments.
-- A lazy getter for the `ICanBoogie\Core::$connections` property, that returns
+- A lazy getter for the `ICanBoogie\Application::$connections` property, that returns
 a [ConnectionCollection][] instance created with the `activerecord_connections` config.
-- A lazy getter for the `ICanBoogie\Core::$models` property, that returns
+- A lazy getter for the `ICanBoogie\Application::$models` property, that returns
 a [ModelCollection][] instance created with the `activerecord_models` config.
-- A lazy getter for the `ICanBoogie\Core::$db` property, that returns the connection named
-`primary` from the `ICanBoogie\Core::$connections` property.
+- A lazy getter for the `ICanBoogie\Application::$db` property, that returns the connection named
+`primary` from the `ICanBoogie\Application::$connections` property.
 
 
 

@@ -17,7 +17,7 @@ use ICanBoogie\ActiveRecord\ConnectionCollection;
 use ICanBoogie\ActiveRecord\Model;
 use ICanBoogie\ActiveRecord\ModelCollection;
 use ICanBoogie\ActiveRecord\ActiveRecordCache\RuntimeActiveRecordCache;
-use ICanBoogie\Core;
+use ICanBoogie\Application;
 use ICanBoogie\Validate\ValidationErrors;
 
 class Hooks
@@ -82,10 +82,10 @@ class Hooks
 	 *
 	 * Models are provided using the model collection bound to the application.
 	 *
-	 * @param Core\BootEvent $event
-	 * @param Core|CoreBindings $app
+	 * @param Application\BootEvent $event
+	 * @param Application $app
 	 */
-	static public function on_core_boot(Core\BootEvent $event, Core $app)
+	static public function on_app_boot(Application\BootEvent $event, Application $app)
 	{
 		ActiveRecord\ModelProvider::define(function($id) use ($app) {
 
@@ -102,11 +102,11 @@ class Hooks
 	 * Returns a @{link ConnectionCollection} instance configured with
 	 * the `activerecord_connections` config.
 	 *
-	 * @param Core $app
+	 * @param Application $app
 	 *
 	 * @return ConnectionCollection
 	 */
-	static public function core_lazy_get_connections(Core $app)
+	static public function app_lazy_get_connections(Application $app)
 	{
 		static $connections;
 
@@ -122,11 +122,11 @@ class Hooks
 	 * Returns a @{link ModelCollection} instance configured with
 	 * the `activerecord_models` config.
 	 *
-	 * @param Core|CoreBindings $app
+	 * @param Application $app
 	 *
 	 * @return ModelCollection
 	 */
-	static public function core_lazy_get_models(Core $app)
+	static public function app_lazy_get_models(Application $app)
 	{
 		static $models;
 
@@ -141,11 +141,11 @@ class Hooks
 	/**
 	 * Getter for the "primary" database connection.
 	 *
-	 * @param Core|CoreBindings $app
+	 * @param Application $app
 	 *
 	 * @return Connection
 	 */
-	static public function core_lazy_get_db(Core $app)
+	static public function app_lazy_get_db(Application $app)
 	{
 		return $app->connections['primary'];
 	}

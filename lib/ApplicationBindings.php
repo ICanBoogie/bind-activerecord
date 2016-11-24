@@ -16,13 +16,13 @@ use ICanBoogie\ActiveRecord\ConnectionCollection;
 use ICanBoogie\ActiveRecord\ModelCollection;
 
 /**
- * {@link \ICanBoogie\Core} prototype bindings.
+ * {@link \ICanBoogie\Application} prototype bindings.
  *
  * @property ConnectionCollection $connections
  * @property ModelCollection $models
  * @property Connection $db
  */
-trait CoreBindings
+trait ApplicationBindings
 {
 
 }
