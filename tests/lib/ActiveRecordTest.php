@@ -12,11 +12,12 @@
 namespace ICanBoogie\Binding\ActiveRecord;
 
 use ICanBoogie\Validate\ValidationErrors;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @small
  */
-class ActiveRecordTest extends \PHPUnit_Framework_TestCase
+class ActiveRecordTest extends TestCase
 {
 	public function test_validate()
 	{

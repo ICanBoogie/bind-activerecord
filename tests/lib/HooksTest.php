@@ -21,8 +21,9 @@ use ICanBoogie\Validate\ValidationErrors;
 
 use function ICanBoogie\app;
 use function ICanBoogie\ActiveRecord\get_model;
+use PHPUnit\Framework\TestCase;
 
-class HooksTest extends \PHPUnit_Framework_TestCase
+class HooksTest extends TestCase
 {
 	/**
 	 * @var Application

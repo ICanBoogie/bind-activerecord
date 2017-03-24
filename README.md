@@ -2,7 +2,6 @@
 
 [![Release](https://img.shields.io/packagist/v/ICanBoogie/bind-activerecord.svg)](https://packagist.org/packages/icanboogie/bind-activerecord)
 [![Build Status](https://img.shields.io/travis/ICanBoogie/bind-activerecord.svg)](http://travis-ci.org/ICanBoogie/bind-activerecord)
-[![HHVM](https://img.shields.io/hhvm/icanboogie/bind-activerecord.svg)](http://hhvm.h4cc.de/package/icanboogie/bind-activerecord)
 [![Code Quality](https://img.shields.io/scrutinizer/g/ICanBoogie/bind-activerecord.svg)](https://scrutinizer-ci.com/g/ICanBoogie/bind-activerecord)
 [![Code Coverage](https://img.shields.io/coveralls/ICanBoogie/bind-activerecord.svg)](https://coveralls.io/r/ICanBoogie/bind-activerecord)
 [![Packagist](https://img.shields.io/packagist/dt/icanboogie/bind-activerecord.svg)](https://packagist.org/packages/icanboogie/bind-activerecord)
@@ -181,8 +180,8 @@ The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 
 
 
-[documentation]:           http://api.icanboogie.org/bind-activerecord/4.0/
-[ConnectionCollection]:    http://api.icanboogie.org/activerecord/4.0/class-ICanBoogie.ActiveRecord.ConnectionCollection.html
-[ModelCollection]:         http://api.icanboogie.org/activerecord/4.0/class-ICanBoogie.ActiveRecord.ModelCollection.html
+[documentation]:           https://icanboogie.org/api/bind-activerecord/4.0/
+[ConnectionCollection]:    https://icanboogie.org/api/activerecord/4.0/class-ICanBoogie.ActiveRecord.ConnectionCollection.html
+[ModelCollection]:         https://icanboogie.org/api/activerecord/4.0/class-ICanBoogie.ActiveRecord.ModelCollection.html
 [icanboogie/activerecord]: https://github.com/ICanBoogie/ActiveRecord
 [ICanBoogie]:              https://github.com/ICanBoogie/ICanBoogie
