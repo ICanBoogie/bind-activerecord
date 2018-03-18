@@ -118,7 +118,7 @@ return [
 
 ## Requirements
 
-The package requires PHP 5.6 or later.
+The package requires PHP 7.2 or later.
 
 
 
@@ -180,8 +180,8 @@ The package is continuously tested by [Travis CI](http://about.travis-ci.org/).
 
 
 
-[documentation]:           https://icanboogie.org/api/bind-activerecord/4.0/
-[ConnectionCollection]:    https://icanboogie.org/api/activerecord/4.0/class-ICanBoogie.ActiveRecord.ConnectionCollection.html
-[ModelCollection]:         https://icanboogie.org/api/activerecord/4.0/class-ICanBoogie.ActiveRecord.ModelCollection.html
+[documentation]:           https://icanboogie.org/api/bind-activerecord/5.0/
+[ConnectionCollection]:    https://icanboogie.org/api/activerecord/5.0/class-ICanBoogie.ActiveRecord.ConnectionCollection.html
+[ModelCollection]:         https://icanboogie.org/api/activerecord/5.0/class-ICanBoogie.ActiveRecord.ModelCollection.html
 [icanboogie/activerecord]: https://github.com/ICanBoogie/ActiveRecord
 [ICanBoogie]:              https://github.com/ICanBoogie/ICanBoogie

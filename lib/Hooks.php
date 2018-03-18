@@ -32,7 +32,7 @@ class Hooks
 	 *
 	 * @return array
 	 */
-	static private function synthesize_config_from_namespace(array $fragments, $namespace)
+	static private function synthesize_config_from_namespace(array $fragments, string $namespace): array
 	{
 		$config = [];
 
@@ -46,7 +46,7 @@ class Hooks
 			$config[] = $fragment[$namespace];
 		}
 
-		return $config ? call_user_func_array('array_merge', $config) : [];
+		return $config ? array_merge(...$config) : [];
 	}
 
 	/**
@@ -56,7 +56,7 @@ class Hooks
 	 *
 	 * @return array
 	 */
-	static public function synthesize_connections_config(array $fragments)
+	static public function synthesize_connections_config(array $fragments): array
 	{
 		return self::synthesize_config_from_namespace($fragments, 'connections');
 	}
@@ -68,7 +68,7 @@ class Hooks
 	 *
 	 * @return array
 	 */
-	static public function synthesize_models_config(array $fragments)
+	static public function synthesize_models_config(array $fragments): array
 	{
 		return self::synthesize_config_from_namespace($fragments, 'models');
 	}
@@ -85,7 +85,7 @@ class Hooks
 	 * @param Application\BootEvent $event
 	 * @param Application $app
 	 */
-	static public function on_app_boot(Application\BootEvent $event, Application $app)
+	static public function on_app_boot(Application\BootEvent $event, Application $app): void
 	{
 		ActiveRecord\ModelProvider::define(function($id) use ($app) {
 
@@ -106,7 +106,7 @@ class Hooks
 	 *
 	 * @return ConnectionCollection
 	 */
-	static public function app_lazy_get_connections(Application $app)
+	static public function app_lazy_get_connections(Application $app): ConnectionCollection
 	{
 		static $connections;
 
@@ -126,7 +126,7 @@ class Hooks
 	 *
 	 * @return ModelCollection
 	 */
-	static public function app_lazy_get_models(Application $app)
+	static public function app_lazy_get_models(Application $app): ModelCollection
 	{
 		static $models;
 
@@ -145,7 +145,7 @@ class Hooks
 	 *
 	 * @return Connection
 	 */
-	static public function app_lazy_get_db(Application $app)
+	static public function app_lazy_get_db(Application $app): Connection
 	{
 		return $app->connections['primary'];
 	}
@@ -174,7 +174,7 @@ class Hooks
 	 *
 	 * @return RuntimeActiveRecordCache
 	 */
-	static public function model_lazy_get_activerecord_cache(Model $model)
+	static public function model_lazy_get_activerecord_cache(Model $model): RuntimeActiveRecordCache
 	{
 		return new RuntimeActiveRecordCache($model);
 	}
