@@ -16,6 +16,9 @@
 		"issues": "https://github.com/ICanBoogie/bind-activerecord/issues",
 		"source": "https://github.com/ICanBoogie/bind-activerecord"
 	},
+	"config": {
+		"sort-packages": true
+	},
 	"minimum-stability": "dev",
 	"prefer-stable": true,
 	"prefer-dist": true,
@@ -48,5 +51,8 @@
 	},
 	"scripts": {
 		"post-autoload-dump": "ICanBoogie\\Autoconfig\\Hooks::on_autoload_dump"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "^8.5"
 	}
 }

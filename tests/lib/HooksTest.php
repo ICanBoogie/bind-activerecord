@@ -30,7 +30,7 @@ class HooksTest extends TestCase
 	 */
 	static private $app;
 
-	static public function setupBeforeClass()
+	static public function setupBeforeClass(): void
 	{
 		self::$app = app();
 	}
@@ -142,10 +142,7 @@ class HooksTest extends TestCase
 			->setMethods([ 'lazy_get_models '])
 			->getMock();
 
-		$event = $this
-			->getMockBuilder(Application\BootEvent::class)
-			->disableOriginalConstructor()
-			->getMock();
+		$event = Application\BootEvent::from([ 'target' => $app ]);
 
 		/* @var $event Application\BootEvent */
 		/* @var $app Application */

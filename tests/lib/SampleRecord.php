@@ -15,7 +15,7 @@ use ICanBoogie\ActiveRecord;
 
 class SampleRecord extends ActiveRecord
 {
-	const MODEL_ID = 'dummy';
+	public const MODEL_ID = 'dummy';
 
 	/**
 	 * @var string
@@ -25,7 +25,7 @@ class SampleRecord extends ActiveRecord
 	/**
 	 * @inheritdoc
 	 */
-	public function create_validation_rules()
+	public function create_validation_rules(): array
 	{
 		return [
 

@@ -20,17 +20,16 @@ use ICanBoogie\ActiveRecord\ActiveRecordCache\RuntimeActiveRecordCache;
 use ICanBoogie\Application;
 use ICanBoogie\Validate\ValidationErrors;
 
-class Hooks
+final class Hooks
 {
 	/**
 	 * Synthesizes a config from a namespace.
 	 *
 	 * The config fragments found in the namespace are merged with `array_merge()`.
 	 *
-	 * @param array $fragments
-	 * @param string $namespace
+	 * @param array<string, array> $fragments
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	static private function synthesize_config_from_namespace(array $fragments, string $namespace): array
 	{
@@ -52,9 +51,9 @@ class Hooks
 	/**
 	 * Synthesizes the `activerecord_connections` config from `activerecord#connections` fragments.
 	 *
-	 * @param array $fragments
+	 * @param array<string, array> $fragments
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	static public function synthesize_connections_config(array $fragments): array
 	{
@@ -64,9 +63,9 @@ class Hooks
 	/**
 	 * Synthesizes the `activerecord_models` config from `activerecord#models` fragments.
 	 *
-	 * @param array $fragments
+	 * @param array<string, array> $fragments
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	static public function synthesize_models_config(array $fragments): array
 	{
@@ -81,9 +80,6 @@ class Hooks
 	 * Define model provider.
 	 *
 	 * Models are provided using the model collection bound to the application.
-	 *
-	 * @param Application\BootEvent $event
-	 * @param Application $app
 	 */
 	static public function on_app_boot(Application\BootEvent $event, Application $app): void
 	{
@@ -101,49 +97,29 @@ class Hooks
 	/**
 	 * Returns a @{link ConnectionCollection} instance configured with
 	 * the `activerecord_connections` config.
-	 *
-	 * @param Application $app
-	 *
-	 * @return ConnectionCollection
 	 */
 	static public function app_lazy_get_connections(Application $app): ConnectionCollection
 	{
 		static $connections;
 
-		if (!$connections)
-		{
-			$connections = new ConnectionCollection($app->configs['activerecord_connections'] ?: []);
-		}
-
-		return $connections;
+		return $connections
+			?? $connections = new ConnectionCollection($app->configs['activerecord_connections'] ?? []);
 	}
 
 	/**
 	 * Returns a @{link ModelCollection} instance configured with
 	 * the `activerecord_models` config.
-	 *
-	 * @param Application $app
-	 *
-	 * @return ModelCollection
 	 */
 	static public function app_lazy_get_models(Application $app): ModelCollection
 	{
 		static $models;
 
-		if (!$models)
-		{
-			$models = new ModelCollection($app->connections, $app->configs['activerecord_models'] ?: []);
-		}
-
-		return $models;
+		return $models
+			?? $models = new ModelCollection($app->connections, $app->configs['activerecord_models'] ?? []);
 	}
 
 	/**
 	 * Getter for the "primary" database connection.
-	 *
-	 * @param Application $app
-	 *
-	 * @return Connection
 	 */
 	static public function app_lazy_get_db(Application $app): Connection
 	{
@@ -151,8 +127,6 @@ class Hooks
 	}
 
 	/**
-	 * @param ActiveRecord $record
-	 *
 	 * @return ValidationErrors|array
 	 */
 	static public function active_record_validate(ActiveRecord $record)
@@ -169,10 +143,6 @@ class Hooks
 
 	/**
 	 * Returns the records cache associated with the model.
-	 *
-	 * @param Model $model
-	 *
-	 * @return RuntimeActiveRecordCache
 	 */
 	static public function model_lazy_get_activerecord_cache(Model $model): RuntimeActiveRecordCache
 	{
