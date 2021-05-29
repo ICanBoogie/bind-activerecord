@@ -1,7 +1,7 @@
 # bind-activerecord
 
 [![Release](https://img.shields.io/packagist/v/ICanBoogie/bind-activerecord.svg)](https://packagist.org/packages/icanboogie/bind-activerecord)
-[![Build Status](https://img.shields.io/travis/ICanBoogie/bind-activerecord.svg)](http://travis-ci.org/ICanBoogie/bind-activerecord)
+[![Build Status](https://img.shields.io/github/workflow/status/ICanBoogie/bind-activerecord/test)](https://github.com/ICanBoogie/bind-activerecord/actions?query=workflow%3Atest)
 [![Code Quality](https://img.shields.io/scrutinizer/g/ICanBoogie/bind-activerecord.svg)](https://scrutinizer-ci.com/g/ICanBoogie/bind-activerecord)
 [![Code Coverage](https://img.shields.io/coveralls/ICanBoogie/bind-activerecord.svg)](https://coveralls.io/r/ICanBoogie/bind-activerecord)
 [![Packagist](https://img.shields.io/packagist/dt/icanboogie/bind-activerecord.svg)](https://packagist.org/packages/icanboogie/bind-activerecord)
@@ -72,37 +72,37 @@ use ICanBoogie\ActiveRecord\Model;
 
 return [
 
-	'connections' => [
+    'connections' => [
 
-		'primary' => [
+        'primary' => [
 
-			'dsn' => 'mysql:dbname=mydatabase',
-			'username' => 'root',
-			'password' => 'root',
-			'options' => [
+            'dsn' => 'mysql:dbname=mydatabase',
+            'username' => 'root',
+            'password' => 'root',
+            'options' => [
 
-				ConnectionOptions::TIMEZONE => '+02:00',
-				ConnectionOptions::TABLE_NAME_PREFIX => 'myprefix'
+                ConnectionOptions::TIMEZONE => '+02:00',
+                ConnectionOptions::TABLE_NAME_PREFIX => 'myprefix'
 
-			]
-		],
+            ]
+        ],
 
-		'cache' => 'sqlite:' . ICanBoogie\REPOSITORY . 'cache.sqlite'
+        'cache' => 'sqlite:' . ICanBoogie\REPOSITORY . 'cache.sqlite'
 
-	],
+    ],
 
-	'models' => [
+    'models' => [
 
-		'nodes' => [
+        'nodes' => [
 
-			Model::SCHEMA => [
+            Model::SCHEMA => [
 
-				'id' => 'serial',
-				'title' => 'varchar'
+                'id' => 'serial',
+                'title' => 'varchar'
 
-			]
-		]
-	]
+            ]
+        ]
+    ]
 ];
 ```
 
@@ -165,8 +165,8 @@ test suite. Alternatively, run `make test-coverage` to run the test suite with t
 
 
 
-[documentation]:           https://icanboogie.org/api/bind-activerecord/5.0/
-[ConnectionCollection]:    https://icanboogie.org/api/activerecord/5.0/class-ICanBoogie.ActiveRecord.ConnectionCollection.html
-[ModelCollection]:         https://icanboogie.org/api/activerecord/5.0/class-ICanBoogie.ActiveRecord.ModelCollection.html
+[documentation]:           https://icanboogie.org/api/bind-activerecord/master/
+[ConnectionCollection]:    https://icanboogie.org/api/activerecord/master/class-ICanBoogie.ActiveRecord.ConnectionCollection.html
+[ModelCollection]:         https://icanboogie.org/api/activerecord/master/class-ICanBoogie.ActiveRecord.ModelCollection.html
 [icanboogie/activerecord]: https://github.com/ICanBoogie/ActiveRecord
 [ICanBoogie]:              https://github.com/ICanBoogie/ICanBoogie
