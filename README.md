@@ -116,14 +116,6 @@ return [
 
 
 
-## Requirements
-
-The package requires PHP 7.2 or later.
-
-
-
-
-
 ## Installation
 
 ```bash

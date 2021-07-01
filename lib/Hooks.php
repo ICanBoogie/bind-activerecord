@@ -102,9 +102,7 @@ final class Hooks
 	{
 		static $connections;
 
-		// We need to use ?: for the config to be created.
-		return $connections
-			?? $connections = new ConnectionCollection($app->configs['activerecord_connections'] ?: []);
+		return $connections ??= new ConnectionCollection($app->configs['activerecord_connections']);
 	}
 
 	/**
@@ -116,8 +114,7 @@ final class Hooks
 		static $models;
 
 		// We need to use ?: for the config to be created.
-		return $models
-			?? $models = new ModelCollection($app->connections, $app->configs['activerecord_models'] ?: []);
+		return $models ??= new ModelCollection($app->connections, $app->configs['activerecord_models']);
 	}
 
 	/**
