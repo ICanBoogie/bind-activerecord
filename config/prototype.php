@@ -12,15 +12,16 @@
 namespace ICanBoogie\Binding\ActiveRecord;
 
 use ICanBoogie;
-
-$hooks = Hooks::class . '::';
+use ICanBoogie\ActiveRecord;
+use ICanBoogie\ActiveRecord\Model;
+use ICanBoogie\Application;
 
 return [
 
-	ICanBoogie\Application::class . '::lazy_get_connections' => $hooks . 'app_lazy_get_connections',
-	ICanBoogie\Application::class . '::lazy_get_models' => $hooks . 'app_lazy_get_models',
-	ICanBoogie\Application::class . '::lazy_get_db' => $hooks . 'app_lazy_get_db',
-	ICanBoogie\ActiveRecord::class . '::validate' => $hooks . 'active_record_validate',
-	ICanBoogie\ActiveRecord\Model::class . '::lazy_get_activerecord_cache' => $hooks . 'model_lazy_get_activerecord_cache'
+	Application::class . '::lazy_get_connections' => [ Hooks::class, 'app_lazy_get_connections' ],
+	Application::class . '::lazy_get_models' => [ Hooks::class, 'app_lazy_get_models' ],
+	Application::class . '::lazy_get_db' => [ Hooks::class, 'app_lazy_get_db' ],
+	ActiveRecord::class . '::validate' => [ Hooks::class, 'active_record_validate' ],
+	Model::class . '::lazy_get_activerecord_cache' => [ Hooks::class, 'model_lazy_get_activerecord_cache' ],
 
 ];

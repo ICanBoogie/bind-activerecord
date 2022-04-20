@@ -11,18 +11,16 @@
 
 namespace Test\ICanBoogie\Binding\ActiveRecord;
 
-use ICanBoogie\Validate\ValidationErrors;
+use ICanBoogie\ActiveRecord\ModelProvider;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @small
- */
-class ActiveRecordTest extends TestCase
+final class ServicesTest extends TestCase
 {
-	public function test_validate()
+	/**
+	 * Troubleshoot: config/event.php
+	 */
+	public function test_get_models(): void
 	{
-		$record = new SampleRecord();
-
-		$this->assertInstanceOf(ValidationErrors::class, $record->validate());
+		$this->assertNotNull(ModelProvider::defined());
 	}
 }

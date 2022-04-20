@@ -9,35 +9,28 @@
  * file that was distributed with this source code.
  */
 
-namespace ICanBoogie\Binding\ActiveRecord;
+namespace Test\ICanBoogie\Binding\ActiveRecord;
 
 use ICanBoogie\ActiveRecord\ActiveRecordCache;
 use ICanBoogie\ActiveRecord\Connection;
 use ICanBoogie\ActiveRecord\ConnectionCollection;
 use ICanBoogie\ActiveRecord\Model;
 use ICanBoogie\ActiveRecord\ModelCollection;
+use ICanBoogie\ActiveRecord\Schema;
+use ICanBoogie\ActiveRecord\SchemaColumn;
 use ICanBoogie\Application;
+use ICanBoogie\Binding\ActiveRecord\Hooks;
 use ICanBoogie\Validate\ValidationErrors;
-
-use function ICanBoogie\app;
-use function ICanBoogie\ActiveRecord\get_model;
 use PHPUnit\Framework\TestCase;
+
+use function ICanBoogie\ActiveRecord\get_model;
+use function ICanBoogie\app;
 
 class HooksTest extends TestCase
 {
-	/**
-	 * @var Application
-	 */
-	static private $app;
-
-	static public function setupBeforeClass(): void
-	{
-		self::$app = app();
-	}
-
 	public function test_should_return_activerecord_connections_config()
 	{
-		$config = Hooks::synthesize_connections_config(self::$app->configs->get_fragments('activerecord'));
+		$config = Hooks::synthesize_connections_config(app()->configs->get_fragments('activerecord'));
 
 		$this->assertNotEmpty($config);
 		$this->assertEquals([
@@ -47,46 +40,46 @@ class HooksTest extends TestCase
 
 		], $config);
 
-		$this->assertEquals($config, self::$app->configs['activerecord_connections']);
+		$this->assertEquals($config, app()->configs['activerecord_connections']);
 	}
 
 	public function test_should_return_activerecord_models_config()
 	{
-		$config = Hooks::synthesize_models_config(self::$app->configs->get_fragments('activerecord'));
+		$config = Hooks::synthesize_models_config(app()->configs->get_fragments('activerecord'));
 
 		$this->assertNotEmpty($config);
 		$this->assertEquals([ 'nodes', 'articles' ], array_keys($config));
-		$this->assertEquals($config, self::$app->configs['activerecord_models']);
+		$this->assertEquals($config, app()->configs['activerecord_models']);
 	}
 
 	public function test_should_return_connection_collection()
 	{
-		$app = self::$app;
+		$app = app();
 		$connections = Hooks::app_lazy_get_connections($app);
 
 		$this->assertInstanceOf(ConnectionCollection::class, $connections);
 		$this->assertInstanceOf(ConnectionCollection::class, $app->connections);
-		$this->assertSame($connections, self::$app->connections);
+		$this->assertSame($connections, app()->connections);
 	}
 
 	public function test_should_return_primary_connection()
 	{
-		$app = self::$app;
+		$app = app();
 		$db = Hooks::app_lazy_get_db($app);
 
 		$this->assertInstanceOf(Connection::class, $db);
 		$this->assertInstanceOf(Connection::class, $app->db);
-		$this->assertSame($db, self::$app->db);
+		$this->assertSame($db, app()->db);
 	}
 
 	public function test_should_return_model_collection()
 	{
-		$app = self::$app;
+		$app = app();
 		$models = Hooks::app_lazy_get_models($app);
 
 		$this->assertInstanceOf(ModelCollection::class, $models);
 		$this->assertInstanceOf(ModelCollection::class, $app->models);
-		$this->assertSame($models, self::$app->models);
+		$this->assertSame($models, app()->models);
 	}
 
 	/**
@@ -103,13 +96,11 @@ class HooksTest extends TestCase
 
 		$model = new Model($models, [
 
-			Model::CONNECTION => self::$app->db,
+			Model::CONNECTION => app()->db,
 			Model::NAME => 'model' . uniqid(),
-			Model::SCHEMA => [
-
-				'id' => 'serial'
-
-			]
+			Model::SCHEMA => new Schema([
+				'id' => SchemaColumn::serial()
+			])
 		]);
 
 		$cache = Hooks::model_lazy_get_activerecord_cache($model);
@@ -142,7 +133,7 @@ class HooksTest extends TestCase
 			->setMethods([ 'lazy_get_models '])
 			->getMock();
 
-		$event = Application\BootEvent::from([ 'target' => $app ]);
+		$event = new Application\BootEvent($app);
 
 		/* @var $event Application\BootEvent */
 		/* @var $app Application */

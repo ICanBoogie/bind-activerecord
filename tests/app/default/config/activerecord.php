@@ -3,6 +3,8 @@
 namespace ICanBoogie\Binding\ActiveRecord;
 
 use ICanBoogie\ActiveRecord\Model;
+use ICanBoogie\ActiveRecord\Schema;
+use ICanBoogie\ActiveRecord\SchemaColumn;
 
 return [
 
@@ -13,15 +15,11 @@ return [
 	],
 
 	'models' => [
-
 		'articles' => [
-
-			Model::SCHEMA => [
-
-				'body' => 'text',
-				'date' => 'datetime'
-
-			]
+			Model::SCHEMA => new Schema([
+				'body' => SchemaColumn::text(),
+				'date' => SchemaColumn::datetime(),
+			])
 		]
 	]
 ];

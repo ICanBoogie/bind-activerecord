@@ -11,12 +11,10 @@
 
 namespace ICanBoogie\Binding\ActiveRecord;
 
-use ICanBoogie;
-
-$hooks = Hooks::class . '::';
+use ICanBoogie\Application;
 
 return [
 
-	ICanBoogie\Application::class . '::boot' => $hooks . 'on_app_boot'
+	Application\BootEvent::for(Application::class) => [ Hooks::class, 'on_app_boot' ]
 
 ];

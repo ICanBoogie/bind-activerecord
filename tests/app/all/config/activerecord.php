@@ -3,6 +3,8 @@
 namespace ICanBoogie\Binding\ActiveRecord;
 
 use ICanBoogie\ActiveRecord\Model;
+use ICanBoogie\ActiveRecord\Schema;
+use ICanBoogie\ActiveRecord\SchemaColumn;
 
 return [
 
@@ -15,13 +17,10 @@ return [
 	'models' => [
 
 		'nodes' => [
-
-			Model::SCHEMA => [
-
-				'id' => 'serial',
-				'title' => 'varchar'
-
-			]
+			Model::SCHEMA => new Schema([
+				'id' => SchemaColumn::serial(),
+				'title' => SchemaColumn::varchar(),
+			])
 		]
 	]
 ];

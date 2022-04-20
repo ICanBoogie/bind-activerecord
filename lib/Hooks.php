@@ -12,11 +12,11 @@
 namespace ICanBoogie\Binding\ActiveRecord;
 
 use ICanBoogie\ActiveRecord;
+use ICanBoogie\ActiveRecord\ActiveRecordCache\RuntimeActiveRecordCache;
 use ICanBoogie\ActiveRecord\Connection;
 use ICanBoogie\ActiveRecord\ConnectionCollection;
 use ICanBoogie\ActiveRecord\Model;
 use ICanBoogie\ActiveRecord\ModelCollection;
-use ICanBoogie\ActiveRecord\ActiveRecordCache\RuntimeActiveRecordCache;
 use ICanBoogie\Application;
 use ICanBoogie\Validate\ValidationErrors;
 
@@ -83,11 +83,7 @@ final class Hooks
 	 */
 	static public function on_app_boot(Application\BootEvent $event, Application $app): void
 	{
-		ActiveRecord\ModelProvider::define(function($id) use ($app) {
-
-			return $app->models[$id];
-
-		});
+		ActiveRecord\ModelProvider::define(fn($id) => $app->models[$id]);
 	}
 
 	/*
@@ -102,9 +98,7 @@ final class Hooks
 	{
 		static $connections;
 
-		// We need to use ?: for the config to be created.
-		return $connections
-			?? $connections = new ConnectionCollection($app->configs['activerecord_connections'] ?: []);
+		return $connections ??= new ConnectionCollection($app->configs['activerecord_connections']);
 	}
 
 	/**
@@ -116,8 +110,7 @@ final class Hooks
 		static $models;
 
 		// We need to use ?: for the config to be created.
-		return $models
-			?? $models = new ModelCollection($app->connections, $app->configs['activerecord_models'] ?: []);
+		return $models ??= new ModelCollection($app->connections, $app->configs['activerecord_models']);
 	}
 
 	/**
@@ -135,10 +128,7 @@ final class Hooks
 	{
 		static $validate;
 
-		if (!$validate)
-		{
-			$validate = new ActiveRecord\Validate\ValidateActiveRecord;
-		}
+		$validate ??= new ActiveRecord\Validate\ValidateActiveRecord;
 
 		return $validate($record);
 	}
