@@ -12,9 +12,7 @@
 namespace ICanBoogie\Binding\ActiveRecord;
 
 use ICanBoogie\Application;
+use ICanBoogie\Binding\Event\ConfigBuilder;
 
-return [
-
-	Application\BootEvent::for(Application::class) => [ Hooks::class, 'on_app_boot' ]
-
-];
+return fn(ConfigBuilder $config) => $config
+	->attach_to(Application::class, Application\BootEvent::class, [ Hooks::class, 'on_app_boot' ]);
