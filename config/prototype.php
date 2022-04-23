@@ -15,13 +15,11 @@ use ICanBoogie;
 use ICanBoogie\ActiveRecord;
 use ICanBoogie\ActiveRecord\Model;
 use ICanBoogie\Application;
+use ICanBoogie\Binding\Prototype\ConfigBuilder;
 
-return [
-
-	Application::class . '::lazy_get_connections' => [ Hooks::class, 'app_lazy_get_connections' ],
-	Application::class . '::lazy_get_models' => [ Hooks::class, 'app_lazy_get_models' ],
-	Application::class . '::lazy_get_db' => [ Hooks::class, 'app_lazy_get_db' ],
-	ActiveRecord::class . '::validate' => [ Hooks::class, 'active_record_validate' ],
-	Model::class . '::lazy_get_activerecord_cache' => [ Hooks::class, 'model_lazy_get_activerecord_cache' ],
-
-];
+return fn(ConfigBuilder $config) => $config
+	->bind(Application::class, 'lazy_get_connections', [ Hooks::class, 'app_lazy_get_connections' ])
+	->bind(Application::class, 'lazy_get_models', [ Hooks::class, 'app_lazy_get_models' ])
+	->bind(Application::class, 'lazy_get_db', [ Hooks::class, 'app_lazy_get_db' ])
+	->bind(ActiveRecord::class, 'validate', [ Hooks::class, 'active_record_validate' ])
+	->bind(Model::class, 'lazy_get_activerecord_cache', [ Hooks::class, 'model_lazy_get_activerecord_cache' ]);
