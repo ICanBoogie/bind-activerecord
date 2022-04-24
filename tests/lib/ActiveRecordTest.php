@@ -19,10 +19,10 @@ use PHPUnit\Framework\TestCase;
  */
 class ActiveRecordTest extends TestCase
 {
-	public function test_validate()
-	{
-		$record = new SampleRecord();
+    public function test_validate()
+    {
+        $record = new SampleRecord();
 
-		$this->assertInstanceOf(ValidationErrors::class, $record->validate());
-	}
+        $this->assertInstanceOf(ValidationErrors::class, $record->validate());
+    }
 }

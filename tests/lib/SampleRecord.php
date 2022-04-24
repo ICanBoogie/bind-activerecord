@@ -15,22 +15,22 @@ use ICanBoogie\ActiveRecord;
 
 class SampleRecord extends ActiveRecord
 {
-	public const MODEL_ID = 'dummy';
+    public const MODEL_ID = 'dummy';
 
-	/**
-	 * @var string
-	 */
-	public $email;
+    /**
+     * @var string
+     */
+    public $email;
 
-	/**
-	 * @inheritdoc
-	 */
-	public function create_validation_rules(): array
-	{
-		return [
+    /**
+     * @inheritdoc
+     */
+    public function create_validation_rules(): array
+    {
+        return [
 
-			'email' => 'required|email'
+            'email' => 'required|email'
 
-		];
-	}
+        ];
+    }
 }

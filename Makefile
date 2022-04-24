@@ -24,7 +24,7 @@ test: test-dependencies
 .PHONY: test-coverage
 test-coverage: test-dependencies
 	@mkdir -p build/coverage
-	@XDEBUG_MODE=coverage $(PHPUNIT) --coverage-html ../build/coverage --coverage-text
+	@XDEBUG_MODE=coverage $(PHPUNIT) --coverage-html ../build/coverage
 
 .PHONY: test-coveralls
 test-coveralls: test-dependencies

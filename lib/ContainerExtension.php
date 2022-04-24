@@ -14,39 +14,42 @@ use Symfony\Component\DependencyInjection\Reference;
 
 class ContainerExtension extends Extension
 {
-	public function load(array $configs, ContainerBuilder $container)
-	{
-		$this->register_connection_provider($container);
-		$this->register_model_provider($container);
-	}
+    /**
+     * @param array<string, mixed> $configs
+     */
+    public function load(array $configs, ContainerBuilder $container): void
+    {
+        $this->register_connection_provider($container);
+        $this->register_model_provider($container);
+    }
 
-	private function register_connection_provider(ContainerBuilder $container): void
-	{
-		$definition = (new Definition(ConnectionCollection::class))
-			->setFactory([ Hooks::class, 'app_lazy_get_connections' ])
-			->setArguments([ new Reference(Application::class)]);
+    private function register_connection_provider(ContainerBuilder $container): void
+    {
+        $definition = (new Definition(ConnectionCollection::class))
+            ->setFactory([ Hooks::class, 'app_lazy_get_connections' ])
+            ->setArguments([ new Reference(Application::class)]);
 
-		$container->setDefinition(ConnectionProvider::class, $definition);
-	}
+        $container->setDefinition(ConnectionProvider::class, $definition);
+    }
 
-	private function register_model_provider(ContainerBuilder $container): void
-	{
-		$definition = (new Definition(ModelCollection::class))
-			->setFactory([ Hooks::class, 'app_lazy_get_models' ])
-			->setArguments([ new Reference(Application::class)]);
+    private function register_model_provider(ContainerBuilder $container): void
+    {
+        $definition = (new Definition(ModelCollection::class))
+            ->setFactory([ Hooks::class, 'app_lazy_get_models' ])
+            ->setArguments([ new Reference(Application::class)]);
 
-		$container->setDefinition(ModelProvider::class, $definition);
-	}
+        $container->setDefinition(ModelProvider::class, $definition);
+    }
 //
-//	private function register_connections(Config $config, ContainerBuilder $container): void
-//	{
-//		foreach ($config->connections as $id => $connection) {
-//			$definition = (new Definition(Connection::class))
-//				->setFactory([ new Reference(ConnectionProvider::class), 'connection_for_id' ])
-//				->setPublic(true)
-//				->setArguments([ $id ]);
+//  private function register_connections(Config $config, ContainerBuilder $container): void
+//  {
+//      foreach ($config->connections as $id => $connection) {
+//          $definition = (new Definition(Connection::class))
+//              ->setFactory([ new Reference(ConnectionProvider::class), 'connection_for_id' ])
+//              ->setPublic(true)
+//              ->setArguments([ $id ]);
 //
-//			$container->setDefinition("active_record.connection.$id", $definition);
-//		}
-//	}
+//          $container->setDefinition("active_record.connection.$id", $definition);
+//      }
+//  }
 }

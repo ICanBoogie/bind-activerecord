@@ -24,76 +24,76 @@ use ICanBoogie\Validate\ValidationErrors;
 
 final class Hooks
 {
-	/*
-	 * Events
-	 */
+    /*
+     * Events
+     */
 
-	/**
-	 * Define model provider.
-	 *
-	 * Models are provided using the model collection bound to the application.
-	 */
-	static public function on_app_boot(Application\BootEvent $event, Application $app): void
-	{
-		ActiveRecord\StaticModelProvider::define(fn($id) => $app->models[$id]);
-	}
+    /**
+     * Define model provider.
+     *
+     * Models are provided using the model collection bound to the application.
+     */
+    public static function on_app_boot(Application\BootEvent $event, Application $app): void
+    {
+        ActiveRecord\StaticModelProvider::define(fn($id) => $app->models->model_for_id($id));
+    }
 
-	/*
-	 * Prototypes
-	 */
+    /*
+     * Prototypes
+     */
 
-	static private function get_config(Application $app): Config
-	{
-		static $config;
+    private static function get_config(Application $app): Config
+    {
+        static $config;
 
-		return $config ??= $app->configs[Config::KEY];
-	}
+        return $config ??= $app->configs[Config::KEY];
+    }
 
-	/**
-	 * Returns a {@link ConnectionProvider} instance configured with the `activerecord_connections` config.
-	 */
-	static public function app_lazy_get_connections(Application $app): ConnectionProvider
-	{
-		static $connections;
+    /**
+     * Returns a {@link ConnectionProvider} instance configured with the `activerecord_connections` config.
+     */
+    public static function app_lazy_get_connections(Application $app): ConnectionProvider
+    {
+        static $connections;
 
-		return $connections ??= new ConnectionCollection(self::get_config($app)->connections);
-	}
+        return $connections ??= new ConnectionCollection(self::get_config($app)->connections);
+    }
 
-	/**
-	 * Returns a {@link ModelProvider} instance configured with the `activerecord_models` config.
-	 */
-	static public function app_lazy_get_models(Application $app): ModelProvider
-	{
-		static $models;
+    /**
+     * Returns a {@link ModelProvider} instance configured with the `activerecord_models` config.
+     */
+    public static function app_lazy_get_models(Application $app): ModelProvider
+    {
+        static $models;
 
-		return $models ??= new ModelCollection($app->connections, self::get_config($app)->models);
-	}
+        return $models ??= new ModelCollection($app->connections, self::get_config($app)->models);
+    }
 
-	/**
-	 * Getter for the "primary" database connection.
-	 */
-	static public function app_lazy_get_db(Application $app): Connection
-	{
-		return $app->connections[Config::DEFAULT_CONNECTION_ID];
-	}
+    /**
+     * Getter for the "primary" database connection.
+     */
+    public static function app_lazy_get_db(Application $app): Connection
+    {
+        return $app->connections->connection_for_id(Config::DEFAULT_CONNECTION_ID);
+    }
 
-	/**
-	 * @return ValidationErrors|array
-	 */
-	static public function active_record_validate(ActiveRecord $record)
-	{
-		static $validate;
+    /**
+     * @return array<string, mixed>|ValidationErrors
+     */
+    public static function active_record_validate(ActiveRecord $record): array|ValidationErrors
+    {
+        static $validate;
 
-		$validate ??= new ActiveRecord\Validate\ValidateActiveRecord;
+        $validate ??= new ActiveRecord\Validate\ValidateActiveRecord();
 
-		return $validate($record);
-	}
+        return $validate($record);
+    }
 
-	/**
-	 * Returns the records cache associated with the model.
-	 */
-	static public function model_lazy_get_activerecord_cache(Model $model): RuntimeActiveRecordCache
-	{
-		return new RuntimeActiveRecordCache($model);
-	}
+    /**
+     * Returns the records cache associated with the model.
+     */
+    public static function model_lazy_get_activerecord_cache(Model $model): RuntimeActiveRecordCache
+    {
+        return new RuntimeActiveRecordCache($model);
+    }
 }

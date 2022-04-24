@@ -1,10 +1,9 @@
 # bind-activerecord
 
-[![Release](https://img.shields.io/packagist/v/ICanBoogie/bind-activerecord.svg)](https://packagist.org/packages/icanboogie/bind-activerecord)
-[![Build Status](https://img.shields.io/github/workflow/status/ICanBoogie/bind-activerecord/test)](https://github.com/ICanBoogie/bind-activerecord/actions?query=workflow%3Atest)
-[![Code Quality](https://img.shields.io/scrutinizer/g/ICanBoogie/bind-activerecord.svg)](https://scrutinizer-ci.com/g/ICanBoogie/bind-activerecord)
-[![Code Coverage](https://img.shields.io/coveralls/ICanBoogie/bind-activerecord.svg)](https://coveralls.io/r/ICanBoogie/bind-activerecord)
-[![Packagist](https://img.shields.io/packagist/dt/icanboogie/bind-activerecord.svg)](https://packagist.org/packages/icanboogie/bind-activerecord)
+[![Packagist](https://img.shields.io/packagist/v/icanboogie/<name>.svg)](https://packagist.org/packages/icanboogie/<name>)
+[![Code Quality](https://img.shields.io/scrutinizer/g/ICanBoogie/<Name>.svg)](https://scrutinizer-ci.com/g/ICanBoogie/<Name>)
+[![Code Coverage](https://img.shields.io/coveralls/ICanBoogie/<Name>.svg)](https://coveralls.io/r/ICanBoogie/<Name>)
+[![Downloads](https://img.shields.io/packagist/dt/icanboogie/<name>.svg)](https://packagist.org/packages/icanboogie/<name>)
 
 The **icanboogie/bind-activerecord** package binds the [icanboogie/activerecord][] package to
 [ICanBoogie][], using its _Autoconfig_ feature. It provides configuration builders for active record
@@ -107,27 +106,40 @@ return fn(ConfigBuilder $config) => $config
 
 
 
-## Testing
+## Continuous Integration
 
-Run `make test-container` to create and log into the test container, then run `make test` to run the
-test suite. Alternatively, run `make test-coverage` to run the test suite with test coverage. Open
-`build/coverage/index.html` to see the breakdown of the code coverage.
+The project is continuously tested by [GitHub actions](https://github.com/ICanBoogie/Inflector/actions).
+
+[![Tests](https://github.com/ICanBoogie/<Name>/workflows/test/badge.svg?branch=master)](https://github.com/ICanBoogie/<Name>/actions?query=workflow%3Atest)
+[![Static Analysis](https://github.com/ICanBoogie/<Name>/workflows/static-analysis/badge.svg?branch=master)](https://github.com/ICanBoogie/<Name>/actions?query=workflow%3Astatic-analysis)
+[![Code Style](https://github.com/ICanBoogie/<Name>/workflows/code-style/badge.svg?branch=master)](https://github.com/ICanBoogie/<Name>/actions?query=workflow%3Acode-style)
 
 
+
+## Code of Conduct
+
+This project adheres to a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in
+this project and its community, you are expected to uphold this code.
+
+
+
+## Contributing
+
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 
 
 ## License
 
-**icanboogie/bind-activerecord** is released under the [New BSD License](LICENSE).
+**icanboogie/bind-activerecord** is released under the [BSD-3-Clause](LICENSE).
 
 
 
 
 
 
+[ICanBoogie]: https://icanboogie.org/
 [documentation]:           https://icanboogie.org/api/bind-activerecord/master/
 [ConnectionCollection]:    https://icanboogie.org/api/activerecord/master/class-ICanBoogie.ActiveRecord.ConnectionCollection.html
 [ModelCollection]:         https://icanboogie.org/api/activerecord/master/class-ICanBoogie.ActiveRecord.ModelCollection.html
 [icanboogie/activerecord]: https://github.com/ICanBoogie/ActiveRecord
-[ICanBoogie]:              https://github.com/ICanBoogie/ICanBoogie

@@ -16,11 +16,11 @@ use PHPUnit\Framework\TestCase;
 
 final class ServicesTest extends TestCase
 {
-	/**
-	 * Troubleshoot: config/event.php
-	 */
-	public function test_get_models(): void
-	{
-		$this->assertNotNull(StaticModelProvider::defined());
-	}
+    /**
+     * Troubleshoot: config/event.php
+     */
+    public function test_get_models(): void
+    {
+        $this->assertNotNull(StaticModelProvider::defined());
+    }
 }

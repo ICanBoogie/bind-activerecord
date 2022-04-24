@@ -15,5 +15,5 @@ use ICanBoogie\Binding\ActiveRecord\ApplicationBindings;
 
 class Application extends ApplicationAbstract
 {
-	use ApplicationBindings;
+    use ApplicationBindings;
 }

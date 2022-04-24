@@ -24,5 +24,4 @@ use ICanBoogie\ActiveRecord\ModelProvider;
  */
 trait ApplicationBindings
 {
-
 }

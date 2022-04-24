@@ -20,30 +20,30 @@ use function ICanBoogie\app;
 
 final class ContainerTest extends TestCase
 {
-	private ContainerInterface $container;
+    private ContainerInterface $container;
 
-	protected function setUp(): void
-	{
-		parent::setUp();
+    protected function setUp(): void
+    {
+        parent::setUp();
 
-		$this->container = app()->container->get('service_container');
-	}
+        $this->container = app()->container->get('service_container');
+    }
 
-	/**
-	 * @dataProvider provide_service
-	 */
-	public function test_service(string $id, string $expected_class): void
-	{
-		$this->assertInstanceOf($expected_class, $this->container->get($id));
-	}
+    /**
+     * @dataProvider provide_service
+     */
+    public function test_service(string $id, string $expected_class): void
+    {
+        $this->assertInstanceOf($expected_class, $this->container->get($id));
+    }
 
-	public function provide_service(): array
-	{
-		return [
+    public function provide_service(): array
+    {
+        return [
 
-			[ 'test.active_record.connections', ConnectionProvider::class ],
-			[ 'test.active_record.models', ModelProvider::class ],
+            [ 'test.active_record.connections', ConnectionProvider::class ],
+            [ 'test.active_record.models', ModelProvider::class ],
 
-		];
-	}
+        ];
+    }
 }
