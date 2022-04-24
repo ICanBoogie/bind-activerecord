@@ -7,29 +7,36 @@
 [![Packagist](https://img.shields.io/packagist/dt/icanboogie/bind-activerecord.svg)](https://packagist.org/packages/icanboogie/bind-activerecord)
 
 The **icanboogie/bind-activerecord** package binds the [icanboogie/activerecord][] package to
-[ICanBoogie][], using its _Autoconfig_ feature. It provides configuration synthesizers for
-connections and models, as well as getters for connection collection and model collection.
-The `get_model()` helper is also patched to use the model collection bound to the application.
+[ICanBoogie][], using its _Autoconfig_ feature. It provides configuration builders for active record
+connections and models, as well as getters for the connection provider and the model provider.
 
 ```php
 <?php
-namespace ICanBoogie;
+namespace ICanBoogie\Binding\ActiveRecord;
 
 $app = boot();
 
-$connections_config = $app->configs['activerecord_connections'];
-$models_config = $app->configs['activerecord_models'];
+$config = $app->configs[Config::KEY];
 
-echo get_class($app->connections);               // ICanBoogie\ActiveRecord\ConnectionCollection
-echo get_class($app->models);                    // ICanBoogie\ActiveRecord\ModelCollection
+echo count($config->connections);
+echo count($config->models);
 
-$primary_connection = $app->connections['primary'];
+echo get_class($app->connections);               // ICanBoogie\ActiveRecord\ConnectionProvider
+echo get_class($app->models);                    // ICanBoogie\ActiveRecord\ModelProvider
+
+$primary_connection = $app->connections->connection_for_id('primary');
 $primary_connection === $app->db;                // true
 
-get_models('nodes') === $app->models['nodes'];   // true
+get_models('nodes') === $app->models->model_for_id('nodes');   // true
 ```
 
 
+
+#### Installation
+
+```bash
+composer require icanboogie/bind-activerecord
+```
 
 
 
@@ -37,14 +44,13 @@ get_models('nodes') === $app->models['nodes'];   // true
 
 [ICanBoogie][]'s _Autoconfig_ is used to provide the following features:
 
-- A synthesizer for the `activerecord_connections` config, created from
-the `activerecord#connections` fragments.
-- A synthesizer for the `activerecord_models` config, created from
-the `activerecord#models` fragments.
+- A config builder for the `activerecord` config, created from the `activerecord` fragments.
+- A synthesizer for the `activerecord_models` config, created from the `activerecord#models`
+  fragments.
 - A lazy getter for the `ICanBoogie\Application::$connections` property, that returns
-a [ConnectionCollection][] instance created with the `activerecord_connections` config.
+a `ConnectionProvider`.
 - A lazy getter for the `ICanBoogie\Application::$models` property, that returns
-a [ModelCollection][] instance created with the `activerecord_models` config.
+a `ModelProvider`.
 - A lazy getter for the `ICanBoogie\Application::$db` property, that returns the connection named
 `primary` from the `ICanBoogie\Application::$connections` property.
 
@@ -54,13 +60,12 @@ a [ModelCollection][] instance created with the `activerecord_models` config.
 
 ### The `activerecord` config fragment
 
-Currently `activerecord` fragments are used to synthesize `activerecord_connections` and
-`activerecord_models` configurations, which are suitable to create [ConnectionCollection][] and
-[ModelCollection][] instances.
+Currently `activerecord` fragments are used to configure connections and models, which are suitable
+to create [ConnectionCollection][] and [ModelCollection][] instances.
 
-The following example demonstrates how to define connections and models. Two connections
-are defined: `primary` is a connection to the MySQL server;`cache` is a connection to a SQLite
-database. The `nodes` model is also defined.
+The following example demonstrates how to define connections and models. Two connections are
+defined: `primary` is a connection to the MySQL server;`cache` is a connection to a SQLite database.
+The `nodes` model is also defined.
 
 ```php
 <?php
@@ -69,72 +74,36 @@ database. The `nodes` model is also defined.
 
 use ICanBoogie\ActiveRecord\ConnectionOptions;
 use ICanBoogie\ActiveRecord\Model;
+use ICanBoogie\ActiveRecord\Schema;
+use ICanBoogie\ActiveRecord\SchemaColumn;
+use ICanBoogie\Binding\ActiveRecord\Config;
+use ICanBoogie\Binding\ActiveRecord\ConfigBuilder;
 
-return [
-
-    'connections' => [
-
-        'primary' => [
-
-            'dsn' => 'mysql:dbname=mydatabase',
-            'username' => 'root',
-            'password' => 'root',
-            'options' => [
-
-                ConnectionOptions::TIMEZONE => '+02:00',
-                ConnectionOptions::TABLE_NAME_PREFIX => 'myprefix'
-
-            ]
-        ],
-
-        'cache' => 'sqlite:' . ICanBoogie\REPOSITORY . 'cache.sqlite'
-
-    ],
-
-    'models' => [
-
-        'nodes' => [
-
-            Model::SCHEMA => [
-
-                'id' => 'serial',
-                'title' => 'varchar'
-
-            ]
-        ]
-    ]
-];
+return fn(ConfigBuilder $config) => $config
+    ->add_connection(
+        id: Config::DEFAULT_CONNECTION_ID,
+        dsn: 'mysql:dbname=mydatabase',
+        username: 'root',
+        password: 'root',
+        table_name_prefix: 'myprefix',
+        time_zone: '+02:00',
+    )
+    ->add_connection(
+        id: 'cache',
+        dsn: 'sqlite:' . ICanBoogie\REPOSITORY . 'cache.sqlite'
+    )
+    ->add_model(
+        id: 'nodes',
+        schema: new Schema([
+            'id' => SchemaColumn::serial(primary: true),
+            'title' => SchemaColumn::varchar(),
+        ])
+    );
 ```
-
-
 
 
 
 ----------
-
-
-
-
-
-## Installation
-
-```bash
-composer require icanboogie/bind-activerecord
-```
-
-
-
-
-
-## Documentation
-
-The package is documented as part of the [ICanBoogie][] framework
-[documentation][]. You can generate the documentation for the package and its dependencies with
-the `make doc` command. The documentation is generated in the `build/docs` directory.
-[ApiGen](http://apigen.org/) is required. The directory can later be cleaned with
-the `make clean` command.
-
-
 
 
 

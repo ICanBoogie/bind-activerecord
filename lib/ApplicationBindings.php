@@ -12,14 +12,14 @@
 namespace ICanBoogie\Binding\ActiveRecord;
 
 use ICanBoogie\ActiveRecord\Connection;
-use ICanBoogie\ActiveRecord\ConnectionCollection;
-use ICanBoogie\ActiveRecord\ModelCollection;
+use ICanBoogie\ActiveRecord\ConnectionProvider;
+use ICanBoogie\ActiveRecord\ModelProvider;
 
 /**
  * {@link \ICanBoogie\Application} prototype bindings.
  *
- * @property ConnectionCollection $connections
- * @property ModelCollection $models
+ * @property ConnectionProvider $connections
+ * @property ModelProvider $models
  * @property Connection $db
  */
 trait ApplicationBindings

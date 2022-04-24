@@ -11,7 +11,7 @@
 
 namespace Test\ICanBoogie\Binding\ActiveRecord;
 
-use ICanBoogie\ActiveRecord\ModelProvider;
+use ICanBoogie\ActiveRecord\StaticModelProvider;
 use PHPUnit\Framework\TestCase;
 
 final class ServicesTest extends TestCase
@@ -21,6 +21,6 @@ final class ServicesTest extends TestCase
 	 */
 	public function test_get_models(): void
 	{
-		$this->assertNotNull(ModelProvider::defined());
+		$this->assertNotNull(StaticModelProvider::defined());
 	}
 }

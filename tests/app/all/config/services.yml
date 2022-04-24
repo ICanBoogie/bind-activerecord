@@ -1,0 +1,9 @@
+services:
+  _defaults:
+    public: true
+
+  test.active_record.connections:
+    alias: ICanBoogie\ActiveRecord\ConnectionProvider
+
+  test.active_record.models:
+    alias: ICanBoogie\ActiveRecord\ModelProvider

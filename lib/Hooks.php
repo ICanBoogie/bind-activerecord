@@ -15,8 +15,10 @@ use ICanBoogie\ActiveRecord;
 use ICanBoogie\ActiveRecord\ActiveRecordCache\RuntimeActiveRecordCache;
 use ICanBoogie\ActiveRecord\Connection;
 use ICanBoogie\ActiveRecord\ConnectionCollection;
+use ICanBoogie\ActiveRecord\ConnectionProvider;
 use ICanBoogie\ActiveRecord\Model;
 use ICanBoogie\ActiveRecord\ModelCollection;
+use ICanBoogie\ActiveRecord\ModelProvider;
 use ICanBoogie\Application;
 use ICanBoogie\Validate\ValidationErrors;
 
@@ -33,7 +35,7 @@ final class Hooks
 	 */
 	static public function on_app_boot(Application\BootEvent $event, Application $app): void
 	{
-		ActiveRecord\ModelProvider::define(fn($id) => $app->models[$id]);
+		ActiveRecord\StaticModelProvider::define(fn($id) => $app->models[$id]);
 	}
 
 	/*
@@ -44,14 +46,13 @@ final class Hooks
 	{
 		static $config;
 
-		return $config ??= $app->configs['activerecord'];
+		return $config ??= $app->configs[Config::KEY];
 	}
 
 	/**
-	 * Returns a @{link ConnectionCollection} instance configured with
-	 * the `activerecord_connections` config.
+	 * Returns a {@link ConnectionProvider} instance configured with the `activerecord_connections` config.
 	 */
-	static public function app_lazy_get_connections(Application $app): ConnectionCollection
+	static public function app_lazy_get_connections(Application $app): ConnectionProvider
 	{
 		static $connections;
 
@@ -59,10 +60,9 @@ final class Hooks
 	}
 
 	/**
-	 * Returns a @{link ModelCollection} instance configured with
-	 * the `activerecord_models` config.
+	 * Returns a {@link ModelProvider} instance configured with the `activerecord_models` config.
 	 */
-	static public function app_lazy_get_models(Application $app): ModelCollection
+	static public function app_lazy_get_models(Application $app): ModelProvider
 	{
 		static $models;
 
@@ -74,7 +74,7 @@ final class Hooks
 	 */
 	static public function app_lazy_get_db(Application $app): Connection
 	{
-		return $app->connections['primary'];
+		return $app->connections[Config::DEFAULT_CONNECTION_ID];
 	}
 
 	/**

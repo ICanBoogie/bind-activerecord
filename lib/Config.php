@@ -13,6 +13,9 @@ namespace ICanBoogie\Binding\ActiveRecord;
 
 final class Config
 {
+	public const KEY = 'activerecord';
+	public const DEFAULT_CONNECTION_ID = 'primary';
+
 	/**
 	 * @param array{ 'connections': array, 'models': array } $an_array
 	 */
