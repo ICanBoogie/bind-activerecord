@@ -46,8 +46,7 @@
 	"extra": {
 		"icanboogie": {
 			"config-constructor": {
-				"activerecord_connections": "ICanBoogie\\Binding\\ActiveRecord\\Hooks::synthesize_connections_config#activerecord",
-				"activerecord_models": "ICanBoogie\\Binding\\ActiveRecord\\Hooks::synthesize_models_config#activerecord"
+				"activerecord": "ICanBoogie\\Binding\\ActiveRecord\\ConfigBuilder"
 			},
 			"config-path": "config"
 		}

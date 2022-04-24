@@ -2,24 +2,15 @@
 
 namespace ICanBoogie\Binding\ActiveRecord;
 
-use ICanBoogie\ActiveRecord\Model;
 use ICanBoogie\ActiveRecord\Schema;
 use ICanBoogie\ActiveRecord\SchemaColumn;
 
-return [
-
-	'connections' => [
-
-		'cache' =>'sqlite::memory:'
-
-	],
-
-	'models' => [
-		'articles' => [
-			Model::SCHEMA => new Schema([
-				'body' => SchemaColumn::text(),
-				'date' => SchemaColumn::datetime(),
-			])
-		]
-	]
-];
+return fn(ConfigBuilder $config) => $config
+	->add_connection('cache', 'sqlite::memory:')
+	->add_model(
+		'articles',
+		new Schema([
+			'body' => SchemaColumn::text(),
+			'date' => SchemaColumn::datetime(),
+		])
+	);

@@ -28,30 +28,6 @@ use function ICanBoogie\app;
 
 class HooksTest extends TestCase
 {
-	public function test_should_return_activerecord_connections_config()
-	{
-		$config = Hooks::synthesize_connections_config(app()->configs->get_fragments('activerecord'));
-
-		$this->assertNotEmpty($config);
-		$this->assertEquals([
-
-			'primary' => 'sqlite::memory:',
-			'cache' => 'sqlite::memory:'
-
-		], $config);
-
-		$this->assertEquals($config, app()->configs['activerecord_connections']);
-	}
-
-	public function test_should_return_activerecord_models_config()
-	{
-		$config = Hooks::synthesize_models_config(app()->configs->get_fragments('activerecord'));
-
-		$this->assertNotEmpty($config);
-		$this->assertEquals([ 'nodes', 'articles' ], array_keys($config));
-		$this->assertEquals($config, app()->configs['activerecord_models']);
-	}
-
 	public function test_should_return_connection_collection()
 	{
 		$app = app();

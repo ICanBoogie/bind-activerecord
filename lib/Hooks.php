@@ -22,56 +22,6 @@ use ICanBoogie\Validate\ValidationErrors;
 
 final class Hooks
 {
-	/**
-	 * Synthesizes a config from a namespace.
-	 *
-	 * The config fragments found in the namespace are merged with `array_merge()`.
-	 *
-	 * @param array<string, array> $fragments
-	 *
-	 * @return array<string, mixed>
-	 */
-	static private function synthesize_config_from_namespace(array $fragments, string $namespace): array
-	{
-		$config = [];
-
-		foreach ($fragments as $fragment)
-		{
-			if (empty($fragment[$namespace]))
-			{
-				continue;
-			}
-
-			$config[] = $fragment[$namespace];
-		}
-
-		return $config ? array_merge(...$config) : [];
-	}
-
-	/**
-	 * Synthesizes the `activerecord_connections` config from `activerecord#connections` fragments.
-	 *
-	 * @param array<string, array> $fragments
-	 *
-	 * @return array<string, mixed>
-	 */
-	static public function synthesize_connections_config(array $fragments): array
-	{
-		return self::synthesize_config_from_namespace($fragments, 'connections');
-	}
-
-	/**
-	 * Synthesizes the `activerecord_models` config from `activerecord#models` fragments.
-	 *
-	 * @param array<string, array> $fragments
-	 *
-	 * @return array<string, mixed>
-	 */
-	static public function synthesize_models_config(array $fragments): array
-	{
-		return self::synthesize_config_from_namespace($fragments, 'models');
-	}
-
 	/*
 	 * Events
 	 */
@@ -90,6 +40,13 @@ final class Hooks
 	 * Prototypes
 	 */
 
+	static private function get_config(Application $app): Config
+	{
+		static $config;
+
+		return $config ??= $app->configs['activerecord'];
+	}
+
 	/**
 	 * Returns a @{link ConnectionCollection} instance configured with
 	 * the `activerecord_connections` config.
@@ -98,7 +55,7 @@ final class Hooks
 	{
 		static $connections;
 
-		return $connections ??= new ConnectionCollection($app->configs['activerecord_connections']);
+		return $connections ??= new ConnectionCollection(self::get_config($app)->connections);
 	}
 
 	/**
@@ -109,8 +66,7 @@ final class Hooks
 	{
 		static $models;
 
-		// We need to use ?: for the config to be created.
-		return $models ??= new ModelCollection($app->connections, $app->configs['activerecord_models']);
+		return $models ??= new ModelCollection($app->connections, self::get_config($app)->models);
 	}
 
 	/**
