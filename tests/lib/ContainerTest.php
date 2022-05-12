@@ -11,6 +11,7 @@
 
 namespace Test\ICanBoogie\Binding\ActiveRecord;
 
+use ICanBoogie\ActiveRecord\Connection;
 use ICanBoogie\ActiveRecord\ConnectionProvider;
 use ICanBoogie\ActiveRecord\ModelProvider;
 use PHPUnit\Framework\TestCase;
@@ -31,18 +32,25 @@ final class ContainerTest extends TestCase
 
     /**
      * @dataProvider provide_service
+     *
+     * @param class-string $expected_class
      */
     public function test_service(string $id, string $expected_class): void
     {
         $this->assertInstanceOf($expected_class, $this->container->get($id));
     }
 
+    // @phpstan-ignore-next-line
     public function provide_service(): array
     {
         return [
 
             [ 'test.active_record.connections', ConnectionProvider::class ],
             [ 'test.active_record.models', ModelProvider::class ],
+            [ 'active_record.connection.primary', Connection::class ],
+            [ 'active_record.connection.cache', Connection::class ],
+            [ 'test.active_record.model.node_by_class', NodeModel::class ],
+            [ 'test.active_record.model.node_by_id', NodeModel::class ],
 
         ];
     }

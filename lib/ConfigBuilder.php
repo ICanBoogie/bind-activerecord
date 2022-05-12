@@ -41,7 +41,7 @@ class ConfigBuilder implements Builder
     private array $connections = [];
 
     /**
-     * @var array<string, array<string, mixed>>
+     * @phpstan-var array<string, array<Model::*, mixed>>
      */
     private array $models = [];
 

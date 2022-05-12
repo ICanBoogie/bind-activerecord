@@ -83,6 +83,7 @@ final class ConfigBuilderTest extends TestCase
                         ]),
                         'connection' => 'primary',
                         'id' => 'nodes',
+                        'class' => NodeModel::class,
                     ],
                     'articles' => [
                         'schema' => new Schema([

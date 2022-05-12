@@ -9,8 +9,10 @@
  * file that was distributed with this source code.
  */
 
-use ICanBoogie\Binding\ActiveRecord\ContainerExtension;
-use ICanBoogie\Binding\SymfonyDependencyInjection\ConfigBuilder;
+namespace Test\ICanBoogie\Binding\ActiveRecord;
 
-return fn(ConfigBuilder $config) => $config
-    ->add_extension(ContainerExtension::class);
+use ICanBoogie\ActiveRecord\Model;
+
+class NodeModel extends Model
+{
+}

@@ -7,3 +7,9 @@ services:
 
   test.active_record.models:
     alias: ICanBoogie\ActiveRecord\ModelProvider
+
+  test.active_record.model.node_by_class:
+    alias: Test\ICanBoogie\Binding\ActiveRecord\NodeModel
+
+  test.active_record.model.node_by_id:
+    alias: active_record.model.nodes
