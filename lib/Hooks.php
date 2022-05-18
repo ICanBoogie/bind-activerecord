@@ -33,9 +33,9 @@ final class Hooks
      *
      * Models are provided using the model collection bound to the application.
      */
-    public static function on_app_boot(Application\BootEvent $event, Application $app): void
+    public static function on_app_boot(Application\BootEvent $event): void
     {
-        ActiveRecord\StaticModelProvider::define(fn($id) => $app->models->model_for_id($id));
+        ActiveRecord\StaticModelProvider::define(fn($id) => $event->app->models->model_for_id($id));
     }
 
     /*
