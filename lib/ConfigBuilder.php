@@ -25,6 +25,11 @@ class ConfigBuilder implements Builder
 {
     private const REGEXP_TIMEZONE = '/^[-+]\d{2}:\d{2}$/';
 
+    public static function get_fragment_filename(): string
+    {
+        return 'activerecord';
+    }
+
     /**
      * @param array<int|string, mixed> $array
      *
