@@ -29,8 +29,9 @@ final class ContainerExtension extends Extension implements ExtensionWithFactory
 {
     public static function from(Application $app): ExtensionInterface
     {
-        // @phpstan-ignore-next-line
-        return new self($app->configs[Config::class]);
+        return new self(
+            $app->configs->config_for_class(Config::class)
+        );
     }
 
     private function __construct(

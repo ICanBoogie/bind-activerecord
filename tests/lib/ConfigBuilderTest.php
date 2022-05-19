@@ -95,7 +95,7 @@ final class ConfigBuilderTest extends TestCase
                     ],
                 ]
             ),
-            app()->configs[Config::class]
+            app()->configs->config_for_class(Config::class)
         );
     }
 }
