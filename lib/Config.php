@@ -15,7 +15,6 @@ use ICanBoogie\ActiveRecord\Model;
 
 final class Config
 {
-    public const KEY = 'activerecord';
     public const DEFAULT_CONNECTION_ID = 'primary';
 
     /**

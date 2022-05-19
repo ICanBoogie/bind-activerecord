@@ -46,7 +46,7 @@ final class Hooks
     {
         static $config;
 
-        return $config ??= $app->configs[Config::KEY];
+        return $config ??= $app->configs[Config::class];
     }
 
     /**

@@ -15,7 +15,7 @@ namespace ICanBoogie\Binding\ActiveRecord;
 
 $app = boot();
 
-$config = $app->configs[Config::KEY];
+$config = $app->configs[Config::class];
 
 echo count($config->connections);
 echo count($config->models);

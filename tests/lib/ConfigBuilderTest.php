@@ -95,7 +95,7 @@ final class ConfigBuilderTest extends TestCase
                     ],
                 ]
             ),
-            app()->configs['activerecord']
+            app()->configs[Config::class]
         );
     }
 }
