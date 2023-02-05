@@ -30,10 +30,10 @@ final class Config
 
     /**
      * @param array<string, array> $connections
-     * @phpstan-param array<string, array<Model::*, mixed>> $models
+     * @param array<string, array<Model::*, mixed>> $models
      */
-    public function __construct(            // @phpstan-ignore-line
-        public readonly array $connections, // @phpstan-ignore-line
+    public function __construct( // @phpstan-ignore-line
+        public readonly array $connections,
         public readonly array $models,
     ) {
     }

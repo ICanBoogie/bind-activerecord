@@ -52,7 +52,7 @@ final class Hooks
     /**
      * Returns a {@link ConnectionProvider} instance configured with the `activerecord_connections` config.
      */
-    public static function app_lazy_get_connections(Application $app): ConnectionProvider
+    public static function app_get_connections(Application $app): ConnectionProvider
     {
         static $connections;
 
@@ -62,7 +62,7 @@ final class Hooks
     /**
      * Returns a {@link ModelProvider} instance configured with the `activerecord_models` config.
      */
-    public static function app_lazy_get_models(Application $app): ModelProvider
+    public static function app_get_models(Application $app): ModelProvider
     {
         static $models;
 
@@ -72,9 +72,11 @@ final class Hooks
     /**
      * Getter for the "primary" database connection.
      */
-    public static function app_lazy_get_db(Application $app): Connection
+    public static function app_get_db(Application $app): Connection
     {
-        return $app->connections->connection_for_id(Config::DEFAULT_CONNECTION_ID);
+        static $db;
+
+        return $db ??= $app->connections->connection_for_id(Config::DEFAULT_CONNECTION_ID);
     }
 
     /**

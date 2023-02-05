@@ -4,8 +4,8 @@ services:
 
   ICanBoogie\ActiveRecord\ConnectionProvider:
     class: ICanBoogie\ActiveRecord\ConnectionCollection
-    factory: [ ICanBoogie\Binding\ActiveRecord\Hooks, app_lazy_get_connections ]
+    factory: [ ICanBoogie\Binding\ActiveRecord\Hooks, app_get_connections ]
 
   ICanBoogie\ActiveRecord\ModelProvider:
     class: ICanBoogie\ActiveRecord\ModelCollection
-    factory: [ ICanBoogie\Binding\ActiveRecord\Hooks, app_lazy_get_models ]
+    factory: [ ICanBoogie\Binding\ActiveRecord\Hooks, app_get_models ]

@@ -21,7 +21,10 @@ use InvalidArgumentException;
 use function array_filter;
 use function preg_match;
 
-class ConfigBuilder implements Builder
+/**
+ * @implements Builder<Config>
+ */
+final class ConfigBuilder implements Builder
 {
     private const REGEXP_TIMEZONE = '/^[-+]\d{2}:\d{2}$/';
 

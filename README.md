@@ -108,11 +108,11 @@ return fn(ConfigBuilder $config) => $config
 
 ## Continuous Integration
 
-The project is continuously tested by [GitHub actions](https://github.com/ICanBoogie/Inflector/actions).
+The project is continuously tested by [GitHub actions](https://github.com/ICanBoogie/ActiveRecord/actions).
 
-[![Tests](https://github.com/ICanBoogie/<Name>/workflows/test/badge.svg?branch=master)](https://github.com/ICanBoogie/<Name>/actions?query=workflow%3Atest)
-[![Static Analysis](https://github.com/ICanBoogie/<Name>/workflows/static-analysis/badge.svg?branch=master)](https://github.com/ICanBoogie/<Name>/actions?query=workflow%3Astatic-analysis)
-[![Code Style](https://github.com/ICanBoogie/<Name>/workflows/code-style/badge.svg?branch=master)](https://github.com/ICanBoogie/<Name>/actions?query=workflow%3Acode-style)
+[![Tests](https://github.com/ICanBoogie/ActiveRecord/workflows/test/badge.svg?branch=master)](https://github.com/ICanBoogie/ActiveRecord/actions?query=workflow%3Atest)
+[![Static Analysis](https://github.com/ICanBoogie/ActiveRecord/workflows/static-analysis/badge.svg?branch=master)](https://github.com/ICanBoogie/ActiveRecord/actions?query=workflow%3Astatic-analysis)
+[![Code Style](https://github.com/ICanBoogie/ActiveRecord/workflows/code-style/badge.svg?branch=master)](https://github.com/ICanBoogie/ActiveRecord/actions?query=workflow%3Acode-style)
 
 
 
