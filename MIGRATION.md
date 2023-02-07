@@ -1,6 +1,10 @@
 # Migration
 
-## v5.0x to v6.0x
+## v5.x to v6.x
+
+### New Requirements
+
+None
 
 ### New features
 
@@ -8,8 +12,12 @@
 
 ### Backward Incompatible Changes
 
+None
+
 ### Deprecated Features
 
 - Config synthesizers have been removed in favor of config builders.
 
 ### Other Changes
+
+- `Config`, `ConnectionProvider`, and `ModelProvider` are now created by the DIC.

@@ -14,7 +14,10 @@ namespace Test\ICanBoogie\Binding\ActiveRecord;
 use ICanBoogie\ActiveRecord\Connection;
 use ICanBoogie\ActiveRecord\ConnectionProvider;
 use ICanBoogie\ActiveRecord\ModelProvider;
+use ICanBoogie\Binding\ActiveRecord\Config;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 use function ICanBoogie\app;
@@ -23,10 +26,15 @@ final class ContainerTest extends TestCase
 {
     private ContainerInterface $container;
 
+    /**
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
     protected function setUp(): void
     {
         parent::setUp();
 
+        // @phpstan-ignore-next-line
         $this->container = app()->container->get('service_container');
     }
 
@@ -34,6 +42,9 @@ final class ContainerTest extends TestCase
      * @dataProvider provide_service
      *
      * @param class-string $expected_class
+     *
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      */
     public function test_service(string $id, string $expected_class): void
     {
@@ -45,6 +56,7 @@ final class ContainerTest extends TestCase
     {
         return [
 
+            [ 'test.active_record.config', Config::class ],
             [ 'test.active_record.connections', ConnectionProvider::class ],
             [ 'test.active_record.models', ModelProvider::class ],
             [ 'active_record.connection.primary', Connection::class ],

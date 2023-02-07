@@ -2,10 +2,15 @@ services:
   _defaults:
     autowire: true
 
+  ICanBoogie\Binding\ActiveRecord\Config:
+    factory: [ ICanBoogie\Binding\ActiveRecord\Factory, build_config ]
+
   ICanBoogie\ActiveRecord\ConnectionProvider:
     class: ICanBoogie\ActiveRecord\ConnectionCollection
-    factory: [ ICanBoogie\Binding\ActiveRecord\Hooks, app_get_connections ]
+    factory: [ ICanBoogie\Binding\ActiveRecord\Factory, build_connections ]
+    public: true # required by $app->connections
 
   ICanBoogie\ActiveRecord\ModelProvider:
     class: ICanBoogie\ActiveRecord\ModelCollection
-    factory: [ ICanBoogie\Binding\ActiveRecord\Hooks, app_get_models ]
+    factory: [ ICanBoogie\Binding\ActiveRecord\Factory, build_models ]
+    public: true # required by $app->models

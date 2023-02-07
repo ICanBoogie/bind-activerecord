@@ -14,10 +14,8 @@ namespace ICanBoogie\Binding\ActiveRecord;
 use ICanBoogie\ActiveRecord;
 use ICanBoogie\ActiveRecord\ActiveRecordCache\RuntimeActiveRecordCache;
 use ICanBoogie\ActiveRecord\Connection;
-use ICanBoogie\ActiveRecord\ConnectionCollection;
 use ICanBoogie\ActiveRecord\ConnectionProvider;
 use ICanBoogie\ActiveRecord\Model;
-use ICanBoogie\ActiveRecord\ModelCollection;
 use ICanBoogie\ActiveRecord\ModelProvider;
 use ICanBoogie\Application;
 use ICanBoogie\Validate\ValidationErrors;
@@ -35,38 +33,33 @@ final class Hooks
      */
     public static function on_app_boot(Application\BootEvent $event): void
     {
-        ActiveRecord\StaticModelProvider::define(fn($id) => $event->app->models->model_for_id($id));
+        $app = $event->app;
+
+        ActiveRecord\StaticModelProvider::define(function (string $id) use ($app): Model {
+            static $models;
+
+            $models ??= $app->service_for_class(ModelProvider::class);
+
+            return $models->model_for_id($id);
+        });
     }
 
     /*
      * Prototypes
      */
 
-    private static function get_config(Application $app): Config
-    {
-        static $config;
-
-        return $config ??= $app->configs->config_for_class(Config::class);
-    }
-
-    /**
-     * Returns a {@link ConnectionProvider} instance configured with the `activerecord_connections` config.
-     */
     public static function app_get_connections(Application $app): ConnectionProvider
     {
         static $connections;
 
-        return $connections ??= new ConnectionCollection(self::get_config($app)->connections);
+        return $connections ??= $app->service_for_class(ConnectionProvider::class);
     }
 
-    /**
-     * Returns a {@link ModelProvider} instance configured with the `activerecord_models` config.
-     */
     public static function app_get_models(Application $app): ModelProvider
     {
         static $models;
 
-        return $models ??= new ModelCollection($app->connections, self::get_config($app)->models);
+        return $models ??= $app->service_for_class(ModelProvider::class);
     }
 
     /**

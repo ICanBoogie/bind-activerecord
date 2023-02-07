@@ -2,6 +2,9 @@ services:
   _defaults:
     public: true
 
+  test.active_record.config:
+    alias: ICanBoogie\Binding\ActiveRecord\Config
+
   test.active_record.connections:
     alias: ICanBoogie\ActiveRecord\ConnectionProvider
 
