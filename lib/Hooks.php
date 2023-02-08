@@ -13,8 +13,6 @@ namespace ICanBoogie\Binding\ActiveRecord;
 
 use ICanBoogie\ActiveRecord;
 use ICanBoogie\ActiveRecord\ActiveRecordCache\RuntimeActiveRecordCache;
-use ICanBoogie\ActiveRecord\Connection;
-use ICanBoogie\ActiveRecord\ConnectionProvider;
 use ICanBoogie\ActiveRecord\Model;
 use ICanBoogie\ActiveRecord\ModelProvider;
 use ICanBoogie\Application;
@@ -47,30 +45,6 @@ final class Hooks
     /*
      * Prototypes
      */
-
-    public static function app_get_connections(Application $app): ConnectionProvider
-    {
-        static $connections;
-
-        return $connections ??= $app->service_for_class(ConnectionProvider::class);
-    }
-
-    public static function app_get_models(Application $app): ModelProvider
-    {
-        static $models;
-
-        return $models ??= $app->service_for_class(ModelProvider::class);
-    }
-
-    /**
-     * Getter for the "primary" database connection.
-     */
-    public static function app_get_db(Application $app): Connection
-    {
-        static $db;
-
-        return $db ??= $app->connections->connection_for_id(Config::DEFAULT_CONNECTION_ID);
-    }
 
     /**
      * @return array<string, mixed>|ValidationErrors

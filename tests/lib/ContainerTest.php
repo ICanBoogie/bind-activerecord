@@ -13,45 +13,28 @@ namespace Test\ICanBoogie\Binding\ActiveRecord;
 
 use ICanBoogie\ActiveRecord\Connection;
 use ICanBoogie\ActiveRecord\ConnectionProvider;
+use ICanBoogie\ActiveRecord\Model;
 use ICanBoogie\ActiveRecord\ModelProvider;
 use ICanBoogie\Binding\ActiveRecord\Config;
 use PHPUnit\Framework\TestCase;
-use Psr\Container\ContainerExceptionInterface;
-use Psr\Container\NotFoundExceptionInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 use function ICanBoogie\app;
 
 final class ContainerTest extends TestCase
 {
-    private ContainerInterface $container;
-
-    /**
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
-     */
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        // @phpstan-ignore-next-line
-        $this->container = app()->container->get('service_container');
-    }
-
     /**
      * @dataProvider provide_service
      *
      * @param class-string $expected_class
-     *
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
      */
     public function test_service(string $id, string $expected_class): void
     {
-        $this->assertInstanceOf($expected_class, $this->container->get($id));
+        $this->assertInstanceOf($expected_class, app()->service_for_id($id, $expected_class));
     }
 
-    // @phpstan-ignore-next-line
+    /**
+     * @return array<array{ 0: string, 1: class-string }>
+     */
     public function provide_service(): array
     {
         return [
@@ -59,10 +42,11 @@ final class ContainerTest extends TestCase
             [ 'test.active_record.config', Config::class ],
             [ 'test.active_record.connections', ConnectionProvider::class ],
             [ 'test.active_record.models', ModelProvider::class ],
-            [ 'active_record.connection.primary', Connection::class ],
-            [ 'active_record.connection.cache', Connection::class ],
             [ 'test.active_record.model.node_by_class', NodeModel::class ],
             [ 'test.active_record.model.node_by_id', NodeModel::class ],
+            [ 'active_record.connection.primary', Connection::class ],
+            [ 'active_record.connection.cache', Connection::class ],
+            [ 'active_record.model.articles', Model::class ],
 
         ];
     }

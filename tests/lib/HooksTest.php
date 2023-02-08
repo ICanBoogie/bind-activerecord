@@ -12,12 +12,12 @@
 namespace Test\ICanBoogie\Binding\ActiveRecord;
 
 use ICanBoogie\ActiveRecord\ActiveRecordCache;
-use ICanBoogie\ActiveRecord\Connection;
-use ICanBoogie\ActiveRecord\ConnectionCollection;
+use ICanBoogie\ActiveRecord\ConnectionProvider;
 use ICanBoogie\ActiveRecord\Model;
 use ICanBoogie\ActiveRecord\ModelCollection;
 use ICanBoogie\ActiveRecord\Schema;
 use ICanBoogie\ActiveRecord\SchemaColumn;
+use ICanBoogie\Binding\ActiveRecord\Config;
 use ICanBoogie\Binding\ActiveRecord\Hooks;
 use ICanBoogie\Validate\ValidationErrors;
 use PHPUnit\Framework\TestCase;
@@ -26,39 +26,6 @@ use function ICanBoogie\app;
 
 final class HooksTest extends TestCase
 {
-    public function test_should_return_connection_collection(): void
-    {
-        $app = app();
-        $connections = Hooks::app_get_connections($app);
-
-        $this->assertInstanceOf(ConnectionCollection::class, $connections);
-        $this->assertInstanceOf(ConnectionCollection::class, $app->connections);
-        $this->assertSame($connections, app()->connections);
-    }
-
-    public function test_should_return_primary_connection(): void
-    {
-        $app = app();
-        $db = Hooks::app_get_db($app);
-
-        $this->assertInstanceOf(Connection::class, $db);
-        $this->assertInstanceOf(Connection::class, $app->db);
-        $this->assertSame($db, app()->db);
-    }
-
-    public function test_should_return_model_collection(): void
-    {
-        $app = app();
-        $models = Hooks::app_get_models($app);
-
-        $this->assertInstanceOf(ModelCollection::class, $models);
-        $this->assertInstanceOf(ModelCollection::class, $app->models);
-        $this->assertSame($models, app()->models);
-    }
-
-    /**
-     * @depends test_should_return_primary_connection
-     */
     public function test_should_return_activerecord_cache(): void
     {
         $models = $this
@@ -66,11 +33,13 @@ final class HooksTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        /* @var $models ModelCollection */
+        $connection = app()
+            ->service_for_class(ConnectionProvider::class)
+            ->connection_for_id(Config::DEFAULT_CONNECTION_ID);
 
         $model = new Model($models, [
 
-            Model::CONNECTION => app()->db,
+            Model::CONNECTION => $connection,
             Model::NAME => 'model' . uniqid(),
             Model::SCHEMA => new Schema([
                 'id' => SchemaColumn::serial()
@@ -80,16 +49,6 @@ final class HooksTest extends TestCase
         $cache = Hooks::model_lazy_get_activerecord_cache($model);
         $this->assertInstanceOf(ActiveRecordCache::class, $cache);
         $this->assertInstanceOf(ActiveRecordCache::class, $model->activerecord_cache);
-    }
-
-    public function test_get_models(): void
-    {
-        $models = Hooks::app_get_models(app());
-
-        $this->assertTrue(isset($models['nodes']));
-        $this->assertTrue(isset($models['articles']));
-
-        $this->assertSame($models, app()->models);
     }
 
     public function test_active_record_validate(): void

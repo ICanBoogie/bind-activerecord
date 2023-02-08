@@ -12,11 +12,12 @@ None
 
 ### Backward Incompatible Changes
 
-None
+- Removed `Application` prototypes: `get_connections`, `get_models`, and `get_db`.
+- Config synthesizers have been removed in favor of config builders.
 
 ### Deprecated Features
 
-- Config synthesizers have been removed in favor of config builders.
+None
 
 ### Other Changes
 

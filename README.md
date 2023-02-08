@@ -1,9 +1,9 @@
 # bind-activerecord
 
-[![Packagist](https://img.shields.io/packagist/v/icanboogie/<name>.svg)](https://packagist.org/packages/icanboogie/<name>)
-[![Code Quality](https://img.shields.io/scrutinizer/g/ICanBoogie/<Name>.svg)](https://scrutinizer-ci.com/g/ICanBoogie/<Name>)
-[![Code Coverage](https://img.shields.io/coveralls/ICanBoogie/<Name>.svg)](https://coveralls.io/r/ICanBoogie/<Name>)
-[![Downloads](https://img.shields.io/packagist/dt/icanboogie/<name>.svg)](https://packagist.org/packages/icanboogie/<name>)
+[![Packagist](https://img.shields.io/packagist/v/icanboogie/bind-activerecord.svg)](https://packagist.org/packages/icanboogie/bind-activerecord)
+[![Code Quality](https://img.shields.io/scrutinizer/g/ICanBoogie/bind-activerecord.svg)](https://scrutinizer-ci.com/g/ICanBoogie/bind-activerecord)
+[![Code Coverage](https://img.shields.io/coveralls/ICanBoogie/bind-activerecord.svg)](https://coveralls.io/r/ICanBoogie/bind-activerecord)
+[![Downloads](https://img.shields.io/packagist/dt/icanboogie/bind-activerecord.svg)](https://packagist.org/packages/icanboogie/bind-activerecord)
 
 The **icanboogie/bind-activerecord** package binds the [icanboogie/activerecord][] package to
 [ICanBoogie][], using its _Autoconfig_ feature. It provides configuration builders for active record
@@ -13,6 +13,12 @@ connections and models, as well as getters for the connection provider and the m
 <?php
 namespace ICanBoogie\Binding\ActiveRecord;
 
+use ICanBoogie\ActiveRecord\Model;use ICanBoogie\Application;
+use ICanBoogie\ActiveRecord\ConnectionProvider;
+use ICanBoogie\ActiveRecord\ModelProvider;
+
+/* @var Application $app */
+
 $app = boot();
 
 $config = $app->configs[Config::class];
@@ -20,13 +26,13 @@ $config = $app->configs[Config::class];
 echo count($config->connections);
 echo count($config->models);
 
-echo get_class($app->connections);               // ICanBoogie\ActiveRecord\ConnectionProvider
-echo get_class($app->models);                    // ICanBoogie\ActiveRecord\ModelProvider
+$primary_connection = $app->service_for_id('active_record.connection.primary', Connection::class);
+# or
+$primary_connection = $app->service_for_class(ConnectionProvider::class)->connection_for_id('primary');
 
-$primary_connection = $app->connections->connection_for_id('primary');
-$primary_connection === $app->db;                // true
-
-get_models('nodes') === $app->models->model_for_id('nodes');   // true
+$nodes = $app->service_for_id('active_record.model.nodes', Model::class);
+# or
+$nodes = $app->service_for_class(ModelProvider::class)->model_for_id('nodes');
 ```
 
 
@@ -108,11 +114,11 @@ return fn(ConfigBuilder $config) => $config
 
 ## Continuous Integration
 
-The project is continuously tested by [GitHub actions](https://github.com/ICanBoogie/ActiveRecord/actions).
+The project is continuously tested by [GitHub actions](https://github.com/ICanBoogie/bind-activerecord/actions).
 
-[![Tests](https://github.com/ICanBoogie/ActiveRecord/workflows/test/badge.svg?branch=master)](https://github.com/ICanBoogie/ActiveRecord/actions?query=workflow%3Atest)
-[![Static Analysis](https://github.com/ICanBoogie/ActiveRecord/workflows/static-analysis/badge.svg?branch=master)](https://github.com/ICanBoogie/ActiveRecord/actions?query=workflow%3Astatic-analysis)
-[![Code Style](https://github.com/ICanBoogie/ActiveRecord/workflows/code-style/badge.svg?branch=master)](https://github.com/ICanBoogie/ActiveRecord/actions?query=workflow%3Acode-style)
+[![Tests](https://github.com/ICanBoogie/activerecord/workflows/test/badge.svg?branch=master)](https://github.com/ICanBoogie/activerecord/actions?query=workflow%3Atest)
+[![Static Analysis](https://github.com/ICanBoogie/activerecord/workflows/static-analysis/badge.svg?branch=master)](https://github.com/ICanBoogie/ActiveRecord/actions?query=workflow%3Astatic-analysis)
+[![Code Style](https://github.com/ICanBoogie/activerecord/workflows/code-style/badge.svg?branch=master)](https://github.com/ICanBoogie/activerecord/actions?query=workflow%3Acode-style)
 
 
 

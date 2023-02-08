@@ -48,6 +48,9 @@ final class ContainerExtension extends Extension implements ExtensionWithFactory
         $this->register_models($container);
     }
 
+    /**
+     * Creates a `active_record.connection.$id` definition for each of the connection configured.
+     */
     private function register_connections(ContainerBuilder $container): void
     {
         foreach ($this->config->connections as $id => $connection) {
@@ -60,6 +63,9 @@ final class ContainerExtension extends Extension implements ExtensionWithFactory
         }
     }
 
+    /**
+     * Creates a `active_record.model.$id` definition for each of the models configured.
+     */
     private function register_models(ContainerBuilder $container): void
     {
         foreach ($this->config->models as $id => $model) {

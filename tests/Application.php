@@ -11,9 +11,6 @@
 
 namespace ICanBoogie;
 
-use ICanBoogie\Binding\ActiveRecord\ApplicationBindings;
-
-class Application extends ApplicationAbstract
+final class Application extends ApplicationAbstract
 {
-    use ApplicationBindings;
 }
