@@ -39,10 +39,7 @@
 	"autoload-dev": {
 		"psr-4": {
 			"Test\\ICanBoogie\\Binding\\ActiveRecord\\": "tests/lib"
-		},
-		"classmap": [
-			"tests/Application.php"
-		]
+		}
 	},
 	"extra": {
 		"icanboogie": {
