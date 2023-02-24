@@ -92,6 +92,7 @@ final class ConfigBuilderTest extends TestCase
                         ]),
                         'connection' => 'primary',
                         'id' => 'articles',
+                        'extends' => 'nodes',
                     ],
                 ]
             ),

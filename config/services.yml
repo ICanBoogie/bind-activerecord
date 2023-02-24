@@ -3,7 +3,9 @@ services:
     autowire: true
 
   ICanBoogie\Binding\ActiveRecord\Config:
-    factory: [ ICanBoogie\Binding\ActiveRecord\Factory, build_config ]
+    factory: [ '@ICanBoogie\ConfigProvider', config_for_class ]
+    arguments:
+    - ICanBoogie\Binding\ActiveRecord\Config
 
   ICanBoogie\ActiveRecord\ConnectionProvider:
     class: ICanBoogie\ActiveRecord\ConnectionCollection
@@ -14,3 +16,26 @@ services:
     class: ICanBoogie\ActiveRecord\ModelCollection
     factory: [ ICanBoogie\Binding\ActiveRecord\Factory, build_models ]
     public: true # required by $app->models
+
+  # Console
+
+  console.command.activerecord.models.list:
+    class: ICanBoogie\Binding\ActiveRecord\Console\ListModelsCommand
+    arguments:
+      $style: '%console.style.table%'
+    tags:
+    - { name: console.command, command: 'activerecord:models' }
+    - { name: console.command, command: 'activerecord:models:list' }
+
+  console.command.activerecord.connections.list:
+    class: ICanBoogie\Binding\ActiveRecord\Console\ListConnectionsCommand
+    arguments:
+      $style: '%console.style.table%'
+    tags:
+    - { name: console.command, command: 'activerecord:connections' }
+    - { name: console.command, command: 'activerecord:connections:list' }
+
+  console.command.activerecord.install:
+    class: ICanBoogie\Binding\ActiveRecord\Console\InstallCommand
+    tags:
+    - { name: console.command, command: 'activerecord:install' }

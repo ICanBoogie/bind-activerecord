@@ -12,5 +12,6 @@ return fn(ConfigBuilder $config) => $config
         schema: new Schema([
             'body' => SchemaColumn::text(),
             'date' => SchemaColumn::datetime(),
-        ])
+        ]),
+        extends: 'nodes'
     );

@@ -11,7 +11,7 @@ return fn(ConfigBuilder $config) => $config
     ->add_model(
         id: 'nodes',
         schema: new Schema([
-            'id' => SchemaColumn::serial(),
+            'id' => SchemaColumn::serial(primary: true),
             'title' => SchemaColumn::varchar(),
         ]),
         model_class: NodeModel::class
