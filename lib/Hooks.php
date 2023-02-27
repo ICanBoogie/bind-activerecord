@@ -15,6 +15,8 @@ use ICanBoogie\ActiveRecord;
 use ICanBoogie\ActiveRecord\ActiveRecordCache\RuntimeActiveRecordCache;
 use ICanBoogie\ActiveRecord\Model;
 use ICanBoogie\ActiveRecord\ModelProvider;
+use ICanBoogie\ActiveRecord\ModelResolver;
+use ICanBoogie\ActiveRecord\StaticModelResolver;
 use ICanBoogie\Application;
 use ICanBoogie\Validate\ValidationErrors;
 
@@ -40,6 +42,14 @@ final class Hooks
 
             return $models->model_for_id($id);
         });
+
+        StaticModelResolver::define(
+            static function () use ($app): ModelResolver {
+                static $resolver;
+
+                return $resolver ??= $app->service_for_class(ModelResolver::class);
+            }
+        );
     }
 
     /*

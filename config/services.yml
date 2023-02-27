@@ -12,10 +12,16 @@ services:
     factory: [ ICanBoogie\Binding\ActiveRecord\Factory, build_connections ]
     public: true # required by $app->connections
 
-  ICanBoogie\ActiveRecord\ModelProvider:
-    class: ICanBoogie\ActiveRecord\ModelCollection
+  ICanBoogie\ActiveRecord\ModelCollection:
     factory: [ ICanBoogie\Binding\ActiveRecord\Factory, build_models ]
-    public: true # required by $app->models
+
+  ICanBoogie\ActiveRecord\ModelProvider:
+    alias: ICanBoogie\ActiveRecord\ModelCollection
+    public: true # required by StaticModelProvider
+
+  ICanBoogie\ActiveRecord\ModelResolver:
+    alias: ICanBoogie\ActiveRecord\ModelCollection
+    public: true # required by StaticModelResolver
 
   # Console
 

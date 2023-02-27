@@ -10,6 +10,7 @@ None
 
 - Added a `ConfigBuild`, to follow ICanBoogie/Config changes.
 - Added the console commands `activerecord:connections:list` and `activerecord:models:list`, with aliases `activerecord:connections` and `activerecord:models` respectively.
+- Configures `StaticModelResolver`.
 
 ### Backward Incompatible Changes
 
