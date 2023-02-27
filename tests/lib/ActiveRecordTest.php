@@ -13,6 +13,7 @@ namespace Test\ICanBoogie\Binding\ActiveRecord;
 
 use ICanBoogie\Validate\ValidationErrors;
 use PHPUnit\Framework\TestCase;
+use Test\ICanBoogie\Binding\ActiveRecord\Acme\SampleRecord;
 
 /**
  * @small

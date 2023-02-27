@@ -11,12 +11,14 @@
 
 namespace ICanBoogie\Binding\ActiveRecord;
 
+use ICanBoogie\ActiveRecord;
 use ICanBoogie\ActiveRecord\ConnectionOptions;
 use ICanBoogie\ActiveRecord\Model;
 use ICanBoogie\ActiveRecord\Schema;
 use ICanBoogie\ActiveRecord\Table;
 use ICanBoogie\Config\Builder;
 use InvalidArgumentException;
+use LogicException;
 
 use function array_filter;
 use function preg_match;
@@ -44,12 +46,12 @@ final class ConfigBuilder implements Builder
     }
 
     /**
-     * @var array<string, array<string, mixed>>
+     * @var array<string, array<ConnectionOptions::*, mixed>>
      */
     private array $connections = [];
 
     /**
-     * @phpstan-var array<string, array<Model::*, mixed>>
+     * @var array<string, array<Model::*, mixed>>
      */
     private array $models = [];
 
@@ -99,17 +101,21 @@ final class ConfigBuilder implements Builder
     public function add_model(
         string $id,
         Schema $schema,
+        string $activerecord_class,
         string $connection = 'primary',
         string|null $name = null,
         string|null $alias = null,
         string|null $extends = null,
         string|null $implements = null,
-        string|null $activerecord_class = null,
         string|null $model_class = null,
         string|null $query_class = null,
         mixed $belongs_to = null,
         mixed $has_many = null,
     ): self {
+        if ($activerecord_class === ActiveRecord::class) {
+            throw new LogicException("\$activerecord_class must be an extension of ICanBoogie\ActiveRecord");
+        }
+
         $this->models[$id] = self::filter_non_null([ // @phpstan-ignore-line
             Table::SCHEMA => $schema,
             Table::CONNECTION => $connection,

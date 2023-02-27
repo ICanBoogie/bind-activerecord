@@ -21,6 +21,7 @@ use ICanBoogie\Binding\ActiveRecord\Config;
 use ICanBoogie\Binding\ActiveRecord\Hooks;
 use ICanBoogie\Validate\ValidationErrors;
 use PHPUnit\Framework\TestCase;
+use Test\ICanBoogie\Binding\ActiveRecord\Acme\SampleRecord;
 
 use function ICanBoogie\app;
 

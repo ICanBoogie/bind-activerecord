@@ -4,6 +4,7 @@ namespace Test\ICanBoogie\Binding\ActiveRecord;
 
 use ICanBoogie\ActiveRecord\ModelProvider;
 use PHPUnit\Framework\TestCase;
+use Test\ICanBoogie\Binding\ActiveRecord\Acme\NodeModel;
 
 use function ICanBoogie\app;
 

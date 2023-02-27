@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Test\ICanBoogie\Binding\ActiveRecord;
+namespace Test\ICanBoogie\Binding\ActiveRecord\Acme;
 
 use ICanBoogie\ActiveRecord;
 
@@ -17,10 +17,7 @@ class SampleRecord extends ActiveRecord
 {
     public const MODEL_ID = 'dummy';
 
-    /**
-     * @var string
-     */
-    public $email;
+    public string $email;
 
     /**
      * @inheritdoc

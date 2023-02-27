@@ -17,6 +17,9 @@ use ICanBoogie\ActiveRecord\SchemaColumn;
 use ICanBoogie\Binding\ActiveRecord\Config;
 use ICanBoogie\Binding\ActiveRecord\ConfigBuilder;
 use PHPUnit\Framework\TestCase;
+use Test\ICanBoogie\Binding\ActiveRecord\Acme\Article;
+use Test\ICanBoogie\Binding\ActiveRecord\Acme\Node;
+use Test\ICanBoogie\Binding\ActiveRecord\Acme\NodeModel;
 
 use function ICanBoogie\app;
 
@@ -78,12 +81,13 @@ final class ConfigBuilderTest extends TestCase
                 [
                     'nodes' => [
                         'schema' => new Schema([
-                            'id' => SchemaColumn::serial(),
+                            'id' => SchemaColumn::serial(primary: true),
                             'title' => SchemaColumn::varchar(),
                         ]),
                         'connection' => 'primary',
                         'id' => 'nodes',
                         'class' => NodeModel::class,
+                        'activerecord_class' => Node::class,
                     ],
                     'articles' => [
                         'schema' => new Schema([
@@ -93,6 +97,7 @@ final class ConfigBuilderTest extends TestCase
                         'connection' => 'primary',
                         'id' => 'articles',
                         'extends' => 'nodes',
+                        'activerecord_class' => Article::class,
                     ],
                 ]
             ),

@@ -15,6 +15,7 @@ None
 
 - Removed `Application` prototypes: `get_connections`, `get_models`, and `get_db`.
 - Config synthesizers have been removed in favor of config builders.
+- Models must define their ActiveRecord class, and it must extend `ActiveRecord`.
 
 ### Deprecated Features
 

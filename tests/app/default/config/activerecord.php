@@ -4,6 +4,7 @@ namespace ICanBoogie\Binding\ActiveRecord;
 
 use ICanBoogie\ActiveRecord\Schema;
 use ICanBoogie\ActiveRecord\SchemaColumn;
+use Test\ICanBoogie\Binding\ActiveRecord\Acme\Article;
 
 return fn(ConfigBuilder $config) => $config
     ->add_connection('cache', 'sqlite::memory:')
@@ -13,5 +14,6 @@ return fn(ConfigBuilder $config) => $config
             'body' => SchemaColumn::text(),
             'date' => SchemaColumn::datetime(),
         ]),
+        activerecord_class: Article::class,
         extends: 'nodes'
     );
