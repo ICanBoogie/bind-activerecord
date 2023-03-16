@@ -3,15 +3,15 @@
 namespace ICanBoogie\Binding\ActiveRecord\Console;
 
 use ICanBoogie\ActiveRecord\Config;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand('activerecord:models', "List ActiveRecord models", [ 'activerecord:models:list' ])]
 final class ListModelsCommand extends Command
 {
-    protected static $defaultDescription = "List active record models";
-
     public function __construct(
         private readonly Config $config,
         private readonly string $style,

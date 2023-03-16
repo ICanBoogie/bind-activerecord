@@ -4,6 +4,7 @@ namespace ICanBoogie\Binding\ActiveRecord\Console;
 
 use ICanBoogie\ActiveRecord\ModelIterator;
 use ICanBoogie\ActiveRecord\ModelProvider;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -11,10 +12,9 @@ use Throwable;
 
 use function array_filter;
 
+#[AsCommand('activerecord:install', "Install models")]
 final class InstallCommand extends Command
 {
-    protected static $defaultDescription = "Install models";
-
     public function __construct(
         private readonly ModelProvider $models,
         private readonly ModelIterator $iterator,
