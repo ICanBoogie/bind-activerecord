@@ -2,6 +2,7 @@
 
 namespace ICanBoogie\Binding\ActiveRecord\Console;
 
+use ICanBoogie\ActiveRecord\ModelIterator;
 use ICanBoogie\ActiveRecord\ModelProvider;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -15,9 +16,9 @@ final class InstallCommand extends Command
     protected static $defaultDescription = "Install models";
 
     public function __construct(
-        private readonly ModelProvider $models
-    )
-    {
+        private readonly ModelProvider $models,
+        private readonly ModelIterator $iterator,
+    ) {
         parent::__construct();
     }
 
@@ -62,7 +63,7 @@ final class InstallCommand extends Command
             return $tried[$id] = false;
         };
 
-        foreach ($this->models as $id => $_) {
+        foreach ($this->iterator->model_iterator() as $id => $_) {
             $recursive_install($id);
         }
 

@@ -15,8 +15,6 @@ use ICanBoogie\ActiveRecord;
 
 class SampleRecord extends ActiveRecord
 {
-    public const MODEL_ID = 'dummy';
-
     public string $email;
 
     /**

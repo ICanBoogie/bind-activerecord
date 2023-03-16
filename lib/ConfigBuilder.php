@@ -11,53 +11,35 @@
 
 namespace ICanBoogie\Binding\ActiveRecord;
 
+use Closure;
 use ICanBoogie\ActiveRecord;
-use ICanBoogie\ActiveRecord\ConnectionOptions;
+use ICanBoogie\ActiveRecord\Config;
+use ICanBoogie\ActiveRecord\Config\ConnectionDefinition;
 use ICanBoogie\ActiveRecord\Model;
-use ICanBoogie\ActiveRecord\Schema;
-use ICanBoogie\ActiveRecord\Table;
+use ICanBoogie\ActiveRecord\Query;
+use ICanBoogie\ActiveRecord\SchemaBuilder;
 use ICanBoogie\Config\Builder;
-use InvalidArgumentException;
-use LogicException;
-
-use function array_filter;
-use function preg_match;
 
 /**
  * @implements Builder<Config>
  */
 final class ConfigBuilder implements Builder
 {
-    private const REGEXP_TIMEZONE = '/^[-+]\d{2}:\d{2}$/';
-
     public static function get_fragment_filename(): string
     {
         return 'activerecord';
     }
 
-    /**
-     * @param array<int|string, mixed> $array
-     *
-     * @return array<int|string, mixed>
-     */
-    private static function filter_non_null(array $array): array
+    private readonly ActiveRecord\ConfigBuilder $inner;
+
+    public function __construct()
     {
-        return array_filter($array, fn(mixed $v): bool => $v !== null);
+        $this->inner = new ActiveRecord\ConfigBuilder();
     }
-
-    /**
-     * @var array<string, array<ConnectionOptions::*, mixed>>
-     */
-    private array $connections = [];
-
-    /**
-     * @var array<string, array<Model::*, mixed>>
-     */
-    private array $models = [];
 
     public function build(): Config
     {
-        return new Config($this->connections, $this->models);
+        return $this->inner->build();
     }
 
     /**
@@ -69,67 +51,54 @@ final class ConfigBuilder implements Builder
         string|null $username = null,
         string|null $password = null,
         string|null $table_name_prefix = null,
-        string $charset_and_collate = ConnectionOptions::DEFAULT_CHARSET_AND_COLLATE,
-        string $time_zone = ConnectionOptions::DEFAULT_TIMEZONE,
+        string $charset_and_collate = ConnectionDefinition::DEFAULT_CHARSET_AND_COLLATE,
+        string $time_zone = ConnectionDefinition::DEFAULT_TIMEZONE,
     ): self {
-        $this->assert_time_zone($time_zone);
-
-        $this->connections[$id] = self::filter_non_null([ // @phpstan-ignore-line
-            'dsn' => $dsn,
-            'username' => $username,
-            'password' => $password,
-            'options' => self::filter_non_null([
-                ConnectionOptions::ID => $id,
-                ConnectionOptions::TABLE_NAME_PREFIX => $table_name_prefix,
-                ConnectionOptions::CHARSET_AND_COLLATE => $charset_and_collate,
-                ConnectionOptions::TIMEZONE => $time_zone,
-            ])
-        ]);
+        $this->inner->add_connection(
+            id: $id,
+            dsn: $dsn,
+            username: $username,
+            password: $password,
+            table_name_prefix: $table_name_prefix,
+            charset_and_collate: $charset_and_collate,
+            time_zone: $time_zone
+        );
 
         return $this;
     }
 
-    private function assert_time_zone(string $time_zone): void
-    {
-        $pattern = self::REGEXP_TIMEZONE;
-
-        if (!preg_match($pattern, $time_zone)) {
-            throw new InvalidArgumentException("Time zone doesn't match pattern '$pattern': $time_zone");
-        }
-    }
-
+    /**
+     * @param (Closure(SchemaBuilder $schema): SchemaBuilder) $schema_builder
+     * @param class-string<ActiveRecord> $activerecord_class
+     * @param class-string<Model<int|string, ActiveRecord>>|null $model_class
+     * @param class-string<Query<ActiveRecord>>|null $query_class
+     */
     public function add_model(
         string $id,
-        Schema $schema,
+        Closure $schema_builder,
         string $activerecord_class,
-        string $connection = 'primary',
+        string $connection = Config::DEFAULT_CONNECTION_ID,
         string|null $name = null,
         string|null $alias = null,
         string|null $extends = null,
         string|null $implements = null,
         string|null $model_class = null,
         string|null $query_class = null,
-        mixed $belongs_to = null,
-        mixed $has_many = null,
+        Closure $association_builder = null,
     ): self {
-        if ($activerecord_class === ActiveRecord::class) {
-            throw new LogicException("\$activerecord_class must be an extension of ICanBoogie\ActiveRecord");
-        }
-
-        $this->models[$id] = self::filter_non_null([ // @phpstan-ignore-line
-            Table::SCHEMA => $schema,
-            Table::CONNECTION => $connection,
-            Table::NAME => $name,
-            Table::ALIAS => $alias,
-            Table::EXTENDING => $extends,
-            Table::IMPLEMENTING => $implements,
-            Model::ID => $id,
-            Model::ACTIVERECORD_CLASS => $activerecord_class,
-            Model::CLASSNAME => $model_class,
-            Model::QUERY_CLASS => $query_class,
-            Model::BELONGS_TO => $belongs_to,
-            Model::HAS_MANY => $has_many,
-        ]);
+        $this->inner->add_model(
+            id: $id,
+            schema_builder: $schema_builder,
+            activerecord_class: $activerecord_class,
+            connection: $connection,
+            name: $name,
+            alias: $alias,
+            extends: $extends,
+            implements: $implements,
+            model_class: $model_class,
+            query_class: $query_class,
+            association_builder: $association_builder,
+        );
 
         return $this;
     }

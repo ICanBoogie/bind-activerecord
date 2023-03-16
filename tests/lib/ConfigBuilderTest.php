@@ -11,11 +11,9 @@
 
 namespace Test\ICanBoogie\Binding\ActiveRecord;
 
-use ICanBoogie\ActiveRecord\ConnectionOptions;
-use ICanBoogie\ActiveRecord\Schema;
-use ICanBoogie\ActiveRecord\SchemaColumn;
-use ICanBoogie\Binding\ActiveRecord\Config;
-use ICanBoogie\Binding\ActiveRecord\ConfigBuilder;
+use ICanBoogie\ActiveRecord\Config;
+use ICanBoogie\ActiveRecord\ConfigBuilder;
+use ICanBoogie\ActiveRecord\SchemaBuilder;
 use PHPUnit\Framework\TestCase;
 use Test\ICanBoogie\Binding\ActiveRecord\Acme\Article;
 use Test\ICanBoogie\Binding\ActiveRecord\Acme\Node;
@@ -40,17 +38,15 @@ final class ConfigBuilderTest extends TestCase
 
         $this->assertEquals(
             new Config([
-                'primary' => [
-                    'dsn' => 'mysql:dbname=myblog;host=mysql5-20',
-                    'username' => "olvlvl",
-                    'password' => "p455w0rd",
-                    'options' => [
-                        ConnectionOptions::ID => 'primary',
-                        ConnectionOptions::TABLE_NAME_PREFIX => 'myblog_',
-                        ConnectionOptions::CHARSET_AND_COLLATE => 'bin/general_ci',
-                        ConnectionOptions::TIMEZONE => '+02:00',
-                    ]
-                ]
+                'primary' => new Config\ConnectionDefinition(
+                    id: 'primary',
+                    dsn: 'mysql:dbname=myblog;host=mysql5-20',
+                    username: "olvlvl",
+                    password: "p455w0rd",
+                    table_name_prefix: 'myblog_',
+                    charset_and_collate: 'bin/general_ci',
+                    time_zone: '+02:00',
+                )
             ], []),
             $config
         );
@@ -58,50 +54,32 @@ final class ConfigBuilderTest extends TestCase
 
     public function test_integration(): void
     {
+        $expected = (new ConfigBuilder())
+            ->add_connection(Config::DEFAULT_CONNECTION_ID, 'sqlite::memory:')
+            ->add_connection('cache', 'sqlite::memory:')
+            ->add_model(
+                id: 'nodes',
+                schema_builder: fn(SchemaBuilder $b) => $b
+                    ->add_serial('id', primary: true)
+                    ->add_varchar('title'),
+                activerecord_class: Node::class,
+                model_class: NodeModel::class,
+            )
+            ->add_model(
+                id: 'articles',
+                schema_builder: fn(SchemaBuilder $b) => $b
+                    ->add_text('body')
+                    ->add_datetime('date'),
+                activerecord_class: Article::class,
+                extends: 'nodes',
+            )
+            ->build();
+
+        $actual = app()->configs->config_for_class(Config::class);
+
         $this->assertEquals(
-            new Config(
-                [
-                    'primary' => [
-                        'dsn' => 'sqlite::memory:',
-                        'options' => [
-                            '#id' => 'primary',
-                            '#charset_and_collate' => 'utf8/general_ci',
-                            '#timezone' => '+00:00',
-                        ],
-                    ],
-                    'cache' => [
-                        'dsn' => 'sqlite::memory:',
-                        'options' => [
-                            '#id' => 'cache',
-                                '#charset_and_collate' => 'utf8/general_ci',
-                            '#timezone' => '+00:00',
-                        ],
-                    ],
-                ],
-                [
-                    'nodes' => [
-                        'schema' => new Schema([
-                            'id' => SchemaColumn::serial(primary: true),
-                            'title' => SchemaColumn::varchar(),
-                        ]),
-                        'connection' => 'primary',
-                        'id' => 'nodes',
-                        'class' => NodeModel::class,
-                        'activerecord_class' => Node::class,
-                    ],
-                    'articles' => [
-                        'schema' => new Schema([
-                            'body' => SchemaColumn::text(),
-                            'date' => SchemaColumn::datetime(),
-                        ]),
-                        'connection' => 'primary',
-                        'id' => 'articles',
-                        'extends' => 'nodes',
-                        'activerecord_class' => Article::class,
-                    ],
-                ]
-            ),
-            app()->configs->config_for_class(Config::class)
+            $expected,
+            $actual
         );
     }
 }

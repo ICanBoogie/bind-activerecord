@@ -11,6 +11,7 @@
 
 namespace ICanBoogie\Binding\ActiveRecord;
 
+use ICanBoogie\ActiveRecord\Config;
 use ICanBoogie\ActiveRecord\Connection;
 use ICanBoogie\ActiveRecord\ConnectionProvider;
 use ICanBoogie\ActiveRecord\Model;
@@ -69,7 +70,7 @@ final class ContainerExtension extends Extension implements ExtensionWithFactory
     private function register_models(ContainerBuilder $container): void
     {
         foreach ($this->config->models as $id => $model) {
-            $class = $model[Model::CLASSNAME] ?? Model::class;
+            $class = $model->model_class ?? Model::class;
 
             assert(is_string($class));
 

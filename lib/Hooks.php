@@ -70,6 +70,8 @@ final class Hooks
 
     /**
      * Returns the records cache associated with the model.
+     *
+     * @param Model<int|string|string[],ActiveRecord> $model
      */
     public static function model_lazy_get_activerecord_cache(Model $model): RuntimeActiveRecordCache
     {

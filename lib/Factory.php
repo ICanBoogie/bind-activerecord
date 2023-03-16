@@ -11,22 +11,17 @@
 
 namespace ICanBoogie\Binding\ActiveRecord;
 
+use ICanBoogie\ActiveRecord\Config;
 use ICanBoogie\ActiveRecord\ConnectionCollection;
 use ICanBoogie\ActiveRecord\ConnectionProvider;
 use ICanBoogie\ActiveRecord\ModelCollection;
 use ICanBoogie\ActiveRecord\ModelProvider;
-use ICanBoogie\Application;
 
 /**
  * Builds container services.
  */
 final class Factory
 {
-    public static function build_config(Application $app): Config
-    {
-        return $app->configs->config_for_class(Config::class);
-    }
-
     public static function build_connections(Config $config): ConnectionProvider
     {
         return new ConnectionCollection($config->connections);

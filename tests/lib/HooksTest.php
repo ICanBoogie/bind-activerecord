@@ -12,15 +12,17 @@
 namespace Test\ICanBoogie\Binding\ActiveRecord;
 
 use ICanBoogie\ActiveRecord\ActiveRecordCache;
+use ICanBoogie\ActiveRecord\Config;
 use ICanBoogie\ActiveRecord\ConnectionProvider;
 use ICanBoogie\ActiveRecord\Model;
+use ICanBoogie\ActiveRecord\ModelDefinition;
 use ICanBoogie\ActiveRecord\ModelCollection;
 use ICanBoogie\ActiveRecord\Schema;
 use ICanBoogie\ActiveRecord\SchemaColumn;
-use ICanBoogie\Binding\ActiveRecord\Config;
 use ICanBoogie\Binding\ActiveRecord\Hooks;
 use ICanBoogie\Validate\ValidationErrors;
 use PHPUnit\Framework\TestCase;
+use Test\ICanBoogie\Binding\ActiveRecord\Acme\Node;
 use Test\ICanBoogie\Binding\ActiveRecord\Acme\SampleRecord;
 
 use function ICanBoogie\app;
@@ -38,14 +40,19 @@ final class HooksTest extends TestCase
             ->service_for_class(ConnectionProvider::class)
             ->connection_for_id(Config::DEFAULT_CONNECTION_ID);
 
-        $model = new Model($models, [
-
-            Model::CONNECTION => $connection,
-            Model::NAME => 'model' . uniqid(),
-            Model::SCHEMA => new Schema([
-                'id' => SchemaColumn::serial()
-            ])
-        ]);
+        $model = new Model(
+            $connection,
+            $models,
+            new ModelDefinition(
+                id: 'nodes',
+                connection: Config::DEFAULT_CONNECTION_ID,
+                schema: new Schema([
+                    'id' => SchemaColumn::serial(primary: true)
+                ]),
+                activerecord_class: Node::class,
+                name: 'nodes'
+            )
+        );
 
         $cache = Hooks::model_lazy_get_activerecord_cache($model);
         $this->assertInstanceOf(ActiveRecordCache::class, $cache);

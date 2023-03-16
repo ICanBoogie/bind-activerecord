@@ -2,8 +2,7 @@
 
 namespace ICanBoogie\Binding\ActiveRecord\Console;
 
-use ICanBoogie\ActiveRecord\ConnectionOptions;
-use ICanBoogie\Binding\ActiveRecord\Config;
+use ICanBoogie\ActiveRecord\Config;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
@@ -27,7 +26,7 @@ final class ListConnectionsCommand extends Command
         foreach ($this->config->connections as $id => $attributes) {
             $rows[] = [
                 $id,
-                $attributes[ConnectionOptions::TABLE_NAME_PREFIX] ?? "",
+                $attributes->table_name_prefix ?? "",
             ];
         }
 

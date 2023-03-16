@@ -2,10 +2,10 @@ services:
   _defaults:
     autowire: true
 
-  ICanBoogie\Binding\ActiveRecord\Config:
+  ICanBoogie\ActiveRecord\Config:
     factory: [ '@ICanBoogie\ConfigProvider', config_for_class ]
     arguments:
-    - ICanBoogie\Binding\ActiveRecord\Config
+    - ICanBoogie\ActiveRecord\Config
 
   ICanBoogie\ActiveRecord\ConnectionProvider:
     class: ICanBoogie\ActiveRecord\ConnectionCollection
@@ -18,6 +18,9 @@ services:
   ICanBoogie\ActiveRecord\ModelProvider:
     alias: ICanBoogie\ActiveRecord\ModelCollection
     public: true # required by StaticModelProvider
+
+  ICanBoogie\ActiveRecord\ModelIterator:
+    alias: ICanBoogie\ActiveRecord\ModelCollection
 
   ICanBoogie\ActiveRecord\ModelResolver:
     alias: ICanBoogie\ActiveRecord\ModelCollection

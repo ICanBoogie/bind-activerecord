@@ -15,7 +15,7 @@ use ICanBoogie\ActiveRecord\Connection;
 use ICanBoogie\ActiveRecord\ConnectionProvider;
 use ICanBoogie\ActiveRecord\Model;
 use ICanBoogie\ActiveRecord\ModelProvider;
-use ICanBoogie\Binding\ActiveRecord\Config;
+use ICanBoogie\ActiveRecord\Config;
 use PHPUnit\Framework\TestCase;
 use Test\ICanBoogie\Binding\ActiveRecord\Acme\NodeModel;
 

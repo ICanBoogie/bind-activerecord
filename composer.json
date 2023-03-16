@@ -44,7 +44,7 @@
 	"extra": {
 		"icanboogie": {
 			"config-constructor": {
-				"ICanBoogie\\Binding\\ActiveRecord\\Config": "ICanBoogie\\Binding\\ActiveRecord\\ConfigBuilder"
+				"ICanBoogie\\ActiveRecord\\Config": "ICanBoogie\\Binding\\ActiveRecord\\ConfigBuilder"
 			},
 			"config-path": "config"
 		}

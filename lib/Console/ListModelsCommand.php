@@ -2,8 +2,7 @@
 
 namespace ICanBoogie\Binding\ActiveRecord\Console;
 
-use ICanBoogie\ActiveRecord\Model;
-use ICanBoogie\Binding\ActiveRecord\Config;
+use ICanBoogie\ActiveRecord\Config;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
@@ -27,7 +26,7 @@ final class ListModelsCommand extends Command
         foreach ($this->config->models as $model_id => $attributes) {
             $rows[] = [
                 $model_id,
-                $attributes[Model::CONNECTION],
+                $attributes->connection,
             ];
         }
 

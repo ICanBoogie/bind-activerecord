@@ -4,11 +4,11 @@
 
 ### New Requirements
 
-None
+- PHP 8.1+
 
 ### New features
 
-- Added a `ConfigBuild`, to follow ICanBoogie/Config changes.
+- Added a `ConfigBuilder`, to follow ICanBoogie/Config changes. Use ActiveRecord's `ConfigBuilder`.
 - Added the console commands `activerecord:connections:list` and `activerecord:models:list`, with aliases `activerecord:connections` and `activerecord:models` respectively.
 - Configures `StaticModelResolver`.
 

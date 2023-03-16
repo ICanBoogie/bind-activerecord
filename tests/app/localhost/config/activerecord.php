@@ -1,5 +1,5 @@
 <?php
 
-use ICanBoogie\Binding\ActiveRecord\ConfigBuilder;
+use ICanBoogie\ActiveRecord\ConfigBuilder;
 
 return fn(ConfigBuilder $config) => $config;

@@ -13,7 +13,9 @@ connections and models, as well as getters for the connection provider and the m
 <?php
 namespace ICanBoogie\Binding\ActiveRecord;
 
-use ICanBoogie\ActiveRecord\Model;use ICanBoogie\Application;
+use ICanBoogie\Application;
+use ICanBoogie\ActiveRecord\Config;
+use ICanBoogie\ActiveRecord\Model;
 use ICanBoogie\ActiveRecord\ConnectionProvider;
 use ICanBoogie\ActiveRecord\ModelProvider;
 
@@ -47,19 +49,7 @@ composer require icanboogie/bind-activerecord
 
 ## Autoconfig
 
-[ICanBoogie][]'s _Autoconfig_ is used to provide the following features:
-
-- A config builder for the `activerecord` config, created from the `activerecord` fragments.
-- A synthesizer for the `activerecord_models` config, created from the `activerecord#models`
-  fragments.
-- A lazy getter for the `ICanBoogie\Application::$connections` property, that returns
-a `ConnectionProvider`.
-- A lazy getter for the `ICanBoogie\Application::$models` property, that returns
-a `ModelProvider`.
-- A lazy getter for the `ICanBoogie\Application::$db` property, that returns the connection named
-`primary` from the `ICanBoogie\Application::$connections` property.
-
-
+The package provides a configuration builder for `ICanBoogie\ActiveRecord\Config`.
 
 
 
@@ -81,8 +71,9 @@ use ICanBoogie\ActiveRecord\ConnectionOptions;
 use ICanBoogie\ActiveRecord\Model;
 use ICanBoogie\ActiveRecord\Schema;
 use ICanBoogie\ActiveRecord\SchemaColumn;
-use ICanBoogie\Binding\ActiveRecord\Config;
-use ICanBoogie\Binding\ActiveRecord\ConfigBuilder;
+use ICanBoogie\ActiveRecord\Config;
+use ICanBoogie\ActiveRecord\ConfigBuilder;
+use ICanBoogie\ActiveRecord\SchemaBuilder;
 
 return fn(ConfigBuilder $config) => $config
     ->add_connection(
@@ -99,10 +90,10 @@ return fn(ConfigBuilder $config) => $config
     )
     ->add_model(
         id: 'nodes',
-        schema: new Schema([
-            'id' => SchemaColumn::serial(primary: true),
-            'title' => SchemaColumn::varchar(),
-        ])
+        activerecord_class: Node::class,
+        schema_builder: fn(SchemaBuilder $b) => $b
+            ->add_serial('id',primary: true)
+            ->add_varchar('title')
     );
 ```
 
