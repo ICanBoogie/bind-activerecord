@@ -28,18 +28,18 @@ services:
 
   # Console
 
-  console.command.activerecord.models.list:
+  ICanBoogie\Binding\ActiveRecord\Console\ListModelsCommand:
     class: ICanBoogie\Binding\ActiveRecord\Console\ListModelsCommand
     arguments:
       $style: '%console.style.table%'
     tags: [ console.command ]
 
-  console.command.activerecord.connections.list:
+  ICanBoogie\Binding\ActiveRecord\Console\ListConnectionsCommand:
     class: ICanBoogie\Binding\ActiveRecord\Console\ListConnectionsCommand
     arguments:
       $style: '%console.style.table%'
     tags: [ console.command ]
 
-  console.command.activerecord.install:
+  ICanBoogie\Binding\ActiveRecord\Console\InstallCommand:
     class: ICanBoogie\Binding\ActiveRecord\Console\InstallCommand
     tags: [ console.command ]
