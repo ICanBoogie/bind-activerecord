@@ -59,19 +59,19 @@ final class ConfigBuilderTest extends TestCase
             ->add_connection('cache', 'sqlite::memory:')
             ->add_model(
                 id: 'nodes',
-                schema_builder: fn(SchemaBuilder $b) => $b
-                    ->add_serial('id', primary: true)
-                    ->add_varchar('title'),
                 activerecord_class: Node::class,
                 model_class: NodeModel::class,
+                schema_builder: fn(SchemaBuilder $b) => $b
+                    ->add_serial('id', primary: true)
+                    ->add_character('title'),
             )
             ->add_model(
                 id: 'articles',
+                activerecord_class: Article::class,
+                extends: 'nodes',
                 schema_builder: fn(SchemaBuilder $b) => $b
                     ->add_text('body')
                     ->add_datetime('date'),
-                activerecord_class: Article::class,
-                extends: 'nodes',
             )
             ->build();
 

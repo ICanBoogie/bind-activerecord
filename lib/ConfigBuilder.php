@@ -68,37 +68,47 @@ final class ConfigBuilder implements Builder
     }
 
     /**
-     * @param (Closure(SchemaBuilder $schema): SchemaBuilder) $schema_builder
      * @param class-string<ActiveRecord> $activerecord_class
      * @param class-string<Model<int|string, ActiveRecord>>|null $model_class
      * @param class-string<Query<ActiveRecord>>|null $query_class
+     * @param (Closure(SchemaBuilder $schema): SchemaBuilder)|null $schema_builder
      */
     public function add_model(
         string $id,
-        Closure $schema_builder,
         string $activerecord_class,
-        string $connection = Config::DEFAULT_CONNECTION_ID,
+        string|null $model_class = null,
+        string|null $query_class = null,
         string|null $name = null,
         string|null $alias = null,
         string|null $extends = null,
         string|null $implements = null,
-        string|null $model_class = null,
-        string|null $query_class = null,
+        Closure $schema_builder = null,
         Closure $association_builder = null,
+        string $connection = Config::DEFAULT_CONNECTION_ID,
     ): self {
         $this->inner->add_model(
             id: $id,
-            schema_builder: $schema_builder,
             activerecord_class: $activerecord_class,
-            connection: $connection,
+            model_class: $model_class,
+            query_class: $query_class,
             name: $name,
             alias: $alias,
             extends: $extends,
             implements: $implements,
-            model_class: $model_class,
-            query_class: $query_class,
+            schema_builder: $schema_builder,
             association_builder: $association_builder,
+            connection: $connection,
         );
+
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function use_attributes(): self
+    {
+        $this->inner->use_attributes();
 
         return $this;
     }

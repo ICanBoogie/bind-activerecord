@@ -15,10 +15,9 @@ use ICanBoogie\ActiveRecord\ActiveRecordCache;
 use ICanBoogie\ActiveRecord\Config;
 use ICanBoogie\ActiveRecord\ConnectionProvider;
 use ICanBoogie\ActiveRecord\Model;
-use ICanBoogie\ActiveRecord\ModelDefinition;
 use ICanBoogie\ActiveRecord\ModelCollection;
-use ICanBoogie\ActiveRecord\Schema;
-use ICanBoogie\ActiveRecord\SchemaColumn;
+use ICanBoogie\ActiveRecord\ModelDefinition;
+use ICanBoogie\ActiveRecord\SchemaBuilder;
 use ICanBoogie\Binding\ActiveRecord\Hooks;
 use ICanBoogie\Validate\ValidationErrors;
 use PHPUnit\Framework\TestCase;
@@ -46,9 +45,9 @@ final class HooksTest extends TestCase
             new ModelDefinition(
                 id: 'nodes',
                 connection: Config::DEFAULT_CONNECTION_ID,
-                schema: new Schema([
-                    'id' => SchemaColumn::serial(primary: true)
-                ]),
+                schema: (new SchemaBuilder())
+                    ->add_serial('id', primary: true)
+                    ->build(),
                 activerecord_class: Node::class,
                 name: 'nodes'
             )
