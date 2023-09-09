@@ -14,17 +14,15 @@ namespace ICanBoogie\Binding\ActiveRecord;
 use ICanBoogie\ActiveRecord\Config;
 use ICanBoogie\ActiveRecord\Connection;
 use ICanBoogie\ActiveRecord\ConnectionProvider;
-use ICanBoogie\ActiveRecord\Model;
 use ICanBoogie\ActiveRecord\ModelProvider;
 use ICanBoogie\Application;
 use ICanBoogie\Binding\SymfonyDependencyInjection\ExtensionWithFactory;
+use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\DependencyInjection\Reference;
-
-use function is_string;
 
 final class ContainerExtension extends Extension implements ExtensionWithFactory
 {
@@ -70,10 +68,7 @@ final class ContainerExtension extends Extension implements ExtensionWithFactory
     private function register_models(ContainerBuilder $container): void
     {
         foreach ($this->config->models as $id => $model) {
-            $class = $model->model_class ?? Model::class;
-
-            assert(is_string($class));
-
+            $class = $model->model_class;
             $definition = (new Definition($class))
                 ->setFactory([ new Reference(ModelProvider::class), 'model_for_id' ])
                 ->setArguments([ $id ])
@@ -81,12 +76,8 @@ final class ContainerExtension extends Extension implements ExtensionWithFactory
 
             $alias = "active_record.model.$id";
 
-            if ($class === Model::class) {
-                $container->setDefinition($alias, $definition);
-            } else {
-                $container->setDefinition($class, $definition);
-                $container->setAlias($alias, $class);
-            }
+            $container->setDefinition($class, $definition);
+            $container->setAlias($alias, new Alias($class, public: true));
         }
     }
 }

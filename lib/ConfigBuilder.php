@@ -69,18 +69,15 @@ final class ConfigBuilder implements Builder
 
     /**
      * @param class-string<ActiveRecord> $activerecord_class
-     * @param class-string<Model<int|string, ActiveRecord>>|null $model_class
+     * @param class-string<Model> $model_class
      * @param class-string<Query<ActiveRecord>>|null $query_class
      * @param (Closure(SchemaBuilder $schema): SchemaBuilder)|null $schema_builder
      */
     public function add_model(
         string $id,
-        string $activerecord_class,
-        string|null $model_class = null,
-        string|null $query_class = null,
+        string $model_class,
         string|null $name = null,
         string|null $alias = null,
-        string|null $extends = null,
         string|null $implements = null,
         Closure $schema_builder = null,
         Closure $association_builder = null,
@@ -88,12 +85,9 @@ final class ConfigBuilder implements Builder
     ): self {
         $this->inner->add_model(
             id: $id,
-            activerecord_class: $activerecord_class,
             model_class: $model_class,
-            query_class: $query_class,
             name: $name,
             alias: $alias,
-            extends: $extends,
             implements: $implements,
             schema_builder: $schema_builder,
             association_builder: $association_builder,
