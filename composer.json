@@ -28,7 +28,7 @@
 	"require": {
 		"php": ">=8.1",
 		"icanboogie/icanboogie": "^6.0",
-		"icanboogie/activerecord": "dev-abstract-model as 6.0",
+		"icanboogie/activerecord": "dev-remove-model-id as 6.0",
         "olvlvl/composer-attribute-collector": "^2.0"
     },
 	"require-dev": {

@@ -67,17 +67,14 @@ final class ContainerExtension extends Extension implements ExtensionWithFactory
      */
     private function register_models(ContainerBuilder $container): void
     {
-        foreach ($this->config->models as $id => $model) {
+        foreach ($this->config->models as $model) {
             $class = $model->model_class;
             $definition = (new Definition($class))
-                ->setFactory([ new Reference(ModelProvider::class), 'model_for_id' ])
-                ->setArguments([ $id ])
+                ->setFactory([ new Reference(ModelProvider::class), 'model_for_class' ])
+                ->setArguments([ $class ])
                 ->setPublic(true);
 
-            $alias = "active_record.model.$id";
-
             $container->setDefinition($class, $definition);
-            $container->setAlias($alias, new Alias($class, public: true));
         }
     }
 }

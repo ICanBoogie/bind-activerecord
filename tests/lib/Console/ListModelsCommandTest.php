@@ -4,6 +4,7 @@ namespace Test\ICanBoogie\Binding\ActiveRecord\Console;
 
 use ICanBoogie\Binding\ActiveRecord\Console\ListModelsCommand;
 use ICanBoogie\Console\Test\CommandTestCase;
+use Test\ICanBoogie\Binding\ActiveRecord\Acme\NodeModel;
 
 final class ListModelsCommandTest extends CommandTestCase
 {
@@ -16,7 +17,7 @@ final class ListModelsCommandTest extends CommandTestCase
                 ListModelsCommand::class,
                 [],
                 [
-                    'nodes',
+                    NodeModel::class,
                     'primary'
                 ]
             ],

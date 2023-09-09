@@ -13,6 +13,3 @@ services:
 
   test.active_record.model.node_by_class:
     alias: Test\ICanBoogie\Binding\ActiveRecord\Acme\NodeModel
-
-  test.active_record.model.node_by_id:
-    alias: active_record.model.nodes

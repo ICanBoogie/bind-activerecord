@@ -57,14 +57,12 @@ final class ConfigBuilderTest extends TestCase
             ->add_connection(Config::DEFAULT_CONNECTION_ID, 'sqlite::memory:')
             ->add_connection('cache', 'sqlite::memory:')
             ->add_model(
-                id: 'nodes',
                 model_class: NodeModel::class,
                 schema_builder: fn(SchemaBuilder $b) => $b
                     ->add_serial('id', primary: true)
                     ->add_character('title'),
             )
             ->add_model(
-                id: 'articles',
                 model_class: ArticleModel::class,
                 schema_builder: fn(SchemaBuilder $b) => $b
                     ->add_text('body')

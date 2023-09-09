@@ -13,7 +13,7 @@ final class IntegrationTest extends TestCase
     public function test_nodes_model(): void
     {
         $model_provider = app()->service_for_id('test.active_record.models', ModelProvider::class);
-        $nodes = $model_provider->model_for_id('nodes');
+        $nodes = $model_provider->model_for_class(NodeModel::class);
 
         $this->assertInstanceOf(NodeModel::class, $nodes);
         $this->assertEquals('id', $nodes->schema->primary);

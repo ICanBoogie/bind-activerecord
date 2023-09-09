@@ -44,10 +44,8 @@ final class ContainerTest extends TestCase
             [ 'test.active_record.connections', ConnectionProvider::class ],
             [ 'test.active_record.models', ModelProvider::class ],
             [ 'test.active_record.model.node_by_class', NodeModel::class ],
-            [ 'test.active_record.model.node_by_id', NodeModel::class ],
             [ 'active_record.connection.primary', Connection::class ],
             [ 'active_record.connection.cache', Connection::class ],
-            [ 'active_record.model.articles', Model::class ],
 
         ];
     }
