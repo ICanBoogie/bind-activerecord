@@ -15,7 +15,8 @@ use ICanBoogie\ActiveRecord\Config;
 use ICanBoogie\ActiveRecord\ConfigBuilder;
 use ICanBoogie\ActiveRecord\SchemaBuilder;
 use PHPUnit\Framework\TestCase;
-use Test\ICanBoogie\Binding\ActiveRecord\Acme\ArticleModel;
+use Test\ICanBoogie\Binding\ActiveRecord\Acme\Article;
+use Test\ICanBoogie\Binding\ActiveRecord\Acme\Node;
 use Test\ICanBoogie\Binding\ActiveRecord\Acme\NodeModel;
 
 use function ICanBoogie\app;
@@ -57,13 +58,14 @@ final class ConfigBuilderTest extends TestCase
             ->add_connection(Config::DEFAULT_CONNECTION_ID, 'sqlite::memory:')
             ->add_connection('cache', 'sqlite::memory:')
             ->add_model(
+                activerecord_class: Node::class,
                 model_class: NodeModel::class,
                 schema_builder: fn(SchemaBuilder $b) => $b
                     ->add_serial('id', primary: true)
                     ->add_character('title'),
             )
             ->add_model(
-                model_class: ArticleModel::class,
+                activerecord_class: Article::class,
                 schema_builder: fn(SchemaBuilder $b) => $b
                     ->add_text('body')
                     ->add_datetime('date'),

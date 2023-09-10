@@ -17,7 +17,6 @@ use ICanBoogie\ActiveRecord\ConnectionProvider;
 use ICanBoogie\ActiveRecord\ModelProvider;
 use ICanBoogie\Application;
 use ICanBoogie\Binding\SymfonyDependencyInjection\ExtensionWithFactory;
-use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -67,14 +66,15 @@ final class ContainerExtension extends Extension implements ExtensionWithFactory
      */
     private function register_models(ContainerBuilder $container): void
     {
-        foreach ($this->config->models as $model) {
-            $class = $model->model_class;
-            $definition = (new Definition($class))
-                ->setFactory([ new Reference(ModelProvider::class), 'model_for_class' ])
-                ->setArguments([ $class ])
+        foreach ($this->config->models as $definition) {
+            $activerecord_class = $definition->activerecord_class;
+
+            $d = (new Definition($definition->model_class))
+                ->setFactory([ new Reference(ModelProvider::class), 'model_for_record' ])
+                ->setArguments([ $activerecord_class ])
                 ->setPublic(true);
 
-            $container->setDefinition($class, $definition);
+            $container->setDefinition(Record::format_service_id($activerecord_class), $d);
         }
     }
 }

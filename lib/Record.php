@@ -6,12 +6,16 @@ use Attribute;
 use ICanBoogie\ActiveRecord;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
-use function sprintf;
-use function str_replace;
-
 #[Attribute(Attribute::TARGET_PARAMETER)]
 class Record extends Autowire
 {
+    public const SERVICE_PREFIX = 'active_record.model.';
+
+    public static function format_service_id(string $activerecord_class): string
+    {
+        return self::SERVICE_PREFIX . $activerecord_class;
+    }
+
     /**
      * @param class-string<ActiveRecord> $activerecord_class
      */
@@ -19,15 +23,7 @@ class Record extends Autowire
         public readonly string $activerecord_class,
     ) {
         parent::__construct(
-            expression: sprintf(
-                "service('%s').model_for_activerecord('%s')",
-                self::escape(ActiveRecord\ModelProvider::class),
-                self::escape($this->activerecord_class)
-            )
+            service: self::format_service_id($activerecord_class)
         );
-    }
-
-    private static function escape(string $str): string {
-        return str_replace('\\', '\\\\', $str);
     }
 }

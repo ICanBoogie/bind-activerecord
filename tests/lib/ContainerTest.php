@@ -11,11 +11,10 @@
 
 namespace Test\ICanBoogie\Binding\ActiveRecord;
 
+use ICanBoogie\ActiveRecord\Config;
 use ICanBoogie\ActiveRecord\Connection;
 use ICanBoogie\ActiveRecord\ConnectionProvider;
-use ICanBoogie\ActiveRecord\Model;
 use ICanBoogie\ActiveRecord\ModelProvider;
-use ICanBoogie\ActiveRecord\Config;
 use PHPUnit\Framework\TestCase;
 use Test\ICanBoogie\Binding\ActiveRecord\Acme\NodeModel;
 
@@ -43,7 +42,7 @@ final class ContainerTest extends TestCase
             [ 'test.active_record.config', Config::class ],
             [ 'test.active_record.connections', ConnectionProvider::class ],
             [ 'test.active_record.models', ModelProvider::class ],
-            [ 'test.active_record.model.node_by_class', NodeModel::class ],
+            [ 'test.active_record.model.node', NodeModel::class ],
             [ 'active_record.connection.primary', Connection::class ],
             [ 'active_record.connection.cache', Connection::class ],
 

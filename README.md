@@ -32,9 +32,7 @@ $primary_connection = $app->service_for_id('active_record.connection.primary', C
 # or
 $primary_connection = $app->service_for_class(ConnectionProvider::class)->connection_for_id('primary');
 
-$nodes = $app->service_for_class(NodeModel::class);
-# or
-$nodes = $app->service_for_class(ModelProvider::class)->model_for_class(NodeModel::class);
+$nodes = $app->service_for_class(ModelProvider::class)->model_for_record(Node::class);
 ```
 
 

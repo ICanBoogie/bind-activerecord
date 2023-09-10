@@ -15,6 +15,7 @@ use ICanBoogie\ActiveRecord\ActiveRecordCache;
 use ICanBoogie\ActiveRecord\Config;
 use ICanBoogie\ActiveRecord\ConnectionProvider;
 use ICanBoogie\ActiveRecord\ModelCollection;
+use ICanBoogie\ActiveRecord\Query;
 use ICanBoogie\ActiveRecord\SchemaBuilder;
 use ICanBoogie\ActiveRecord\TableDefinition;
 use ICanBoogie\Binding\ActiveRecord\Hooks;
@@ -51,6 +52,7 @@ final class HooksTest extends TestCase
                 ),
                 model_class: NodeModel::class,
                 activerecord_class: Node::class,
+                query_class: Query::class,
                 connection: Config::DEFAULT_CONNECTION_ID,
             )
         );

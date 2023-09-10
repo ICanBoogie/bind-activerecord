@@ -27,10 +27,9 @@
 	"prefer-dist": true,
 	"require": {
 		"php": ">=8.1",
-		"icanboogie/activerecord": "dev-remove-model-id as 6.0",
+		"icanboogie/activerecord": "^6.0",
 		"icanboogie/icanboogie": "^6.0",
-		"olvlvl/composer-attribute-collector": "^2.0",
-		"symfony/expression-language": "^6.3"
+		"olvlvl/composer-attribute-collector": "^2.0"
 	},
 	"require-dev": {
 		"phpstan/phpstan": "^1.10",

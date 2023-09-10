@@ -16,6 +16,7 @@ use ICanBoogie\ActiveRecord;
 use ICanBoogie\ActiveRecord\Config;
 use ICanBoogie\ActiveRecord\Config\ConnectionDefinition;
 use ICanBoogie\ActiveRecord\Model;
+use ICanBoogie\ActiveRecord\Query;
 use ICanBoogie\ActiveRecord\SchemaBuilder;
 use ICanBoogie\Config\Builder;
 
@@ -67,11 +68,15 @@ final class ConfigBuilder implements Builder
     }
 
     /**
+     * @param class-string<ActiveRecord> $activerecord_class
      * @param class-string<Model> $model_class
+     * @param class-string<Query> $query_class
      * @param (Closure(SchemaBuilder $schema): SchemaBuilder)|null $schema_builder
      */
     public function add_model(
-        string $model_class,
+        string $activerecord_class,
+        string $model_class = Model::class,
+        string $query_class = Query::class,
         string|null $table_name = null,
         string|null $alias = null,
         Closure $schema_builder = null,
@@ -79,7 +84,9 @@ final class ConfigBuilder implements Builder
         string $connection = Config::DEFAULT_CONNECTION_ID,
     ): self {
         $this->inner->add_model(
+            activerecord_class: $activerecord_class,
             model_class: $model_class,
+            query_class: $query_class,
             table_name: $table_name,
             alias: $alias,
             schema_builder: $schema_builder,

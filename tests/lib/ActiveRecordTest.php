@@ -14,7 +14,6 @@ namespace Test\ICanBoogie\Binding\ActiveRecord;
 use ICanBoogie\Validate\ValidationErrors;
 use PHPUnit\Framework\TestCase;
 use Test\ICanBoogie\Binding\ActiveRecord\Acme\Article;
-use Test\ICanBoogie\Binding\ActiveRecord\Acme\ArticleModel;
 use Test\ICanBoogie\Binding\ActiveRecord\Acme\SampleRecord;
 
 /**
@@ -33,6 +32,6 @@ final class ActiveRecordTest extends TestCase
     {
         $record = Article::from();
 
-        $this->assertInstanceOf(ArticleModel::class, $record->model);
+        $this->assertEquals(Article::class, $record->model->activerecord_class);
     }
 }

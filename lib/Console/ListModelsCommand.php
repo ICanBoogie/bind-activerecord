@@ -23,15 +23,16 @@ final class ListModelsCommand extends Command
     {
         $rows = [];
 
-        foreach ($this->config->models as $model_id => $attributes) {
+        foreach ($this->config->models as $attributes) {
             $rows[] = [
-                $model_id,
+                $attributes->activerecord_class,
+                $attributes->model_class,
                 $attributes->connection,
             ];
         }
 
         $table = new Table($output);
-        $table->setHeaders([ 'Id', 'Connection' ]);
+        $table->setHeaders([ 'ActiveRecord', 'Model', 'Connection' ]);
         $table->setRows($rows);
         $table->setStyle($this->style);
         $table->render();
