@@ -26,12 +26,13 @@ final class ListConnectionsCommand extends Command
         foreach ($this->config->connections as $id => $attributes) {
             $rows[] = [
                 $id,
+                $attributes->dsn,
                 $attributes->table_name_prefix ?? "",
             ];
         }
 
         $table = new Table($output);
-        $table->setHeaders([ 'Id', 'Tables Prefix' ]);
+        $table->setHeaders([ 'Id', 'DSN', 'Tables Prefix' ]);
         $table->setRows($rows);
         $table->setStyle($this->style);
         $table->render();

@@ -13,11 +13,11 @@ namespace Test\ICanBoogie\Binding\ActiveRecord;
 
 use ICanBoogie\ActiveRecord\ActiveRecordCache;
 use ICanBoogie\ActiveRecord\Config;
+use ICanBoogie\ActiveRecord\Config\TableDefinition;
 use ICanBoogie\ActiveRecord\ConnectionProvider;
 use ICanBoogie\ActiveRecord\ModelCollection;
 use ICanBoogie\ActiveRecord\Query;
 use ICanBoogie\ActiveRecord\SchemaBuilder;
-use ICanBoogie\ActiveRecord\TableDefinition;
 use ICanBoogie\Binding\ActiveRecord\Hooks;
 use ICanBoogie\Validate\ValidationErrors;
 use PHPUnit\Framework\TestCase;
@@ -45,7 +45,7 @@ final class HooksTest extends TestCase
             $models,
             new Config\ModelDefinition(
                 table: new TableDefinition(
-                    name:'nodes',
+                    name: 'nodes',
                     schema: (new SchemaBuilder())
                         ->add_serial('id', primary: true)
                         ->build()
