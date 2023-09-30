@@ -1,26 +1,18 @@
 <?php
 
-/*
- * This file is part of the ICanBoogie package.
- *
- * (c) Olivier Laviale <olivier.laviale@gmail.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace Test\ICanBoogie\Binding\ActiveRecord;
 
 use ICanBoogie\ActiveRecord\StaticModelProvider;
+use ICanBoogie\Application\BootEvent;
 use PHPUnit\Framework\TestCase;
 
 final class ServicesTest extends TestCase
 {
     /**
-     * Troubleshoot: config/event.php
+     * Asserts {@link BootEvent} was leveraged to configure the static model provider.
      */
-    public function test_get_models(): void
+    public function test_get_model_provider(): void
     {
-        $this->assertNotNull(StaticModelProvider::defined());
+        $this->assertNotNull(StaticModelProvider::get());
     }
 }

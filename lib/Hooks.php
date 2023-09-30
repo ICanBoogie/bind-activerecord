@@ -1,14 +1,5 @@
 <?php
 
-/*
- * This file is part of the ICanBoogie package.
- *
- * (c) Olivier Laviale <olivier.laviale@gmail.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace ICanBoogie\Binding\ActiveRecord;
 
 use ICanBoogie\ActiveRecord;
@@ -30,7 +21,7 @@ final class Hooks
      */
     public static function on_app_boot(Application\BootEvent $event): void
     {
-        StaticModelProvider::define(
+        StaticModelProvider::set(
             static fn() => $event->app->service_for_class(ModelProvider::class)
         );
     }
