@@ -9,8 +9,8 @@ use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-#[AsCommand('activerecord:models', "List ActiveRecord models", [ 'activerecord:models:list' ])]
-final class ListModelsCommand extends Command
+#[AsCommand('activerecord:records', "List ActiveRecords", [ 'activerecords' ])]
+final class ListRecordsCommand extends Command
 {
     public function __construct(
         private readonly Config $config,

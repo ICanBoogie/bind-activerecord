@@ -9,7 +9,7 @@ use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-#[AsCommand('activerecord:connections', "List active record connections", [ 'activerecord:connections:list' ])]
+#[AsCommand('activerecord:connections', "List active record connections")]
 final class ListConnectionsCommand extends Command
 {
     public function __construct(

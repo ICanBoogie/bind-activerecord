@@ -86,7 +86,9 @@ final class InstallCommand extends Command
 
             $rows[] = [
                 $activerecord_class,
-                isset($already_installed[$activerecord_class]) ? "Already" : (isset($installed[$activerecord_class]) ? "Yes" : "No"),
+                isset($already_installed[$activerecord_class])
+                    ? "Already"
+                    : (isset($installed[$activerecord_class]) ? "Yes" : "No"),
                 $errors[$activerecord_class] ?? "",
             ];
         }

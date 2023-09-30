@@ -23,13 +23,4 @@ final class ListConnectionsCommandTest extends CommandTestCase
 
         ];
     }
-
-    public function testAlias(): void
-    {
-        $loader = $this->getCommandLoader();
-        $command1 = $loader->get('activerecord:connections');
-        $command2 = $loader->get('activerecord:connections:list');
-
-        $this->assertSame($command1, $command2);
-    }
 }

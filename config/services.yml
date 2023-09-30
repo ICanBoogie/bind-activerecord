@@ -24,8 +24,8 @@ services:
 
   # Console
 
-  ICanBoogie\Binding\ActiveRecord\Console\ListModelsCommand:
-    class: ICanBoogie\Binding\ActiveRecord\Console\ListModelsCommand
+  ICanBoogie\Binding\ActiveRecord\Console\ListRecordsCommand:
+    class: ICanBoogie\Binding\ActiveRecord\Console\ListRecordsCommand
     arguments:
       $style: '%console.style.table%'
     tags: [ console.command ]
