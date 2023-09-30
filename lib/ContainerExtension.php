@@ -23,6 +23,9 @@ use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\DependencyInjection\Reference;
 
+/**
+ * @codeCoverageIgnore
+ */
 final class ContainerExtension extends Extension implements ExtensionWithFactory
 {
     public static function from(Application $app): ExtensionInterface

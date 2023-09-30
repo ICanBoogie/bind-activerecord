@@ -2,3 +2,6 @@ parameters:
   level: max
   paths:
     - lib
+  ignoreErrors:
+    - '#ICanBoogie.+ActiveRecord but does not specify its types#'
+    - '#ICanBoogie.+ActiveRecord.+Model but does not specify its types:#'

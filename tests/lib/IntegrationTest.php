@@ -7,7 +7,6 @@ use PHPUnit\Framework\TestCase;
 use Test\ICanBoogie\Binding\ActiveRecord\Acme\Article;
 use Test\ICanBoogie\Binding\ActiveRecord\Acme\Node;
 use Test\ICanBoogie\Binding\ActiveRecord\Acme\NodeModel;
-
 use Test\ICanBoogie\Binding\ActiveRecord\Acme\SampleService;
 
 use function ICanBoogie\app;

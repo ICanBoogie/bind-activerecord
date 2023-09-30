@@ -33,7 +33,7 @@ test-coveralls: test-dependencies
 
 .PHONY: test-cleanup
 test-cleanup:
-	@rm -rf tests/lib/sandbox/*
+	@# nothing
 
 .PHONY: test-container
 test-container: test-container-81

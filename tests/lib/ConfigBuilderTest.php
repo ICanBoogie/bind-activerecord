@@ -12,8 +12,8 @@
 namespace Test\ICanBoogie\Binding\ActiveRecord;
 
 use ICanBoogie\ActiveRecord\Config;
-use ICanBoogie\ActiveRecord\ConfigBuilder;
 use ICanBoogie\ActiveRecord\SchemaBuilder;
+use ICanBoogie\Binding\ActiveRecord\ConfigBuilder;
 use PHPUnit\Framework\TestCase;
 use Test\ICanBoogie\Binding\ActiveRecord\Acme\Article;
 use Test\ICanBoogie\Binding\ActiveRecord\Acme\Node;
@@ -50,6 +50,34 @@ final class ConfigBuilderTest extends TestCase
             ], []),
             $config
         );
+    }
+
+    public function test_use_attributes(): void
+    {
+        $expected = (new ConfigBuilder())
+            ->add_connection(Config::DEFAULT_CONNECTION_ID, 'sqlite::memory:')
+            ->add_model(
+                activerecord_class: Node::class,
+                schema_builder: fn(SchemaBuilder $b) => $b
+                    ->add_serial('id', primary: true)
+                    ->add_character('title'),
+            )
+            ->add_model(
+                activerecord_class: Article::class,
+                schema_builder: fn(SchemaBuilder $b) => $b
+                    ->add_text('body')
+                    ->add_date('date'),
+            )
+            ->build();
+
+        $actual = (new ConfigBuilder())
+            ->add_connection(Config::DEFAULT_CONNECTION_ID, 'sqlite::memory:')
+            ->use_attributes()
+            ->add_model(Node::class)
+            ->add_model(Article::class)
+            ->build();
+
+        $this->assertEquals($expected, $actual);
     }
 
     public function test_integration(): void

@@ -26,20 +26,12 @@ final class Hooks
      */
 
     /**
-     * Define model provider.
-     *
-     * Models are provided using the model collection bound to the application.
+     * Sets the factory for the {@link StaticModelProvider}.
      */
     public static function on_app_boot(Application\BootEvent $event): void
     {
-        $app = $event->app;
-
         StaticModelProvider::define(
-            static function () use ($app): ModelProvider {
-                static $resolver;
-
-                return $resolver ??= $app->service_for_class(ModelProvider::class);
-            }
+            static fn() => $event->app->service_for_class(ModelProvider::class)
         );
     }
 
@@ -61,8 +53,6 @@ final class Hooks
 
     /**
      * Returns the records cache associated with the model.
-     *
-     * @param Model<int|string|string[],ActiveRecord> $model
      */
     public static function model_lazy_get_activerecord_cache(Model $model): RuntimeActiveRecordCache
     {
