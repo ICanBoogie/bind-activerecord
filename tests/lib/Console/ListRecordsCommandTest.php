@@ -7,7 +7,7 @@ use ICanBoogie\Console\Test\CommandTestCase;
 use Test\ICanBoogie\Binding\ActiveRecord\Acme\Node;
 use Test\ICanBoogie\Binding\ActiveRecord\Acme\NodeModel;
 
-final class ListModelsCommandTest extends CommandTestCase
+final class ListRecordsCommandTest extends CommandTestCase
 {
     public static function provideExecute(): array
     {

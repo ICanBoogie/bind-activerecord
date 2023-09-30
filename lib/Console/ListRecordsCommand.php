@@ -3,6 +3,7 @@
 namespace ICanBoogie\Binding\ActiveRecord\Console;
 
 use ICanBoogie\ActiveRecord\Config;
+use ICanBoogie\ActiveRecord\Model;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
@@ -26,7 +27,7 @@ final class ListRecordsCommand extends Command
         foreach ($this->config->models as $attributes) {
             $rows[] = [
                 $attributes->activerecord_class,
-                $attributes->model_class,
+                $attributes->model_class === Model::class ? "(default)" : $attributes->model_class,
                 $attributes->connection,
             ];
         }
