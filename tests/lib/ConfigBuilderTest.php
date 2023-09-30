@@ -56,14 +56,14 @@ final class ConfigBuilderTest extends TestCase
     {
         $expected = (new ConfigBuilder())
             ->add_connection(Config::DEFAULT_CONNECTION_ID, 'sqlite::memory:')
-            ->add_model(
-                activerecord_class: Node::class,
+            ->add_record(
+                record_class: Node::class,
                 schema_builder: fn(SchemaBuilder $b) => $b
                     ->add_serial('id', primary: true)
                     ->add_character('title'),
             )
-            ->add_model(
-                activerecord_class: Article::class,
+            ->add_record(
+                record_class: Article::class,
                 schema_builder: fn(SchemaBuilder $b) => $b
                     ->add_text('body')
                     ->add_date('date'),
@@ -73,8 +73,8 @@ final class ConfigBuilderTest extends TestCase
         $actual = (new ConfigBuilder())
             ->add_connection(Config::DEFAULT_CONNECTION_ID, 'sqlite::memory:')
             ->use_attributes()
-            ->add_model(Node::class)
-            ->add_model(Article::class)
+            ->add_record(Node::class)
+            ->add_record(Article::class)
             ->build();
 
         $this->assertEquals($expected, $actual);
@@ -85,15 +85,15 @@ final class ConfigBuilderTest extends TestCase
         $expected = (new ConfigBuilder())
             ->add_connection(Config::DEFAULT_CONNECTION_ID, 'sqlite::memory:')
             ->add_connection('cache', 'sqlite::memory:')
-            ->add_model(
-                activerecord_class: Node::class,
+            ->add_record(
+                record_class: Node::class,
                 model_class: NodeModel::class,
                 schema_builder: fn(SchemaBuilder $b) => $b
                     ->add_serial('id', primary: true)
                     ->add_character('title'),
             )
-            ->add_model(
-                activerecord_class: Article::class,
+            ->add_record(
+                record_class: Article::class,
                 schema_builder: fn(SchemaBuilder $b) => $b
                     ->add_text('body')
                     ->add_datetime('date'),

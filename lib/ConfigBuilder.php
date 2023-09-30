@@ -44,6 +44,8 @@ final class ConfigBuilder implements Builder
     }
 
     /**
+     * Adds a connection definition.
+     *
      * @param non-empty-string $id
      * @param non-empty-string $dsn
      * @param non-empty-string|null $username
@@ -53,6 +55,8 @@ final class ConfigBuilder implements Builder
      * @param non-empty-string $time_zone
      *
      * @return $this
+     *
+     * @uses ActiveRecord\ConfigBuilder::add_connection()
      */
     public function add_connection(
         string $id,
@@ -77,7 +81,9 @@ final class ConfigBuilder implements Builder
     }
 
     /**
-     * @param class-string<ActiveRecord> $activerecord_class
+     * Adds a record definition.
+     *
+     * @param class-string<ActiveRecord> $record_class
      * @param class-string<Model> $model_class
      * @param class-string<Query> $query_class
      * @param non-empty-string|null $table_name
@@ -87,9 +93,11 @@ final class ConfigBuilder implements Builder
      * @param non-empty-string $connection
      *
      * @return $this
+     *
+     * @uses ActiveRecord\ConfigBuilder::add_record()
      */
-    public function add_model( // @phpstan-ignore-line
-        string $activerecord_class,
+    public function add_record( // @phpstan-ignore-line
+        string $record_class,
         string $model_class = Model::class,
         string $query_class = Query::class,
         string|null $table_name = null,
@@ -98,8 +106,8 @@ final class ConfigBuilder implements Builder
         Closure $association_builder = null,
         string $connection = Config::DEFAULT_CONNECTION_ID,
     ): self {
-        $this->inner->add_model(
-            activerecord_class: $activerecord_class,
+        $this->inner->add_record(
+            record_class: $record_class,
             model_class: $model_class,
             query_class: $query_class,
             table_name: $table_name,
@@ -114,6 +122,8 @@ final class ConfigBuilder implements Builder
 
     /**
      * @return $this
+     *
+     * @uses ActiveRecord\ConfigBuilder::use_attributes()
      */
     public function use_attributes(): self
     {
