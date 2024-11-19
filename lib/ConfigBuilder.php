@@ -91,10 +91,10 @@ final class ConfigBuilder implements Builder
         string $record_class,
         string $model_class = Model::class,
         string $query_class = Query::class,
-        string|null $table_name = null,
-        string|null $alias = null,
-        Closure $schema_builder = null,
-        Closure $association_builder = null,
+        ?string $table_name = null,
+        ?string $alias = null,
+        ?Closure $schema_builder = null,
+        ?Closure $association_builder = null,
         string $connection = Config::DEFAULT_CONNECTION_ID,
     ): self {
         $this->inner->add_record(
