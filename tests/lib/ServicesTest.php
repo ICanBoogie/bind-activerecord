@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 final class ServicesTest extends TestCase
 {
     /**
-     * Asserts {@link BootEvent} was leveraged to configure the static model provider.
+     * Asserts {@see BootEvent} was leveraged to configure the static model provider.
      */
     public function test_get_model_provider(): void
     {

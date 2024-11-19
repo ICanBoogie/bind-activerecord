@@ -39,11 +39,11 @@ final class Hooks
 
         $validate ??= new ActiveRecord\Validate\ValidateActiveRecord();
 
-        return $validate($record);
+        return $validate($record); // @phpstan-ignore-line false-positive
     }
 
     /**
-     * Returns the records cache associated with the model.
+     * Returns the record cache associated with the model.
      */
     public static function model_lazy_get_activerecord_cache(Model $model): RuntimeActiveRecordCache
     {

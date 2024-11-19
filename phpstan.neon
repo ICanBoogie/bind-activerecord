@@ -1,7 +1,7 @@
+# $schema: https://phpstan.olvlvl.com/schema.json
 parameters:
   level: max
   paths:
     - lib
   ignoreErrors:
-    - '#ICanBoogie.+ActiveRecord but does not specify its types#'
     - '#ICanBoogie.+ActiveRecord.+Model but does not specify its types:#'

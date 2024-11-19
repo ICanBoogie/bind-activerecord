@@ -1,20 +1,12 @@
 <?php
 
-/*
- * This file is part of the ICanBoogie package.
- *
- * (c) Olivier Laviale <olivier.laviale@gmail.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace Test\ICanBoogie\Binding\ActiveRecord;
 
 use ICanBoogie\ActiveRecord\Config;
 use ICanBoogie\ActiveRecord\Connection;
 use ICanBoogie\ActiveRecord\ConnectionProvider;
 use ICanBoogie\ActiveRecord\ModelProvider;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Test\ICanBoogie\Binding\ActiveRecord\Acme\NodeModel;
 
@@ -23,10 +15,9 @@ use function ICanBoogie\app;
 final class ContainerTest extends TestCase
 {
     /**
-     * @dataProvider provide_service
-     *
      * @param class-string $expected_class
      */
+    #[DataProvider('provide_service')]
     public function test_service(string $id, string $expected_class): void
     {
         $this->assertInstanceOf($expected_class, app()->service_for_id($id, $expected_class));

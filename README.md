@@ -1,8 +1,7 @@
 # bind-activerecord
 
-[![Packagist](https://img.shields.io/packagist/v/icanboogie/bind-activerecord.svg)](https://packagist.org/packages/icanboogie/bind-activerecord)
-[![Code Quality](https://img.shields.io/scrutinizer/g/ICanBoogie/bind-activerecord.svg)](https://scrutinizer-ci.com/g/ICanBoogie/bind-activerecord)
-[![Code Coverage](https://img.shields.io/coveralls/ICanBoogie/bind-activerecord.svg)](https://coveralls.io/r/ICanBoogie/bind-activerecord)
+[![Release](https://img.shields.io/packagist/v/icanboogie/bind-activerecord.svg)](https://packagist.org/packages/icanboogie/bind-activerecord)
+[![Code Coverage](https://coveralls.io/repos/github/ICanBoogie/bind-activerecord/badge.svg?branch=6.0)](https://coveralls.io/r/ICanBoogie/bind-activerecord?branch=6.0)
 [![Downloads](https://img.shields.io/packagist/dt/icanboogie/bind-activerecord.svg)](https://packagist.org/packages/icanboogie/bind-activerecord)
 
 The **icanboogie/bind-activerecord** package binds the [icanboogie/activerecord][] package to
@@ -39,7 +38,7 @@ $nodes = $app->service_for_class(ModelProvider::class)->model_for_record(Node::c
 
 #### Installation
 
-```bash
+```shell
 composer require icanboogie/bind-activerecord
 ```
 
@@ -105,31 +104,22 @@ return fn(ConfigBuilder $config) => $config
 
 The project is continuously tested by [GitHub actions](https://github.com/ICanBoogie/bind-activerecord/actions).
 
-[![Tests](https://github.com/ICanBoogie/activerecord/workflows/test/badge.svg?branch=master)](https://github.com/ICanBoogie/activerecord/actions?query=workflow%3Atest)
-[![Static Analysis](https://github.com/ICanBoogie/activerecord/workflows/static-analysis/badge.svg?branch=master)](https://github.com/ICanBoogie/ActiveRecord/actions?query=workflow%3Astatic-analysis)
-[![Code Style](https://github.com/ICanBoogie/activerecord/workflows/code-style/badge.svg?branch=master)](https://github.com/ICanBoogie/activerecord/actions?query=workflow%3Acode-style)
+[![Tests](https://github.com/ICanBoogie/bind-activerecord/actions/workflows/test.yml/badge.svg?branch=6.0)](https://github.com/ICanBoogie/bind-activerecord/actions/workflows/test.yml)
+[![Static Analysis](https://github.com/ICanBoogie/bind-activerecord/actions/workflows/static-analysis.yml/badge.svg?branch=6.0)](https://github.com/ICanBoogie/bind-activerecord/actions/workflows/static-analysis.yml)
+[![Code Style](https://github.com/ICanBoogie/bind-activerecord/actions/workflows/code-style.yml/badge.svg?branch=6.0)](https://github.com/ICanBoogie/bind-activerecord/actions/workflows/code-style.yml)
 
 
 
 ## Code of Conduct
 
 This project adheres to a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in
-this project and its community, you are expected to uphold this code.
+this project and its community, you're expected to uphold this code.
 
 
 
 ## Contributing
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
-
-
-
-## License
-
-**icanboogie/bind-activerecord** is released under the [BSD-3-Clause](LICENSE).
-
-
-
+See [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 
 

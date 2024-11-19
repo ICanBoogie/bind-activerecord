@@ -19,7 +19,7 @@ class Record extends Autowire
     /**
      * @param class-string<ActiveRecord> $activerecord_class
      */
-    public function __construct( // @phpstan-ignore-line
+    public function __construct(
         public readonly string $activerecord_class,
     ) {
         parent::__construct(

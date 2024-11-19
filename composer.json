@@ -1,55 +1,54 @@
 {
-	"name": "icanboogie/bind-activerecord",
-	"type": "library",
-	"description": "Binds ActiveRecord to ICanBoogie",
-	"homepage": "https://icanboogie.org/",
-	"license": "BSD-3-Clause",
-	"authors": [
-		{
-			"name": "Olivier Laviale",
-			"email": "olivier.laviale@gmail.com",
-			"homepage": "https://olvlvl.com/",
-			"role": "Developer"
-		}
-	],
-	"support": {
-		"issues": "https://github.com/ICanBoogie/bind-activerecord/issues",
-		"source": "https://github.com/ICanBoogie/bind-activerecord"
-	},
-	"config": {
-		"sort-packages": true
-	},
-	"minimum-stability": "dev",
-	"prefer-stable": true,
-	"prefer-dist": true,
-	"require": {
-		"php": ">=8.1",
-		"icanboogie/activerecord": "^6.0",
-		"icanboogie/icanboogie": "^6.0"
-	},
-	"require-dev": {
-		"phpstan/phpstan": "^1.10",
-		"phpunit/phpunit": "^10.0"
-	},
-	"autoload": {
-		"psr-4": {
-			"ICanBoogie\\Binding\\ActiveRecord\\": "lib"
-		}
-	},
-	"autoload-dev": {
-		"psr-4": {
-			"Test\\ICanBoogie\\Binding\\ActiveRecord\\": "tests/lib"
-		}
-	},
-	"extra": {
-		"icanboogie": {
-			"config-constructor": {
-				"ICanBoogie\\ActiveRecord\\Config": "ICanBoogie\\Binding\\ActiveRecord\\ConfigBuilder"
-			},
-			"config-path": "config"
-		}
-	},
-	"scripts": {
-		"post-autoload-dump": "ICanBoogie\\Autoconfig\\Hooks::on_autoload_dump"
-	}
+  "name": "icanboogie/bind-activerecord",
+  "type": "library",
+  "description": "Binds ActiveRecord to ICanBoogie",
+  "homepage": "https://icanboogie.org/",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Olivier Laviale",
+      "email": "olivier.laviale@gmail.com",
+      "homepage": "https://olvlvl.com/",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/ICanBoogie/bind-activerecord/issues",
+    "source": "https://github.com/ICanBoogie/bind-activerecord"
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "icanboogie/autoconfig": true
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "php": ">=8.2",
+    "icanboogie/activerecord": "^6.0",
+    "icanboogie/icanboogie": "^6.0"
+  },
+  "require-dev": {
+    "phpstan/phpstan": "^2.0",
+    "phpunit/phpunit": "^11.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "ICanBoogie\\Binding\\ActiveRecord\\": "lib"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Test\\ICanBoogie\\Binding\\ActiveRecord\\": "tests/lib"
+    }
+  },
+  "extra": {
+    "icanboogie": {
+      "config-constructor": {
+        "ICanBoogie\\ActiveRecord\\Config": "ICanBoogie\\Binding\\ActiveRecord\\ConfigBuilder"
+      },
+      "config-path": "config"
+    }
+  }
 }
