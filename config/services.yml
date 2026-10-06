@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=../vendor/symfony/dependency-injection/Loader/schema/services.schema.json
 services:
   _defaults:
     autowire: true
@@ -10,7 +11,6 @@ services:
   ICanBoogie\ActiveRecord\ConnectionProvider:
     class: ICanBoogie\ActiveRecord\ConnectionCollection
     factory: [ ICanBoogie\Binding\ActiveRecord\Factory, build_connections ]
-    public: true # required by $app->connections
 
   ICanBoogie\ActiveRecord\ModelCollection:
     factory: [ ICanBoogie\Binding\ActiveRecord\Factory, build_models ]

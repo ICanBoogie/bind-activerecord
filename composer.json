@@ -30,8 +30,8 @@
     "icanboogie/icanboogie": "^7.0"
   },
   "require-dev": {
-    "phpstan/phpstan": "^2.0",
-    "phpunit/phpunit": "^11.4"
+    "phpstan/phpstan": "^2.3",
+    "phpunit/phpunit": "^13.4"
   },
   "autoload": {
     "psr-4": {
