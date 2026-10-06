@@ -73,6 +73,7 @@ use ICanBoogie\ActiveRecord\ConfigBuilder;
 use ICanBoogie\ActiveRecord\SchemaBuilder;
 
 return fn(ConfigBuilder $config) => $config
+    ->use_attributes()
     ->add_connection(
         id: Config::DEFAULT_CONNECTION_ID,
         dsn: 'mysql:dbname=mydatabase',
@@ -83,15 +84,10 @@ return fn(ConfigBuilder $config) => $config
     )
     ->add_connection(
         id: 'cache',
-        dsn: 'sqlite:' . ICanBoogie\REPOSITORY . 'cache.sqlite'
+        dsn: 'sqlite:var/cache.sqlite'
     )
-    ->add_model(
-        id: 'nodes',
-        activerecord_class: Node::class,
-        schema_builder: fn(SchemaBuilder $b) => $b
-            ->add_serial('id',primary: true)
-            ->add_varchar('title')
-    );
+    ->add_record(Node::class)
+;
 ```
 
 
