@@ -3,17 +3,13 @@
 namespace ICanBoogie\Binding\ActiveRecord;
 
 use Attribute;
-use Deprecated;
 use ICanBoogie\ActiveRecord;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
-/**
- * @deprecated Use AutowireModel instead
- */
 #[Attribute(Attribute::TARGET_PARAMETER)]
-class Record extends Autowire
+class AutowireModel extends Autowire
 {
-    public const SERVICE_PREFIX = 'active_record.model.';
+    public const string SERVICE_PREFIX = 'active_record.model.';
 
     public static function format_service_id(string $activerecord_class): string
     {

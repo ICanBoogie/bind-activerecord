@@ -15,14 +15,14 @@ use ICanBoogie\Config\Builder;
 /**
  * @implements Builder<Config>
  */
-final class ConfigBuilder implements Builder
+final readonly class ConfigBuilder implements Builder
 {
     public static function get_fragment_filename(): string
     {
         return 'activerecord';
     }
 
-    private readonly ActiveRecord\ConfigBuilder $inner;
+    private ActiveRecord\ConfigBuilder $inner;
 
     public function __construct()
     {

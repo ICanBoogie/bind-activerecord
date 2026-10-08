@@ -63,7 +63,7 @@ final class ContainerExtension extends Extension implements ExtensionWithFactory
         foreach ($this->config->models as $definition) {
             $activerecord_class = $definition->activerecord_class;
 
-            $d = (new Definition($definition->model_class))
+            $d = new Definition($definition->model_class)
                 ->setFactory([ new Reference(ModelProvider::class), 'model_for_record' ])
                 ->setArguments([ $activerecord_class ])
                 ->setPublic(true);

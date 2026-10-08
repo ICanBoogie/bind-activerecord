@@ -1,5 +1,29 @@
 # Migration
 
+## v7.0.0
+
+### New Requirements
+
+- PHP 8.4+
+
+### New features
+
+- Added `AutowireModel` to replace `Record`.
+
+### Backward Incompatible Changes
+
+None
+
+### Deprecated Features
+
+- `Record` is deprecated; use `AutowireModel` instead.
+
+### Other Changes
+
+None
+
+
+
 ## v5.x to v6.0
 
 ### New Requirements
