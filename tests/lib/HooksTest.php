@@ -6,7 +6,6 @@ use ICanBoogie\ActiveRecord\ActiveRecordCache;
 use ICanBoogie\ActiveRecord\Config;
 use ICanBoogie\ActiveRecord\Config\TableDefinition;
 use ICanBoogie\ActiveRecord\ConnectionProvider;
-use ICanBoogie\ActiveRecord\ModelCollection;
 use ICanBoogie\ActiveRecord\ModelProvider;
 use ICanBoogie\ActiveRecord\Query;
 use ICanBoogie\ActiveRecord\SchemaBuilder;

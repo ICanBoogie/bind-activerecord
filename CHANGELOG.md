@@ -9,10 +9,18 @@
 ### New features
 
 - Added `AutowireModel` to replace `Record`.
+- Added the `ICanBoogie\ActiveRecord\ModelInstaller` service.
+- `activerecord:install` installs the models with `ModelInstaller`, after their parent and the
+  tables referenced by their foreign keys. The rows follow the install order, and the models that
+  depend on a model that failed are reported as "Skipped".
 
 ### Backward Incompatible Changes
 
-None
+- Following `icanboogie/activerecord` v7.0, the `ICanBoogie\ActiveRecord\ModelCollection` service
+  is renamed as `ICanBoogie\ActiveRecord\ModelRegistry`, and the `ConnectionProvider` service is a
+  `ConnectionRegistry` instead of a `ConnectionCollection`. Better depend on the `ModelProvider` and
+  `ConnectionProvider` interfaces.
+- `InstallCommand` takes a `ModelInstaller` instead of a `ModelProvider` and a `ModelIterator`.
 
 ### Deprecated Features
 

@@ -53,7 +53,7 @@ The package provides a configuration builder for `ICanBoogie\ActiveRecord\Config
 ### The `activerecord` config fragment
 
 Currently `activerecord` fragments are used to configure connections and models, which are suitable
-to create [ConnectionCollection][] and [ModelCollection][] instances.
+to create [ConnectionRegistry][] and [ModelRegistry][] instances.
 
 The following example demonstrates how to define connections and models. Two connections are
 defined: `primary` is a connection to the MySQL server;`cache` is a connection to a SQLite database.
@@ -121,6 +121,6 @@ See [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 [ICanBoogie]: https://icanboogie.org/
 [documentation]:           https://icanboogie.org/api/bind-activerecord/master/
-[ConnectionCollection]:    https://icanboogie.org/api/activerecord/master/class-ICanBoogie.ActiveRecord.ConnectionCollection.html
-[ModelCollection]:         https://icanboogie.org/api/activerecord/master/class-ICanBoogie.ActiveRecord.ModelCollection.html
+[ConnectionRegistry]:      https://icanboogie.org/api/activerecord/master/class-ICanBoogie.ActiveRecord.ConnectionRegistry.html
+[ModelRegistry]:           https://icanboogie.org/api/activerecord/master/class-ICanBoogie.ActiveRecord.ModelRegistry.html
 [icanboogie/activerecord]: https://github.com/ICanBoogie/ActiveRecord

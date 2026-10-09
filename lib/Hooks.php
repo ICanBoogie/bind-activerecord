@@ -17,7 +17,7 @@ final class Hooks
      */
 
     /**
-     * Sets the factory for the {@link StaticModelProvider}.
+     * Sets the factory for the {@see StaticModelProvider}.
      */
     public static function on_app_boot(Application\BootEvent $event): void
     {

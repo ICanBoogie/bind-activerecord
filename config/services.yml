@@ -9,18 +9,20 @@ services:
     - ICanBoogie\ActiveRecord\Config
 
   ICanBoogie\ActiveRecord\ConnectionProvider:
-    class: ICanBoogie\ActiveRecord\ConnectionCollection
+    class: ICanBoogie\ActiveRecord\ConnectionRegistry
     factory: [ ICanBoogie\Binding\ActiveRecord\Factory, build_connections ]
 
-  ICanBoogie\ActiveRecord\ModelCollection:
+  ICanBoogie\ActiveRecord\ModelRegistry:
     factory: [ ICanBoogie\Binding\ActiveRecord\Factory, build_models ]
 
   ICanBoogie\ActiveRecord\ModelProvider:
-    alias: ICanBoogie\ActiveRecord\ModelCollection
+    alias: ICanBoogie\ActiveRecord\ModelRegistry
     public: true # required by StaticModelProvider
 
   ICanBoogie\ActiveRecord\ModelIterator:
-    alias: ICanBoogie\ActiveRecord\ModelCollection
+    alias: ICanBoogie\ActiveRecord\ModelRegistry
+
+  ICanBoogie\ActiveRecord\ModelInstaller: ~
 
   # Console
 

@@ -46,7 +46,7 @@ final class ContainerExtension extends Extension implements ExtensionWithFactory
     private function register_connections(ContainerBuilder $container): void
     {
         foreach ($this->config->connections as $id => $connection) {
-            $definition = (new Definition(Connection::class))
+            $definition = new Definition(Connection::class)
                 ->setFactory([ new Reference(ConnectionProvider::class), 'connection_for_id' ])
                 ->setArguments([ $id ])
                 ->setPublic(true);

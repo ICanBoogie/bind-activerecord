@@ -16,7 +16,7 @@ final class ConfigBuilderTest extends TestCase
 {
     public function test_build(): void
     {
-        $config = (new ConfigBuilder())
+        $config = new ConfigBuilder()
             ->add_connection(
                 id: 'primary',
                 dsn: 'mysql:dbname=myblog;host=mysql5-20',
@@ -45,7 +45,7 @@ final class ConfigBuilderTest extends TestCase
 
     public function test_use_attributes(): void
     {
-        $expected = (new ConfigBuilder())
+        $expected = new ConfigBuilder()
             ->add_connection(Config::DEFAULT_CONNECTION_ID, 'sqlite::memory:')
             ->add_record(
                 record_class: Node::class,
@@ -61,7 +61,7 @@ final class ConfigBuilderTest extends TestCase
             )
             ->build();
 
-        $actual = (new ConfigBuilder())
+        $actual = new ConfigBuilder()
             ->add_connection(Config::DEFAULT_CONNECTION_ID, 'sqlite::memory:')
             ->use_attributes()
             ->add_record(Node::class)
@@ -73,7 +73,7 @@ final class ConfigBuilderTest extends TestCase
 
     public function test_integration(): void
     {
-        $expected = (new ConfigBuilder())
+        $expected = new ConfigBuilder()
             ->add_connection(Config::DEFAULT_CONNECTION_ID, 'sqlite::memory:')
             ->add_connection('cache', 'sqlite::memory:')
             ->add_record(

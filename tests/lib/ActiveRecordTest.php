@@ -20,6 +20,6 @@ final class ActiveRecordTest extends TestCase
     {
         $record = Article::from();
 
-        $this->assertEquals(Article::class, $record->model->activerecord_class);
+        $this->assertEquals(Article::class, $record::model()->activerecord_class);
     }
 }

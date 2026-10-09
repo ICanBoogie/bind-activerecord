@@ -2,9 +2,8 @@
 
 namespace ICanBoogie\Binding\ActiveRecord\Console;
 
-use ICanBoogie\ActiveRecord;
-use ICanBoogie\ActiveRecord\ModelIterator;
-use ICanBoogie\ActiveRecord\ModelProvider;
+use ICanBoogie\ActiveRecord\InstallProgress;
+use ICanBoogie\ActiveRecord\ModelInstaller;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
@@ -16,8 +15,7 @@ use Throwable;
 final class InstallCommand extends Command
 {
     public function __construct(
-        private readonly ModelProvider $models,
-        private readonly ModelIterator $iterator,
+        private readonly ModelInstaller $installer,
         private readonly string $style,
     ) {
         parent::__construct();
@@ -25,81 +23,50 @@ final class InstallCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        /** @var array<class-string<ActiveRecord>, bool> $tried */
-        $tried = [];
-        /** @var array<class-string<ActiveRecord>, true> $installed */
-        $installed = [];
-        /** @var array<class-string<ActiveRecord>, true> $already_installed */
-        $already_installed = [];
-        /** @var array<class-string<ActiveRecord>, string> $errors */
-        $errors = [];
+        $progress = new class () implements InstallProgress {
+            /**
+             * @var list<array{ string, string, string }>
+             *     Rows of record class, state, and error.
+             */
+            public array $rows = [];
+            public bool $failed = false;
 
-        $recursive_install = function (string $activerecord_class) use (
-            &$recursive_install,
-            &$tried,
-            &$installed,
-            &$already_installed,
-            &$errors,
-        ): bool {
-            /** @var class-string<ActiveRecord> $activerecord_class */
-
-            if (isset($tried[$activerecord_class])) {
-                return $tried[$activerecord_class];
+            public function already_installed(string $activerecord_class): void
+            {
+                $this->rows[] = [ $activerecord_class, "Already", "" ];
             }
 
-            $model = $this->models->model_for_record($activerecord_class);
-
-            if ($model->is_installed()) {
-                $already_installed[$activerecord_class] = true;
-
-                return $tried[$activerecord_class] = true;
+            public function installing(string $activerecord_class): void
+            {
             }
 
-            $parent_activerecord_class = $model->parent?->activerecord_class;
-
-            if ($parent_activerecord_class) {
-                $rc = $recursive_install($parent_activerecord_class);
-
-                if (!$rc) {
-                    $errors[$activerecord_class] = "Parent install failed: '$parent_activerecord_class'";
-
-                    return $tried[$activerecord_class] = false;
-                }
+            public function installed(string $activerecord_class): void
+            {
+                $this->rows[] = [ $activerecord_class, "Yes", "" ];
             }
 
-            try {
-                $model->install();
-                $installed[$activerecord_class] = true;
-
-                return $tried[$activerecord_class] = true;
-            } catch (Throwable $e) {
-                $errors[$activerecord_class] = $e->getMessage();
+            public function failed(string $activerecord_class, Throwable $error): void
+            {
+                $this->rows[] = [ $activerecord_class, "No", $error->getMessage() ];
+                $this->failed = true;
             }
 
-            return $tried[$activerecord_class] = false;
+            public function skipped(string $activerecord_class, string $dependency): void
+            {
+                $this->rows[] = [ $activerecord_class, "Skipped", "Depends on $dependency" ];
+                $this->failed = true;
+            }
         };
 
-        $rows = [];
-
-        foreach ($this->iterator->model_iterator() as $activerecord_class => $_) {
-            $recursive_install($activerecord_class);
-
-            $rows[] = [
-                $activerecord_class,
-                isset($already_installed[$activerecord_class])
-                    ? "Already"
-                    : (isset($installed[$activerecord_class]) ? "Yes" : "No"),
-                $errors[$activerecord_class] ?? "",
-            ];
-        }
+        $this->installer->install($progress);
 
         $table = new Table($output);
         $table->setHeaders([ 'Record', 'Installed', 'Error' ]);
-        $table->setRows($rows);
+        $table->setRows($progress->rows);
         $table->setStyle($this->style);
         $table->render();
 
-        return count($errors)
+        return $progress->failed
             ? Command::FAILURE
             : Command::SUCCESS;
     }
