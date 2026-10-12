@@ -110,16 +110,4 @@ final readonly class ConfigBuilder implements Builder
 
         return $this;
     }
-
-    /**
-     * @return $this
-     *
-     * @uses ActiveRecord\ConfigBuilder::use_attributes()
-     */
-    public function use_attributes(): self
-    {
-        $this->inner->use_attributes();
-
-        return $this;
-    }
 }

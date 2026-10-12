@@ -20,41 +20,6 @@ use function ICanBoogie\app;
 
 final class HooksTest extends TestCase
 {
-    public function test_should_return_activerecord_cache(): void
-    {
-        $this->markTestSkipped("ActiveRecord cache is disabled for now");
-
-        $models = $this
-            ->getMockBuilder(ModelProvider::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $connection = app()
-            ->service_for_class(ConnectionProvider::class)
-            ->connection_for_id(Config::DEFAULT_CONNECTION_ID);
-
-        $model = new NodeModel(
-            $connection,
-            $models,
-            new Config\ModelDefinition(
-                table: new TableDefinition(
-                    name: 'nodes',
-                    schema: (new SchemaBuilder())
-                        ->add_serial('id', primary: true)
-                        ->build()
-                ),
-                model_class: NodeModel::class,
-                activerecord_class: Node::class,
-                query_class: Query::class,
-                connection: Config::DEFAULT_CONNECTION_ID,
-            )
-        );
-
-        $cache = Hooks::model_lazy_get_activerecord_cache($model);
-        $this->assertInstanceOf(ActiveRecordCache::class, $cache);
-        $this->assertInstanceOf(ActiveRecordCache::class, $model->activerecord_cache);
-    }
-
     public function test_active_record_validate(): void
     {
         $record = new SampleRecord();

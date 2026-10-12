@@ -3,8 +3,6 @@
 namespace ICanBoogie\Binding\ActiveRecord;
 
 use ICanBoogie\ActiveRecord;
-use ICanBoogie\ActiveRecord\ActiveRecordCache\RuntimeActiveRecordCache;
-use ICanBoogie\ActiveRecord\Model;
 use ICanBoogie\ActiveRecord\ModelProvider;
 use ICanBoogie\ActiveRecord\StaticModelProvider;
 use ICanBoogie\Application;
@@ -40,13 +38,5 @@ final class Hooks
         $validate ??= new ActiveRecord\Validate\ValidateActiveRecord();
 
         return $validate($record); // @phpstan-ignore-line false-positive
-    }
-
-    /**
-     * Returns the record cache associated with the model.
-     */
-    public static function model_lazy_get_activerecord_cache(Model $model): RuntimeActiveRecordCache
-    {
-        return new RuntimeActiveRecordCache($model);
     }
 }

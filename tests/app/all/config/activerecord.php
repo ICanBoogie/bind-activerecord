@@ -12,7 +12,4 @@ return fn(ConfigBuilder $config) => $config
     ->add_record(
         record_class: Node::class,
         model_class: NodeModel::class,
-        schema_builder: fn(SchemaBuilder $schema) => $schema
-            ->add_serial('id', primary: true)
-            ->add_character('title'),
     );

@@ -43,52 +43,13 @@ final class ConfigBuilderTest extends TestCase
         );
     }
 
-    public function test_use_attributes(): void
-    {
-        $expected = new ConfigBuilder()
-            ->add_connection(Config::DEFAULT_CONNECTION_ID, 'sqlite::memory:')
-            ->add_record(
-                record_class: Node::class,
-                schema_builder: fn(SchemaBuilder $b) => $b
-                    ->add_serial('id', primary: true)
-                    ->add_character('title'),
-            )
-            ->add_record(
-                record_class: Article::class,
-                schema_builder: fn(SchemaBuilder $b) => $b
-                    ->add_text('body')
-                    ->add_date('date'),
-            )
-            ->build();
-
-        $actual = new ConfigBuilder()
-            ->add_connection(Config::DEFAULT_CONNECTION_ID, 'sqlite::memory:')
-            ->use_attributes()
-            ->add_record(Node::class)
-            ->add_record(Article::class)
-            ->build();
-
-        $this->assertEquals($expected, $actual);
-    }
-
     public function test_integration(): void
     {
         $expected = new ConfigBuilder()
             ->add_connection(Config::DEFAULT_CONNECTION_ID, 'sqlite::memory:')
             ->add_connection('cache', 'sqlite::memory:')
-            ->add_record(
-                record_class: Node::class,
-                model_class: NodeModel::class,
-                schema_builder: fn(SchemaBuilder $b) => $b
-                    ->add_serial('id', primary: true)
-                    ->add_character('title'),
-            )
-            ->add_record(
-                record_class: Article::class,
-                schema_builder: fn(SchemaBuilder $b) => $b
-                    ->add_text('body')
-                    ->add_datetime('date'),
-            )
+            ->add_record(Node::class, model_class: NodeModel::class)
+            ->add_record(Article::class)
             ->build();
 
         $actual = app()->configs->config_for_class(Config::class);

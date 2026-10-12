@@ -18,5 +18,4 @@ use ICanBoogie\Application;
 use ICanBoogie\Binding\Prototype\ConfigBuilder;
 
 return fn(ConfigBuilder $config) => $config
-    ->bind(ActiveRecord::class, 'validate', [ Hooks::class, 'active_record_validate' ])
-    ->bind(Model::class, 'lazy_get_activerecord_cache', [ Hooks::class, 'model_lazy_get_activerecord_cache' ]);
+    ->bind(ActiveRecord::class, 'validate', [ Hooks::class, 'active_record_validate' ]);

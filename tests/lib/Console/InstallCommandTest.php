@@ -45,7 +45,6 @@ final class InstallCommandTest extends CommandTestCase
     public function test_reports_failed_and_skipped_models(): void
     {
         $config = new ConfigBuilder()
-            ->use_attributes()
             ->add_connection(Config::DEFAULT_CONNECTION_ID, 'sqlite::memory:')
             ->add_record(Article::class)
             ->add_record(Node::class, model_class: FailingModel::class)
