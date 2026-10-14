@@ -8,7 +8,7 @@ use ICanBoogie\Binding\ActiveRecord\Record;
 final class SampleService
 {
     /**
-     * @param Model<int, Article> $model
+     * @param Model<Article> $model
      */
     public function __construct(
         #[Record(Article::class)] public readonly Model $model,

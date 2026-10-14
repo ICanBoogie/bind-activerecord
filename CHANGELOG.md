@@ -1,4 +1,4 @@
-# Migration
+# CHANGELOG
 
 ## v7.0.0
 
@@ -28,11 +28,9 @@
 
 ### Other Changes
 
-None
+- The license is now BSD-3-Clause, as for the other ICanBoogie packages.
 
-
-
-## v5.x to v6.0
+## v6.0.0
 
 ### New Requirements
 

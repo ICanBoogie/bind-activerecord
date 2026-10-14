@@ -76,12 +76,16 @@ final class InstallCommandTest extends CommandTestCase
      */
     private static function row_offset(string $activerecord_class, string $display): int
     {
-        self::assertSame(1, preg_match(
+        $found = preg_match(
             '/^\\|\\s+' . preg_quote($activerecord_class, '/') . '\\s/m',
             $display,
             $matches,
             PREG_OFFSET_CAPTURE
-        ));
+        );
+
+        if ($found !== 1) {
+            self::fail("The row of $activerecord_class is missing:\n$display");
+        }
 
         return $matches[0][1];
     }

@@ -1,7 +1,7 @@
 # bind-activerecord
 
 [![Release](https://img.shields.io/packagist/v/icanboogie/bind-activerecord.svg)](https://packagist.org/packages/icanboogie/bind-activerecord)
-[![Code Coverage](https://coveralls.io/repos/github/ICanBoogie/bind-activerecord/badge.svg?branch=6.0)](https://coveralls.io/r/ICanBoogie/bind-activerecord?branch=6.0)
+[![Code Coverage](https://coveralls.io/repos/github/ICanBoogie/bind-activerecord/badge.svg?branch=7.0)](https://coveralls.io/r/ICanBoogie/bind-activerecord?branch=7.0)
 [![Downloads](https://img.shields.io/packagist/dt/icanboogie/bind-activerecord.svg)](https://packagist.org/packages/icanboogie/bind-activerecord)
 
 The **icanboogie/bind-activerecord** package binds the [icanboogie/activerecord][] package to
@@ -100,9 +100,9 @@ return fn(ConfigBuilder $config) => $config
 
 The project is continuously tested by [GitHub actions](https://github.com/ICanBoogie/bind-activerecord/actions).
 
-[![Tests](https://github.com/ICanBoogie/bind-activerecord/actions/workflows/test.yml/badge.svg?branch=6.0)](https://github.com/ICanBoogie/bind-activerecord/actions/workflows/test.yml)
-[![Static Analysis](https://github.com/ICanBoogie/bind-activerecord/actions/workflows/static-analysis.yml/badge.svg?branch=6.0)](https://github.com/ICanBoogie/bind-activerecord/actions/workflows/static-analysis.yml)
-[![Code Style](https://github.com/ICanBoogie/bind-activerecord/actions/workflows/code-style.yml/badge.svg?branch=6.0)](https://github.com/ICanBoogie/bind-activerecord/actions/workflows/code-style.yml)
+[![Tests](https://github.com/ICanBoogie/bind-activerecord/actions/workflows/test.yml/badge.svg?branch=7.0)](https://github.com/ICanBoogie/bind-activerecord/actions/workflows/test.yml)
+[![Static Analysis](https://github.com/ICanBoogie/bind-activerecord/actions/workflows/static-analysis.yml/badge.svg?branch=7.0)](https://github.com/ICanBoogie/bind-activerecord/actions/workflows/static-analysis.yml)
+[![Code Style](https://github.com/ICanBoogie/bind-activerecord/actions/workflows/code-style.yml/badge.svg?branch=7.0)](https://github.com/ICanBoogie/bind-activerecord/actions/workflows/code-style.yml)
 
 
 

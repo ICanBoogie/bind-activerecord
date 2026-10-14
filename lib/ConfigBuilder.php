@@ -75,8 +75,8 @@ final readonly class ConfigBuilder implements Builder
      * Adds a record definition.
      *
      * @param class-string<ActiveRecord> $record_class
-     * @param class-string<Model> $model_class
-     * @param class-string<Query> $query_class
+     * @param class-string<Model<*>> $model_class
+     * @param class-string<Query<*>> $query_class
      * @param non-empty-string|null $table_name
      * @param non-empty-string|null $alias
      * @param (Closure(SchemaBuilder): SchemaBuilder)|null $schema_builder
@@ -87,7 +87,7 @@ final readonly class ConfigBuilder implements Builder
      *
      * @uses ActiveRecord\ConfigBuilder::add_record()
      */
-    public function add_record( // @phpstan-ignore-line
+    public function add_record(
         string $record_class,
         string $model_class = Model::class,
         string $query_class = Query::class,

@@ -7,6 +7,8 @@ use RuntimeException;
 
 /**
  * A model that fails to install.
+ *
+ * @extends Model<Node>
  */
 class FailingModel extends Model
 {
