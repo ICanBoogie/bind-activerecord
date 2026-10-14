@@ -21,6 +21,7 @@
   `ConnectionRegistry` instead of a `ConnectionCollection`. Better depend on the `ModelProvider` and
   `ConnectionProvider` interfaces.
 - `InstallCommand` takes a `ModelInstaller` instead of a `ModelProvider` and a `ModelIterator`.
+- Removed `ICanBoogie\Binding\ActiveRecord\ConfigBuilder`; fragments now receive `ICanBoogie\ActiveRecord\ConfigBuilder`, which implements `ICanBoogie\Config\Builder`.
 
 ### Deprecated Features
 

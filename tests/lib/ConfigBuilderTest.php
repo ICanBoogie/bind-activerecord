@@ -3,8 +3,7 @@
 namespace Test\ICanBoogie\Binding\ActiveRecord;
 
 use ICanBoogie\ActiveRecord\Config;
-use ICanBoogie\ActiveRecord\SchemaBuilder;
-use ICanBoogie\Binding\ActiveRecord\ConfigBuilder;
+use ICanBoogie\ActiveRecord\ConfigBuilder;
 use PHPUnit\Framework\TestCase;
 use Test\ICanBoogie\Binding\ActiveRecord\Acme\Article;
 use Test\ICanBoogie\Binding\ActiveRecord\Acme\Node;
@@ -14,35 +13,6 @@ use function ICanBoogie\app;
 
 final class ConfigBuilderTest extends TestCase
 {
-    public function test_build(): void
-    {
-        $config = new ConfigBuilder()
-            ->add_connection(
-                id: 'primary',
-                dsn: 'mysql:dbname=myblog;host=mysql5-20',
-                username: "olvlvl",
-                password: "p455w0rd",
-                table_name_prefix: 'myblog_',
-                charset_and_collate: 'bin/general_ci',
-                time_zone: '+02:00'
-            )->build();
-
-        $this->assertEquals(
-            new Config([
-                'primary' => new Config\ConnectionDefinition(
-                    id: 'primary',
-                    dsn: 'mysql:dbname=myblog;host=mysql5-20',
-                    username: "olvlvl",
-                    password: "p455w0rd",
-                    table_name_prefix: 'myblog_',
-                    charset_and_collate: 'bin/general_ci',
-                    time_zone: '+02:00',
-                )
-            ], []),
-            $config
-        );
-    }
-
     public function test_integration(): void
     {
         $expected = new ConfigBuilder()
