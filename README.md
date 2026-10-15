@@ -73,7 +73,7 @@ use ICanBoogie\ActiveRecord\ConfigBuilder;
 use ICanBoogie\ActiveRecord\SchemaBuilder;
 
 return fn(ConfigBuilder $config) => $config
-    ->use_attributes()
+    ->enable_discovery()
     ->add_connection(
         id: Config::DEFAULT_CONNECTION_ID,
         dsn: 'mysql:dbname=mydatabase',
