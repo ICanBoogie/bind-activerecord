@@ -51,7 +51,8 @@
       "config-constructor": {
         "ICanBoogie\\ActiveRecord\\Config": "ICanBoogie\\ActiveRecord\\ConfigBuilder"
       },
-      "config-path": "config"
+      "config-path": "config",
+      "autoboot": "ICanBoogie\\Binding\\ActiveRecord\\Boot::boot"
     }
   }
 }

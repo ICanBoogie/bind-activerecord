@@ -3,31 +3,10 @@
 namespace ICanBoogie\Binding\ActiveRecord;
 
 use ICanBoogie\ActiveRecord;
-use ICanBoogie\ActiveRecord\ModelProvider;
-use ICanBoogie\ActiveRecord\StaticModelProvider;
-use ICanBoogie\Application;
 use ICanBoogie\Validate\ValidationErrors;
 
 final class Hooks
 {
-    /*
-     * Events
-     */
-
-    /**
-     * Sets the factory for the {@see StaticModelProvider}.
-     */
-    public static function on_app_boot(Application\BootEvent $event): void
-    {
-        StaticModelProvider::set(
-            static fn() => $event->app->service_for_class(ModelProvider::class)
-        );
-    }
-
-    /*
-     * Prototypes
-     */
-
     /**
      * @return array<string, mixed>|ValidationErrors
      */
