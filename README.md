@@ -92,6 +92,26 @@ return fn(ConfigBuilder $config) => $config
 
 
 
+## Server-Timing
+
+Installing the package registers `ActiveRecordServerTimingProvider` with the
+`server_timing_providers` option of the application. Once the application calls
+`enable_server_timing()` on its `AppConfigBuilder`, the response gets a `db` metric:
+
+```
+Server-Timing: db;dur=12.3;desc="7 queries"
+```
+
+`dur` is the sum of the time spent executing queries, in milliseconds, on the connections that are
+established. Connections that are not are skipped, the provider never opens one, and nothing is
+added when no query was executed.
+
+The header exposes internals to every client, enable it for development and staging only. To drop
+the metric, call `remove_server_timing_provider(ActiveRecordServerTimingProvider::class)` in the
+`app` config of the application.
+
+
+
 ----------
 
 

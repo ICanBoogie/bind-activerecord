@@ -9,6 +9,8 @@
 ### New features
 
 - Added `AutowireModel` to replace `Record`.
+- Added `ActiveRecordServerTimingProvider`, registered by the package through its `app` config fragment, which adds the `db` metric to the `Server-Timing` header when the feature is enabled by `icanboogie/icanboogie`.
+- Added the `ICanBoogie\ActiveRecord\ConnectionIterator` service, an alias of `ConnectionProvider`.
 - Added the `ICanBoogie\ActiveRecord\ModelInstaller` service.
 - `activerecord:install` installs the models with `ModelInstaller`, after their parent and the
   tables referenced by their foreign keys. The rows follow the install order, and the models that

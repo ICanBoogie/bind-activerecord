@@ -15,6 +15,13 @@ services:
   ICanBoogie\ActiveRecord\ModelRegistry:
     factory: [ ICanBoogie\Binding\ActiveRecord\Factory, build_models ]
 
+  ICanBoogie\ActiveRecord\ConnectionIterator:
+    alias: ICanBoogie\ActiveRecord\ConnectionProvider
+
+  # The provider is resolved from the container by `Application`, it must be public.
+  ICanBoogie\Binding\ActiveRecord\ActiveRecordServerTimingProvider:
+    public: true
+
   ICanBoogie\ActiveRecord\ModelProvider:
     alias: ICanBoogie\ActiveRecord\ModelRegistry
     public: true # required by StaticModelProvider
