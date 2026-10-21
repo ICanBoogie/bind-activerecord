@@ -10,7 +10,7 @@ use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-#[AsCommand('activerecord:records', "List ActiveRecords", [ 'activerecords' ])]
+#[AsCommand('db:records', "List ActiveRecords", [ 'records' ])]
 final class ListRecordsCommand extends Command
 {
     public function __construct(

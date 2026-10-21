@@ -48,7 +48,7 @@ final class ResetCommandTest extends TestCase
      */
     public function test_the_container_provides_the_command(): void
     {
-        $tester = CommandTestCase::getTester('activerecord:reset', ResetCommand::class);
+        $tester = CommandTestCase::getTester('db:reset', ResetCommand::class);
 
         $status = $tester->execute([ '--force' => true ]);
 

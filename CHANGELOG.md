@@ -28,6 +28,7 @@
 - `InstallCommand` takes a `ModelInstaller` instead of a `ModelProvider` and a `ModelIterator`.
 - Removed `Hooks::on_app_boot()` and the `BootEvent` listener in `config/event.php`; the static model provider is now set by `ICanBoogie\Binding\ActiveRecord\Boot::boot()`, registered through the `autoboot` key of `composer.json`. Requires `icanboogie/autoconfig` ^7.0 with `autoboot` support.
 - Removed `ICanBoogie\Binding\ActiveRecord\ConfigBuilder`; fragments now receive `ICanBoogie\ActiveRecord\ConfigBuilder`, which implements `ICanBoogie\Config\Builder`.
+- Renamed `activerecord:` commands as `db:`.
 
 ### Deprecated Features
 

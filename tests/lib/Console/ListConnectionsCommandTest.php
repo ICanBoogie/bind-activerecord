@@ -12,7 +12,7 @@ final class ListConnectionsCommandTest extends CommandTestCase
         return [
 
             [
-                'activerecord:connections',
+                'db:connections',
                 ListConnectionsCommand::class,
                 [],
                 [

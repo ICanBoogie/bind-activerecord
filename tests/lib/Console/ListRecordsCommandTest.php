@@ -14,7 +14,7 @@ final class ListRecordsCommandTest extends CommandTestCase
         return [
 
             [
-                'activerecord:records',
+                'db:records',
                 ListRecordsCommand::class,
                 [],
                 [
@@ -30,8 +30,8 @@ final class ListRecordsCommandTest extends CommandTestCase
     public function testAlias(): void
     {
         $loader = $this->getCommandLoader();
-        $command1 = $loader->get('activerecord:records');
-        $command2 = $loader->get('activerecords');
+        $command1 = $loader->get('db:records');
+        $command2 = $loader->get('records');
 
         $this->assertSame($command1, $command2);
     }

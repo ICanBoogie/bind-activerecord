@@ -17,7 +17,7 @@ use Throwable;
  *
  * Only the tables of the models are dropped, tables unknown to ActiveRecord are left alone.
  */
-#[AsCommand('activerecord:reset', "Uninstall then install the models, which deletes their data")]
+#[AsCommand('db:reset', "Uninstall then install the models, which deletes their data")]
 final class ResetCommand extends Command
 {
     public function __construct(

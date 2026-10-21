@@ -11,7 +11,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Throwable;
 
-#[AsCommand('activerecord:install', "Install models")]
+#[AsCommand('db:install', "Install models")]
 final class InstallCommand extends Command
 {
     public function __construct(

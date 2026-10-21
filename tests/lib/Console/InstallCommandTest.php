@@ -29,7 +29,7 @@ final class InstallCommandTest extends CommandTestCase
         return [
 
             [
-                'activerecord:install',
+                'db:install',
                 InstallCommand::class,
                 [],
                 [
