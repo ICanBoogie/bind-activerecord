@@ -71,14 +71,15 @@ use ICanBoogie\ActiveRecord\SchemaColumn;
 use ICanBoogie\ActiveRecord\Config;
 use ICanBoogie\ActiveRecord\ConfigBuilder;
 use ICanBoogie\ActiveRecord\SchemaBuilder;
+use ICanBoogie\Env;
 
 return fn(ConfigBuilder $config) => $config
     ->enable_discovery()
     ->add_connection(
         id: Config::DEFAULT_CONNECTION_ID,
-        dsn: 'mysql:dbname=mydatabase',
-        username: 'root',
-        password: 'root',
+        dsn: Env::string('APP_DATABASE_DSN'),
+        username: Env::string('APP_DATABASE_USERNAME'),
+        password: Env::string('APP_DATABASE_PASSWORD'),
         table_name_prefix: 'myprefix',
         time_zone: '+02:00',
     )
@@ -118,7 +119,7 @@ the metric, call `remove_server_timing_provider(ActiveRecordServerTimingProvider
 
 ## Continuous Integration
 
-The project is continuously tested by [GitHub actions](https://github.com/ICanBoogie/bind-activerecord/actions).
+The project is continuously tested by [GitHub Actions](https://github.com/ICanBoogie/bind-activerecord/actions).
 
 [![Tests](https://github.com/ICanBoogie/bind-activerecord/actions/workflows/test.yml/badge.svg?branch=7.0)](https://github.com/ICanBoogie/bind-activerecord/actions/workflows/test.yml)
 [![Static Analysis](https://github.com/ICanBoogie/bind-activerecord/actions/workflows/static-analysis.yml/badge.svg?branch=7.0)](https://github.com/ICanBoogie/bind-activerecord/actions/workflows/static-analysis.yml)
