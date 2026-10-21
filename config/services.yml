@@ -50,3 +50,7 @@ services:
     arguments:
       $style: '%console.style.table%'
     tags: [ console.command ]
+
+  ICanBoogie\Binding\ActiveRecord\Console\ResetCommand:
+    class: ICanBoogie\Binding\ActiveRecord\Console\ResetCommand
+    tags: [ console.command ]

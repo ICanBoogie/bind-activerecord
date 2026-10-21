@@ -15,6 +15,9 @@
 - `activerecord:install` installs the models with `ModelInstaller`, after their parent and the
   tables referenced by their foreign keys. The rows follow the install order, and the models that
   depend on a model that failed are reported as "Skipped".
+- Added the console command `activerecord:reset`, which uninstalls the models, deleting their tables and
+  their data, then installs them again. It asks for confirmation, `--force` (`-f`) skips it, and without it a
+  non-interactive run is refused. Only the tables of the models are dropped.
 
 ### Backward Incompatible Changes
 
